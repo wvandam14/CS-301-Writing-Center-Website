@@ -1,0 +1,8 @@
+	img.logo { height: 20; }
+	body {background-color:yellow;}
+	h1   {color:red;
+		text-align:center;}
+	p    {color:blue;
+		text-align:center;}
+	p#special { text-transform: uppercase;}
+	form {text-align:center;}
