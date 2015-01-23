@@ -1,0 +1,22 @@
+table, th, td{
+	border: 1px solid black;
+	border-collapse: collapse;
+}
+th, td{
+	padding: 5px;
+}
+.notWorking{
+	background-color: purple;
+	color: purple;
+}
+.booked{
+	background-color: blue;
+	color: blue;
+}
+.available{
+	background-color: white;
+	color: white;
+}
+.available:hover:{
+	background-color: grey;
+}
