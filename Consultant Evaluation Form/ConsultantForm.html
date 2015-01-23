@@ -11,9 +11,9 @@
 		<!--Have the user input their name and the date-->
 		<form>
 			<p>Consultant:
-			<input type="text" name="Consultant Name" size="30" maxlength="254" required="required">
+			<input type="text" name="Consultant" size="30" maxlength="254" required="required">
 			Date:
-			<input type="text" name="Date" size="20" required="required">
+			<input type="date" name="Date" size="20" required="required">
 			</p>
 		<!--Consultant questions with score response-->
 			<p>A. The consultant explained ideas to me in a way that I can understand and use. Select one that applies:<br>
@@ -42,10 +42,10 @@
 			</p>
 		<!--Consultation questions with written response-->
 			<p>D. What did you learn to help you with future writing projects?<br>
-			<textarea rows="5" cols="50" placeholder="Write your thoughts here..."></textarea>
+			<textarea name = "Learn" rows="5" cols="50" placeholder="Write your thoughts here..."></textarea>
 			</p>
 			<p>E. Do you have any additional comments or feedback?<br>
-			<textarea rows="5" cols="50" placeholder="Write your thoughts here..."></textarea>
+			<textarea name = "Feedback" rows="5" cols="50" placeholder="Write your thoughts here..."></textarea>
 			</p>
 			<input type="submit" value="Submit">
 		</form>
