@@ -1,17 +1,18 @@
-var start;
-
 function bookAppointment(){
 		$(this).addClass('booked');
+		$(this).unbind('click');
 		$(this).removeClass('available');
 		$(this).click(removeAppointment);
 }
 function removeAppointment(){
 		$(this).addClass('notWorking');
+		$(this).unbind('click');
 		$(this).removeClass('booked');
 		$(this).click(openAppointment);
 }
 function openAppointment(){
 		$(this).addClass('available');
+		$(this).unbind('click');
 		$(this).removeClass('notWorking');
 		$(this).click(bookAppointment);
 }
@@ -29,5 +30,3 @@ $.each( $('td.notWorking'),
   function( i, obj ) { 
     $(obj).click( openAppointment );
 });
-$('td.booked').on('click', removeAppointment());
-$('td.notWorking').on('click', openAppointment());
