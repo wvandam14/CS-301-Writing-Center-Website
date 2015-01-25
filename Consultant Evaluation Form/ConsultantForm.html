@@ -7,48 +7,72 @@
 	</head>
 	<body>
 		<!--This is the main heading of the form-->
-		<h1>Whitworth Composition Commons: Consultant Evaluation Form</h1>
+		<h1>Whitworth Composition Commons: <br>Consultant Evaluation Form</h1>
 		<!--Have the user input their name and the date-->
-		<form>
-			<p>Consultant:
-			<input type="text" name="Consultant" size="30" maxlength="254" required="required">
-			Date:
-			<input type="date" name="Date" size="20" required="required">
-			</p>
-		<!--Consultant questions with score response-->
-			<p>A. The consultant explained ideas to me in a way that I can understand and use. Select one that applies:<br>
-			<input type="radio" name="score1" value="5">5 - Strongly Agree
-			<input type="radio" name="score1" value="4">4
-			<input type="radio" name="score1" value="3">3
-			<input type="radio" name="score1" value="2">2
-			<input type="radio" name="score1" value="1">1 - Strongly Disagree
-			<input type="radio" name="score1" value="unknown">X - Don't Know
-			</p>
-			<p>B. The consultant addressed my concerns. Select one that applies:<br>
-			<input type="radio" name="score2" value="5">5 - Strongly Agree
-			<input type="radio" name="score2" value="4">4
-			<input type="radio" name="score2" value="3">3
-			<input type="radio" name="score2" value="2">2
-			<input type="radio" name="score2" value="1">1 - Strongly Disagree
-			<input type="radio" name="score2" value="unknown">X - Don't Know
-			</p>
-			<p>C. The consultant made me feel comfortable and respected during my consultation. Select one that applies:<br>
-			<input type="radio" name="score3" value="5">5 - Strongly Agree
-			<input type="radio" name="score3" value="4">4
-			<input type="radio" name="score3" value="3">3
-			<input type="radio" name="score3" value="2">2
-			<input type="radio" name="score3" value="1">1 - Strongly Disagree
-			<input type="radio" name="score3" value="unknown">X - Don't Know
-			</p>
-		<!--Consultation questions with written response-->
-			<p>D. What did you learn to help you with future writing projects?<br>
-			<textarea name = "Learn" rows="5" cols="50" placeholder="Write your thoughts here..."></textarea>
-			</p>
-			<p>E. Do you have any additional comments or feedback?<br>
-			<textarea name = "Feedback" rows="5" cols="50" placeholder="Write your thoughts here..."></textarea>
-			</p>
-			<input type="submit" value="Submit">
-		</form>
+		<div class='container'>
+			<form>
+				<p>Consultant:
+					<select name='consultant'>
+						<option value="noSelection">--Please Select--</option>
+						<option value="addy">Addy</option>
+						<option value="audrey">Audrey</option>
+						<option value="cam">Cam</option>
+						<option value="hcobb">Hannah Cobb</option>
+						<option value="hcruze">Hannah Cruze</option>
+						<option value="heidi">Heidi</option>
+						<option value="izze">Izze</option>
+						<option value="katie">Katie</option>
+						<option value="sam">Sam</option>
+						<option value="sami">Sami</option>
+					</select>
+				</p>
+					Date:
+					<input type="date" name="Date" size="20" required="required">
+				</p>
+			<!--Consultant questions with score response-->
+				<p>The consultant explained ideas to me in a way that I can understand and use.<br>
+					<select name='score1'>
+						<option value="noSelection">--Please Select--</option>
+						<option value="score5">1 - Strongly Agree</option>
+						<option value="score4">2 - Agree</option>
+						<option value="score3">3 - Neither Agree Nor Disagree</option>
+						<option value="score2">4 - Disagree</option>
+						<option value="score1">5 - Strongly Disagree</option>
+						<option value="unknown">Don't Know</option>
+					</select>
+				</p>
+			<p>The consultant addressed my concerns.<br>
+					<select name='score2'>
+						<option value="noSelection">--Please Select--</option>
+						<option value="score5">1 - Strongly Agree</option>
+						<option value="score4">2 - Agree</option>
+						<option value="score3">3 - Neither Agree Nor Disagree</option>
+						<option value="score2">4 - Disagree</option>
+						<option value="score1">5 - Strongly Disagree</option>
+						<option value="unknown">Don't Know</option>
+					</select>
+				</p>
+				<p>The consultant made me feel comfortable and respected during my consultation.<br>
+					<select name='score3'>
+						<option value="noSelection">--Please Select--</option>
+						<option value="score5">1 - Strongly Agree</option>
+						<option value="score4">2 - Agree</option>
+						<option value="score3">3 - Neither Agree Nor Disagree</option>
+						<option value="score2">4 - Disagree</option>
+						<option value="score1">5 - Strongly Disagree</option>
+						<option value="unknown">Don't Know</option>
+					</select>
+				</p>
+			<!--Consultation questions with written response-->
+				<p>What did you learn to help you with future writing projects?<br>
+					<textarea name = "Learn" rows="5" cols="50" placeholder="Write your thoughts here..."></textarea>
+				</p>
+				<p>Do you have any additional comments or feedback?<br>
+					<textarea name = "Feedback" rows="5" cols="50" placeholder="Write your thoughts here..."></textarea>
+				</p>
+				<input type="submit" value="Submit">
+			</form>
+		</div>
 	</body>
 </html>
 

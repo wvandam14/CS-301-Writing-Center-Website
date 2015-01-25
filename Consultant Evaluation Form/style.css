@@ -2,19 +2,22 @@
  #BCB3B8 (grey) , #022855 (navy blue) , #FDB958 (light orange) */
 
 	img.logo { height: 20; }
-	body {background-color: #BCB3B8;}
-	h1   {color: #022855;
-		text-align:center;}
+	body {background-color: #BCB3B8;
+		font-family: avenir, trebuchet, helvetica, arial, sans-serif;}
+	h1   {color: #fff;
+		text-align:center;
+		background-color: #022855;
+		border-radius: 10px;}
 	p    {color: black;
-		text-align:left;}
+		}
 	p#special { text-transform: uppercase;}
-	form {text-align:right;
-		width: 50%;
-		margin-left: 25%;
-		margin-right: 25%;
+	form {
+		width: 500px;
+		margin-left: 150px;
 	}
 	img{
 		margin-left: auto;
-    margin-right: auto;
-    width: 70%;
+    	margin-right: auto;
+    	width: 70%;
 	}
+	
