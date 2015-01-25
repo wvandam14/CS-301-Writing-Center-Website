@@ -1,0 +1,125 @@
+<!--
+Title: Survey form prototype
+Author: August Peverly
+Date: 1/22/2015
+-->
+<html lang="en-US"><head>
+
+	<meta charset="UTF-8">
+	
+	<title>Public Files</title>
+	<!----
+	<script src="js/javascript.js" >
+	</script><!--not using javascript currently-->
+	<link rel="stylesheet" type="text/css" href="css/style.css"><!--style sheet, can be changed later-->
+</head>
+<body>
+	<h1>Survey Prototype</h1>
+	<hr>
+	<p title="Survey version 1">Whitworth Composition Commons::Post-Consultation Notes</p>
+	<form action="PostConsultationNotes.php" method = "post"><!--attach to a php-->
+	<div class="outlined"><!--modeled this form after the paper we used as a reference-->
+		<p><b>Send a copy to Instructor?</b>
+		<input type="radio" name="emailtoins" value="true" checked="checked" /> Yes
+		<input type="radio" name="emailtoins" value="false" /> No</p><!---will be used to decide weather to email to the instructor-->
+		<p>Client:
+			<input type="text" name="Client" size="25" maxlength="254" required="required"/>
+			Date:
+			<input type="date" name="date" required="required"/></p>
+		<p>
+			Client is a: <select name="clientType"><!--origional form had different class standing options-->
+				<option>Student</option>
+				<option>Faculty</option>
+				<option>Staff</option>
+				<option>Visiting Professor</option>
+			</select>
+			Prefered Language <select name="Language"><!--add more as needed-->
+				<option>English</option>
+				<option>Spanish</option>
+				<option>Other</option>
+			</select></p>
+		<p>
+			Instructor Name <select name="Instructor"><!--use php to add in instructor names and course names and section numbers-->
+				<option>N/A</option>
+				<option>This is</option>
+				<option>where the</option>
+				<option>instructor names</option>
+				<option>will go</option>
+			</select>
+			Course <select name="Class">
+				<option>N/A</option>
+				<option>This is</option>
+				<option>where the</option>
+				<option>class names</option>
+				<option>will go</option>
+			</select>
+			Section <select name="Section">
+				<option>N/A</option>
+				<option>This is</option>
+				<option>where the</option>
+				<option>section numbers</option>
+				<option>will go</option>
+			</select>
+		</p>
+		<p>
+			Consultant <select name="Consultant"><!--this may be removed in order to have the site already know based on who is filling out the form-->
+				<option>John Talbot</option>
+				<option>Where the</option>
+				<option>consultant names</option>
+				<option>will go</option>
+			</select>
+		</p>
+	</div>
+	<p>
+		Document/Project Type <input type="text" name="projectType" size="25" maxlength="254" required="required"/>
+	</p>
+	<p>
+		During the consultation, we focused on the following issues:
+	</p>
+	<div class="right">
+		<p>
+			<input type="checkbox" name="issues" value="7">understanding the assignment/project
+		</p>
+		<p>
+			<input type="checkbox" name="issues" value="8">generating ideas/getting started
+		</p>
+		<p>
+			<input type="checkbox" name="issues" value="9">focusing the subject
+		</p>
+		<p>
+			<input type="checkbox" name="issues" value="10">addressing an audience
+		</p>
+		<p>
+			<input type="checkbox" name="issues" value="11">logical sequences/organization
+		</p>
+		<p>
+			<input type="text" name="issues" placeholder="other">
+		</p>
+	</div>
+	<div class="left">
+		<p>
+			<input type="checkbox" name="issues" value="1">understanding the assignment/project
+		</p>
+		<p>
+			<input type="checkbox" name="issues" value="2">generating ideas/getting started
+		</p>
+		<p>
+			<input type="checkbox" name="issues" value="3">focusing the subject
+		</p>
+		<p>
+			<input type="checkbox" name="issues" value="4">addressing an audience
+		</p>
+		<p>
+			<input type="checkbox" name="issues" value="5">logical sequences/organization
+		</p>
+		<p>
+			<input type="checkbox" name="issues" value="6">content development/support of main ideas
+		</p>
+	</div>
+	<div id="placeholder"><!--this is a place holder box so that the comments section is below those options above-->
+	</div>
+	<textarea name="comments" maxlength="2000" id="comments" placeholder="Comments"></textarea><br /><br />
+	<input type="submit" value="Send" />
+	</form>
+	
+</body></html>
