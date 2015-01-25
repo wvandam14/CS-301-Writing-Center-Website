@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Whitworth University Composition Commons</title>
+		<link rel="stylesheet" type="text/css" href="style.css">
+	</head>
+	<body>
+		<img src="logo.gif" alt="Writing center logo" height="150" width="650">
+		<h1>Create a New Account</h1>
+		<form action = "NewAccount.php" method = "post">
+			<!--Personal info-->
+			Email Address:
+			<input type="text" name="email"><br><br>
+			First Name:
+			<input type="text" name="firstName"><br>
+			Last Name:
+			<input type="text" name="lastName"><br><br>
+			<!--Password info-->
+			Password:
+			<input type="text" name="password"><br>
+			Re-Enter Password:
+			<input type="text" name="REpassword"><br><br>
+			<!--Student info-->
+			Standing:
+			<select name = "standing">
+				<option value="noSelection1">--Please Select--</option>
+				<option value="freshman">Freshman</option>
+				<option value="sophomore">Sophomore</option>
+				<option value="junior">Junior</option>
+				<option value="senior">Senior</option>
+				<option value="gradStudent">Graduate Student</option>
+				<option value="staff">Staff</option>
+			</select>
+			<br>
+			Graduation Year:
+			<select name = "Graduation_Year">
+				<option value="noSelection2">--Please Select--</option>
+				<option value="2014">2014</option>
+				<option value="2015">2015</option>
+				<option value="2016">2016</option>
+				<option value="2017">2017</option>
+				<option value="2018">2018</option>
+				<option value="NA">N/A</option>
+			</select>
+			<br>
+			First or Home Language:
+			<select name = "Language">
+				<option value="noSelection3">--Please Select--</option>
+				<option value="english">English</option>
+				<option value="arabic">Arabic</option>
+				<option value="chinese">Chinese</option>
+				<option value="french">French</option>
+				<option value="german">German</option>
+				<option value="japanese">Japanese</option>
+				<option value="korean">Korean</option>
+				<option value="portuguese">Portuguese</option>
+				<option value="russian">Russian</option>
+				<option value="spanish">Spanish</option>
+				<option value="other">Other</option>
+			</select>
+			<br><br>
+			<!--Majors and minors-->
+			Major:
+			<select name = "Major">
+				<option value="undeclaredMajor">--Undeclared--</option>
+				<option value="accountingMajor">Accounting</option>
+				<option value="americanstudiesMajor">American Studies</option>
+				<option value="appliedphysicsMajor">Applied Physics</option>
+				<option value="artMajor">Art</option>
+				<option value="artadministrationMajor">Art Administration</option>
+				<option value="athletictrainingMajor">Athletic Training</option>
+				<option value="bioinformaticsMajor">Bioinformatics</option>
+				<option value="biologyMajor">Biology</option>
+				<option value="biophysicsMajor">Biophysics</option>
+				<option value="businessmanagementMajor">Business Management</option>
+				<option value="chemistryMajor">Chemistry</option>
+				<option value="communicationMajor">Communication</option>
+				<option value="computerscienceMajor">Computer Science</option>
+				<option value="crossculturalhistoryMajor">Cross-Cultural Studies, History Emphasis</option>
+				<option value="crossculturalpoliticalMajor">Cross-Cultural Studies, Political Science Emphasis</option>
+				<option value="economicsMajor">Economics</option>
+				<option value="engineeringphysicsMajor">Engineering Physics</option>
+				<option value="englishMajor">English</option>
+				<option value="frenchMajor">French</option>
+				<option value="healthscienceMajor">Health Science</option>
+				<option value="historyMajor">History</option>
+				<option value="internationalbusinessMajor">International Business</option>
+				<option value="internationalstudieshistoryMajor">International Studies, History Emphasis</option>
+				<option value="internationalstudiespoliticalMajor">International Studies, Political Science Emphasis</option>
+				<option value="journalismcommunicationMajor">Journalism & Mass Communication</option>
+				<option value="kinesiologyMajor">Kinesiology</option>
+				<option value="marketingMajor">Marketing</option>
+				<option value="matheconomicsMajor">Mathematical Economics</option>
+				<option value="mathMajor">Mathematics</option>
+				<option value="musicMajor">Music</option>
+				<option value="musiceducationMajor">Music Education</option>
+				<option value="nursingMajor">Nursing</option>
+				<option value="peacestudiesMajor">Peace Studies</option>
+				<option value="philosophyMajor">Philosophy</option>
+				<option value="physicsMajor">Physics</option>
+				<option value="politicalscienceMajor">Political Science</option>
+				<option value="psychologyMajor">Psychology</option>
+				<option value="sociologyMajor">Sociology</option>
+				<option value="spanishMajor">Spanish</option>
+				<option value="speechcommunicationMajor">Speech Communication</option>
+				<option value="theatreMajor">Theatre</option>
+				<option value="theologyMajor">Theology</option>
+			</select>
+			<br>
+			Secondary Major:
+			<select name = "Secondary_Major">
+				<option value="noneMajor">--None--</option>
+				<option value="accountingMajor">Accounting</option>
+				<option value="americanstudiesMajor">American Studies</option>
+				<option value="appliedphysicsMajor">Applied Physics</option>
+				<option value="artMajor">Art</option>
+				<option value="artadministrationMajor">Art Administration</option>
+				<option value="athletictrainingMajor">Athletic Training</option>
+				<option value="bioinformaticsMajor">Bioinformatics</option>
+				<option value="biologyMajor">Biology</option>
+				<option value="biophysicsMajor">Biophysics</option>
+				<option value="businessmanagementMajor">Business Management</option>
+				<option value="chemistryMajor">Chemistry</option>
+				<option value="communicationMajor">Communication</option>
+				<option value="computerscienceMajor">Computer Science</option>
+				<option value="crossculturalhistoryMajor">Cross-Cultural Studies, History Emphasis</option>
+				<option value="crossculturalpoliticalMajor">Cross-Cultural Studies, Political Science Emphasis</option>
+				<option value="economicsMajor">Economics</option>
+				<option value="engineeringphysicsMajor">Engineering Physics</option>
+				<option value="englishMajor">English</option>
+				<option value="frenchMajor">French</option>
+				<option value="healthscienceMajor">Health Science</option>
+				<option value="historyMajor">History</option>
+				<option value="internationalbusinessMajor">International Business</option>
+				<option value="internationalstudieshistoryMajor">International Studies, History Emphasis</option>
+				<option value="internationalstudiespoliticalMajor">International Studies, Political Science Emphasis</option>
+				<option value="journalismcommunicationMajor">Journalism & Mass Communication</option>
+				<option value="kinesiologyMajor">Kinesiology</option>
+				<option value="marketingMajor">Marketing</option>
+				<option value="matheconomicsMajor">Mathematical Economics</option>
+				<option value="mathMajor">Mathematics</option>
+				<option value="musicMajor">Music</option>
+				<option value="musiceducationMajor">Music Education</option>
+				<option value="nursingMajor">Nursing</option>
+				<option value="peacestudiesMajor">Peace Studies</option>
+				<option value="philosophyMajor">Philosophy</option>
+				<option value="physicsMajor">Physics</option>
+				<option value="politicalscienceMajor">Political Science</option>
+				<option value="psychologyMajor">Psychology</option>
+				<option value="sociologyMajor">Sociology</option>
+				<option value="spanishMajor">Spanish</option>
+				<option value="speechcommunicationMajor">Speech Communication</option>
+				<option value="theatreMajor">Theatre</option>
+				<option value="theologyMajor">Theology</option>
+			</select>
+			<br>
+			Minor:
+			<select name = "Minor">
+				<option value="noneMinor">--None--</option>
+				<option value="artMinor">Art</option>
+				<option value="arthistoryMinor">Art History</option>
+				<option value="communityartsMinor">Community Arts</option>
+				<option value="biologyMinor">Biology</option>
+				<option value="environmentalstudiesMinor">Environmental Studies</option>
+				<option value="accountingMinor">Accounting</option>
+				<option value="generalbusinessMinor">General Business</option>
+				<option value="chemistryMinor">Chemistry</option>
+				<option value="communicationMinor">Communication</option>
+				<option value="journalismcommunicationMinor">Journalism & Mass Communication</option>
+				<option value="speechcommunicationMinor">Speech Communication</option>
+				<option value="visualcommunicationMinor">Visual Communication</option>
+				<option value="computerscienceMinor">Computer Science</option>
+				<option value="informationtechnologyMinor">Information Technology</option>
+				<option value="englishlanguagelearnersMinor">English Language Learners</option>
+				<option value="readinginstructionMinor">Reading Instruction</option>
+				<option value="specialeducationMinor">Special Education</option>
+				<option value="englishMinor">English</option>
+				<option value="englishlanguageartsMinor">English/Language Arts</option>
+				<option value="filmvisualnarrativeMinor">Film and Visual Narrative</option>
+				<option value="medievalearlymodernstudiesMinor">Medieval/Early Modern Studies</option>
+				<option value="historyMinor">History</option>
+				<option value="latinamericanstudiesMinor">Latin American Studies</option>
+				<option value="publichistoryMinor">Public History</option>
+				<option value="asianstudiesMinor">Asian Studies</option>
+				<option value="usculturalstudiesMinor">U.S. Cultural Studies</option>
+				<option value="womengenderstudiesMinor">Women's and Gender Studies</option>
+				<option value="athleticcoachingMinor">Athletic Coaching</option>
+				<option value="kinesiologyMinor">Kinesiology</option>
+				<option value="leadershipstudiesMinor">Leadership Studies</option>
+				<option value="mathematicsMinor">Mathematics</option>
+				<option value="musicMinor">Music</option>
+				<option value="philosophyMinor">Philosophy</option>
+				<option value="physicsMinor">Physics</option>
+				<option value="cetMinor">Community Engagement and Transformation</option>
+				<option value="peacestudiesMinor">Peace Studies</option>
+				<option value="politicalscienceMinor">Political Science</option>
+				<option value="psychologyMinor">Psychology</option>
+				<option value="sociologyMinor">Sociology</option>
+				<option value="theatreMinor">Theatre</option>
+				<option value="theatredanceMinor">Theatre Dance</option>
+				<option value="biblicallanguagesMinor">Biblical Languages</option>
+				<option value="theologyMinor">Theology</option>
+				<option value="frenchMinor">French</option>
+				<option value="spanishMinor">Spanish</option>
+				<option value="chineseMinor">Chinese</option>
+				<option value="germanMinor">German</option>
+			</select>
+			<br>
+			<!--Email options for users-->
+			Send an Email:<br><br>
+			When I make my appointment.
+			<input type="radio" name="appointment" value="Yes">Yes
+			<input type="radio" name="appointment" value="No">No
+			<br>
+			When I modify an appointment.
+			<input type="radio" name="modify" value="Yes">Yes
+			<input type="radio" name="modify" value="No">No
+			<br>
+			When I delete an appointment.
+			<input type="radio" name="delete" value="Yes">Yes
+			<input type="radio" name="delete" value="No">No
+			<br>
+			When an announcement or mass email is sent.
+			<input type="radio" name="announcement" value="Yes">Yes
+			<input type="radio" name="announcement" value="No">No
+			<br>
+			To remind me of my upcoming appointment.
+			<input type="radio" name="remind" value="Yes">Yes
+			<input type="radio" name="remind" value="No">No
+			<br>
+			<input type = "submit">
+		</form>
+	</body>
+</html>
+
+
+
+
+
+
+
+
+
+
