@@ -1,13 +1,20 @@
 /* Whitworth Composition Commons Official Color Scheme:
  #BCB3B8 (grey) , #022855 (navy blue) , #FDB958 (light orange) */
 
-	img.logo { height: 20; }
+	img.logo { 
+		height: 150px;
+		width: 650px;
+		margin-left: 100px;
+		margin-top: 15px;
+	}
 	body {background-color: #BCB3B8;
 		font-family: avenir, trebuchet, helvetica, arial, sans-serif;}
 	h1   {color: #fff;
 		text-align:center;
 		background-color: #022855;
-		border-radius: 10px;}
+		border-radius: 10px;
+		margin-left: 100px;
+		width: 650px;}
 	p    {color: black;
 		}
 	p#special { text-transform: uppercase;}
@@ -16,9 +23,7 @@
 		margin-left: 150px;
 	}
 	img{
-		margin-left: auto;
-    	margin-right: auto;
-    	width: 70%;
+	
 	}
 	#footer{
 		margin-top: 100px;
