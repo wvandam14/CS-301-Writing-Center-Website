@@ -44,24 +44,20 @@ create table Post_Consultation_Notes
 	Assignment char(100),
 	Professor char(50),
 	Date_ date,
-	Notes text(500)
-);
-
-create table Focus
-(	FormID int references Post_Consultation_Notes,
 	Understand_Assignment boolean,
-	Generate_Ideas boolean,
-	Thesis boolean,
-	Focusing_Subject boolean,
-	Audience boolean,
-	Organization boolean,
-	Content_Development boolean,
-	Introduction_Conclusion boolean,
-	Sources_Research boolean,
-	Citations boolean,
-	Document_Design boolean,
-	Sentence_Structure boolean,
-	Grammar_Mechanics boolean	
+	Generate_Ideas char(10),
+	Thesis char(10),
+	Focusing_Subject char(10),
+	Audience char(10),
+	Organization char(10),
+	Content_Development char(10),
+	Introduction_Conclusion char(10),
+	Sources_Research char(10),
+	Citations char(10),
+	Document_Design char(10),
+	Sentence_Structure char(10),
+	Grammar_Mechanics char(10),	
+	Notes text(500)
 );
 
 create table Consultant_Evaluation_Form
