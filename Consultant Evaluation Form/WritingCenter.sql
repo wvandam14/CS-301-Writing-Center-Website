@@ -5,11 +5,11 @@ create table Clients
 	fname char(50) not null,
 	lname char(50) not null,
 	email_address char(100) not null,
-	class_standing int unsigned not null,
-	telephone_number char(15),
+	class_standing char(20) not null,
 	Graduation_year int unsigned,
-	StudentID int unsigned,
 	major char(50),
+	secondary_major char(50),
+	minor char(50),
 	password char(45),
 	missed_appointments int unsigned
 );
@@ -29,12 +29,12 @@ create table Consultants
 (	Consultant_ID int unsigned not null auto_increment primary key,
 	fname char(50) not null,
 	lname char(50) not null,
-	class_standing int not null,
+	class_standing char(20) not null,
 	major char(50),
 	bio text(500)
 );
 
-create table Post_Consulatation_Notes
+create table Post_Consultation_Notes
 (   FormID int unsigned not null auto_increment primary key,
 	Client_ID int references Clients,
 	Consultant_ID int references Consultants,
@@ -48,7 +48,7 @@ create table Post_Consulatation_Notes
 );
 
 create table Focus
-(	FormID int references Post_Consulatation_Notes,
+(	FormID int references Post_Consultation_Notes,
 	Understand_Assignment boolean,
 	Generate_Ideas boolean,
 	Thesis boolean,
