@@ -7,7 +7,7 @@
       $Email = $_POST["email"];
       $Fname = $_POST["firstName"];
       $Lname = $_POST["lastName"];
-      $Password = $_POST["password"];
+      $Client_Password = $_POST["password"];
       $Standing = $_POST["standing"];
       $Graduation_Year = $_POST["Graduation_Year"];
       $Language = $_POST["Language"];
@@ -19,7 +19,6 @@
       $Delete = $_POST["delete"];
       $Announcement = $_POST["announcement"];
       $Remind = $_POST["remind"];
-
 
       // Initializes values to connect to the database
       $servername = "127.0.0.1";
@@ -34,92 +33,90 @@
       }
 
       // Query to get the Consultant ID based on the name given in the form
-      $GetConsultantID = 'Select Consultants.Consultant_ID FROM Consultants WHERE Consultants.fname =? AND Consultants.lname =?;';
-      $GetClientID = 'Select Clients.Client_ID FROM Clients WHERE Clients.fname =? AND Clients.lname =?;';
-      if ( $stmt = $db->prepare($GetConsultantID)) {
-        // Escape any special characters to prevent monkey business
-        $Consultant = $db->real_escape_string($Consultant);
+      $InsertClient = 'Insert into Clients (fname,lname,email_address,class_standing,Graduation_year,major,secondary_major,minor,password) VALUES (?,?,?,?,?,?,?,?,?);';
 
-        // Break up the string into a first name and a last name
-        $fname_lname = explode(" ", $Consultant);
+      if ( $stmt = $db->prepare($InsertClient)) {
+        // Escape any special characters to prevent monkey business
+        $Email = $db->real_escape_string($Email);
+        $Fname = $db->real_escape_string($Fname);
+        $Lname = $db->real_escape_string($Lname);
+        $Client_Password = $db->real_escape_string($Client_Password);
+        $Standing = $db->real_escape_string($Standing);
+        $Graduation_Year = $db->real_escape_string($Graduation_Year);
+        $Language = $db->real_escape_string($Language);
+        $Major = $db->real_escape_string($Major);
+        $Secondary_Major = $db->real_escape_string($Secondary_Major);
+        $Minor = $db->real_escape_string($Minor);
+        $Appointment = $db->real_escape_string($Appointment);
+        $Modify = $db->real_escape_string($Modify);
+        $Delete = $db->real_escape_string($Delete);
+        $Announcement = $db->real_escape_string($Announcement);
+        $Remind = $db->real_escape_string($Remind);
+
 
         // Bind the cleaned parameters to the pre-prepared query
-        $stmt->bind_param("ss", $fname_lname[0],$fname_lname[1]);
+        $stmt->bind_param("sssssssss", $Fname, $Lname, $Email, $Standing, $Graduation_Year, $Major, $Secondary_Major, $Minor, $Client_Password);
         
         // Execute the query
-        $result = $stmt->execute();
+        $stmt->execute();
 
-        // Retrieve the query results
-        $result = $stmt->get_result();
+        // Query to get the client i.d of the person just added to the database
+        $GetClientID = 'Select C.Client_ID FROM Clients C WHERE email_address =?;';
 
-        // This gets the ID from the result (THERE HAS TO BE A BETTER WAY TO DO THIS BUT THIS WORKS FOR NOW)
-        $outp = "";
-        while ( $row = $result->fetch_array(MYSQLI_ASSOC) ) {
-          $outp .= $row['Consultant_ID'];           
-        }
-        $outp .="";
-
-        // Escape any special characters to prevent monkey business
+        // Prepare this statement
         $stmt2 = $db->prepare($GetClientID);
-        $Client_Name = $db->real_escape_string($Client_Name);
 
-        // Break up the string into a first name and a last name
-        $Client_fname_lname = explode(" ", $Client_Name);
-
-        // Bind the cleaned parameters to the pre-prepared query
-        $stmt2->bind_param("ss", $Client_fname_lname[0], $Client_fname_lname[1]);
+        // Bind the parameters
+        $stmt2->bind_param("s", $Email);
 
         // Execute the query
-        $result2 = $stmt2->execute();
+        $result = $stmt2->execute();
 
-        // Retrieve the query results
-        $result2 = $stmt2->get_result();
+        // Get the result
+        $result = $stmt2->get_result();
 
-        // This gets the ID from the result (THERE HAS TO BE A BETTER WAY TO DO THIS BUT THIS WORKS FOR NOW)
         $outp2 = "";
-        while ( $row = $result2->fetch_array(MYSQLI_ASSOC) ) {
+        while ( $row = $result->fetch_array(MYSQLI_ASSOC) ) {
           $outp2 .= $row['Client_ID'];           
         }
         $outp2 .="";
 
-        // The results of both queries are stored in more useful names
-        $Consultant_ID = $outp;
+        // Store the result here to be used in the next query
         $Client_ID = $outp2;
 
+        // This is the final query
+        $InsertEmailOptions = 'Insert into email_options (Client_ID, Make_appt, Modify_appt, Delete_appt, Announcement, Reminderof_appt) VALUES (?,?,?,?,?,?);';
+
+        // Prepare this query
+        $stmt3 = $db->prepare($InsertEmailOptions);
+
+        // Change all the Yes/No answers into 1's or 0's
+        if ($Appointment == "Yes")
+          $Appointment = 1;
+        else
+          $Appointment = 0;
+        if ($Modify == "Yes")
+          $Modify = 1;
+        else
+          $Modify = 0;
+        if ($Delete == "Yes")
+          $Delete = 1;
+        else
+          $Delete = 0;
+        if ($Announcement == "Yes")
+          $Announcement = 1;
+        else
+          $Announcement = 0;
+        if ($Remind == "Yes")
+          $Remind = 1;
+        else
+          $Remind = 0;
+
+        // Bind the parameters
+        $stmt3->bind_param("siiiii", $Client_ID, $Appointment, $Modify, $Delete, $Announcement, $Remind);
         // Escape any special characters to prevent monkey business
-        $Email_Instructor = $db->real_escape_string($Email_Instructor);
-        $Date = $db->real_escape_string($Date);
-        $Client_Type = $db->real_escape_string($Client_Type);
-        $Language = $db->real_escape_string($Language);
-        $Instructor = $db->real_escape_string($Instructor);
-        $Class = $db->real_escape_string($Class);
-        $projectType =$db->real_escape_string($projectType);
-        $Comments =$db->real_escape_string($Comments);
-        $Section = $db->real_escape_string($Section);
 
-        // Figure out the boolean entry of the table
-        if ($Email_Instructor == "true" )
-          $Email_Instructor = 1;
-        else{
-          $Email_Instructor = 0;
-          print_r("Here?");
-        }
-
-        // This inserts all the data into the post_consultation_notes based on the data that was input by the user
-        $query1 = "Insert into post_consulatation_notes (Client_ID, Consultant_ID, Native_Language, Copy_Sent, Class_, Assignment, Professor, Date_, Notes) VALUES (?,?,?,?,?,?,?,?,?);";
-        
-        // Something about monkey business
-        if($stmt3 = $db->prepare($query1)){
-
-          // Bind the cleaned parameters to the pre-prepared query1
-          $stmt3->bind_param("sssisssss", $Client_ID, $Consultant_ID, $Language, $Email_Instructor, $Class, $projectType, $Instructor, $Date, $Comments);
-          // Execute the insertion
-          $stmt3->execute();
-        }
-        else {
-          die( 'Error in query preparation. error = ' . $db->errno .
-          " " . $db->error );
-        }
+        $stmt3->execute();
 
         // Close the database
         $db->close();
