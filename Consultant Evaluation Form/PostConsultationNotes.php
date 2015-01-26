@@ -101,7 +101,7 @@
         }
 
         // This inserts all the data into the post_consultation_notes based on the data that was input by the user
-        $query1 = "Insert into post_consulatation_notes (Client_ID, Consultant_ID, Native_Language, Copy_Sent, Class_, Assignment, Professor, Date_, Notes) VALUES (?,?,?,?,?,?,?,?,?);";
+        $query1 = "Insert into post_consultation_notes (Client_ID, Consultant_ID, Native_Language, Copy_Sent, Class_, Assignment, Professor, Date_, Notes) VALUES (?,?,?,?,?,?,?,?,?);";
         
         // Something about monkey business
         if($stmt3 = $db->prepare($query1)){
