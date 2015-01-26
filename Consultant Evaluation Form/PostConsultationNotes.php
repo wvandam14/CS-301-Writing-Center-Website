@@ -16,6 +16,21 @@
       $Comments = $_POST["comments"];
       $Section = $_POST["Section"];
 
+      // This takes all the values from the checkboxes
+      $Assignment_ = $_POST["Assignment"];
+      $Ideas = $_POST["Ideas"];
+      $Thesis = $_POST["Thesis"];
+      $Subject = $_POST["Subject"];
+      $Audience = $_POST["Audience"];
+      $Organization = $_POST["Organization"];
+      $Content = $_POST["Content"];
+      $Intro = $_POST["Intro"];
+      $Sources = $_POST["Sources"];
+      $Citations = $_POST["Citations"];
+      $Design = $_POST["Design"];
+      $Sentence = $_POST["Sentence"];
+      $Grammar = $_POST["Grammar"];
+
       // Initializes values to connect to the database
       $servername = "127.0.0.1";
       $username = "Admin";
@@ -97,19 +112,18 @@
           $Email_Instructor = 1;
         else{
           $Email_Instructor = 0;
-          print_r("Here?");
         }
 
         // This inserts all the data into the post_consultation_notes based on the data that was input by the user
-        $query1 = "Insert into post_consultation_notes (Client_ID, Consultant_ID, Native_Language, Copy_Sent, Class_, Assignment, Professor, Date_, Notes) VALUES (?,?,?,?,?,?,?,?,?);";
+        $query1 = "Insert into post_consultation_notes (Client_ID, Consultant_ID, Native_Language, Copy_Sent, Class_, Assignment, Professor, Date_, Understand_Assignment, Generate_Ideas, Thesis, Focusing_Subject, Audience, Organization, Content_Development, Introduction_Conclusion, Sources_Research, Citations, Document_Design, Sentence_Structure, Grammar_Mechanics, Notes) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
         
         // Something about monkey business
         if($stmt3 = $db->prepare($query1)){
 
           // Bind the cleaned parameters to the pre-prepared query1
-          $stmt3->bind_param("sssisssss", $Client_ID, $Consultant_ID, $Language, $Email_Instructor, $Class, $projectType, $Instructor, $Date, $Comments);
+          $stmt3->bind_param("sssissssssssssssssssss", $Client_ID, $Consultant_ID, $Language, $Email_Instructor, $Class, $projectType, $Instructor, $Date, $Assignment_, $Ideas, $Thesis, $Subject, $Audience, $Organization, $Content, $Intro, $Sources, $Citations, $Design, $Sentence, $Grammar, $Comments);
           // Execute the insertion
-          $stmt3->execute();
+          $stmt3->execute();        
         }
         else {
           die( 'Error in query preparation. error = ' . $db->errno .
