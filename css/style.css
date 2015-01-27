@@ -14,7 +14,8 @@
 		background-color: #022855;
 		border-radius: 10px;
 		margin-left: 100px;
-		width: 650px;}
+		width: 650px;
+		padding: 10px;}
 	p    {color: black;
 		}
 	p#special { text-transform: uppercase;}
