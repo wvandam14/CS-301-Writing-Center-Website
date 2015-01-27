@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <body>
-    <p> Thank you for your feedback. </p>
+    <h1> Thank you for your feedback! </h1>
     <?php
       // This takes all the values from the form to be used in the query
       $Consultant_Name = $_POST["Consultant"];
