@@ -7,7 +7,7 @@ fname varchar(50) NOT NULL,
 lname varchar(50) NOT NULL, 
 email_address varchar(100) NOT NULL, 
 password varchar(128), 
-accountTypeId int NOT NULL FOREIGN KEY REFERENCES AccountType(accountTypeId), 
+accountTypeId int NOT NULL FOREIGN KEY REFERENCES AccountTypes(accountTypeId), 
 accountDetails int NULL FOREIGN KEY REFERENCES AccountDetails(accountDetailsId) 
 ); 
 
@@ -26,7 +26,7 @@ pagename varchar(50)
 create table ViewPagePermissions 
 ( 
 permId int NOT NULL UNIQUE AUTO_INCREMENT PRIMARY KEY, 
-accountTypeId int NOT NULL FOREIGN KEY REFERENCES AccountType(accountTypeId), 
+accountTypeId int NOT NULL FOREIGN KEY REFERENCES AccountTypes(accountTypeId), 
 pageId int NOT NULL FOREIGN KEY REFERENCES Pages(pageId) 
 ) 
 
