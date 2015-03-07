@@ -16,26 +16,26 @@
 		}
 		else {
 			echo "sdfsdbn";
-			$InsertSchedule = 'Insert into schedules (consultantID, date_, time_slot, status, adminID, date_created) VALUES(?, ? ,? ,? ,? ,?)';
+			$InsertSchedule = 'Insert into writingcenter.schedules (date_, time_slot, status_, date_created) VALUES(? ,? ,? ,?)';
 			
-			$consultantID = 123;
-			$date_ = 12/12/1232;
-			$time_slot = "1130";
+			//$consultantID = 123;
+			$date_ = "2012-4-5";
+			$time_slot = "1135";
 			$status = "booked";
-			$adminID = 23445;
-			$date_created = date("d/m/Y");
+			//$adminID = 23445;
+			$date_created = date("Y-m-d");
 			echo $date_created;
 			
 			$stmt = $db->prepare($InsertSchedule);
 			
-			$consultantID = $db->real_escape_string($consultantID);
+			//$consultantID = $db->real_escape_string($consultantID);
 			$date_ = $db->real_escape_string($date_);
 			$time_slot = $db->real_escape_string($time_slot);
 			$status = $db->real_escape_string($status);
-			$adminID = $db->real_escape_string($adminID);
+			//$adminID = $db->real_escape_string($adminID);
 			$date_created = $db->real_escape_string($date_created);
 			
-			$stmt->bind_param("ssssss", $consultantID, $date_, $time_slot,$status, $adminID, $date_created);
+			$stmt->bind_param("ssss", $date_, $time_slot,$status, $date_created);
 			
 			
 			$stmt->execute();
