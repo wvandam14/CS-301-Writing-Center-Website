@@ -1,7 +1,15 @@
+.popup, .popup * {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
 .popup {
-    width: 600px;
+    width: 750px;
     margin: 0 auto;
     background-color: #ffffff;
+    padding: 15px;
+    box-shadow: 0 0 10px rgba(0,0,0,.25);
 }
 
 .popup .head h1 {
@@ -12,6 +20,13 @@
 .popup form {
     width: 100%;
     margin-left: 0;
+}
+
+.popup form > div {
+    display: block;
+    overflow: hidden;
+    margin-bottom: 15px;
+    padding-bottom: 1px;
 }
 
 .popup label {
@@ -31,6 +46,13 @@
 .popup textarea {
     width: 100%;
     resize:none;
+    min-height: 250px;
+}
+
+.popup input[type=checkbox] {
+    width: 20px;
+    height: 20px;
+    float: left;
 }
 
 .popup select,
