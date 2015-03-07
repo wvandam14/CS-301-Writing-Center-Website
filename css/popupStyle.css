@@ -1,0 +1,42 @@
+.popup {
+    width: 600px;
+    margin: 0 auto;
+    background-color: #ffffff;
+}
+
+.popup .head h1 {
+    width: 100%;
+    margin-left: 0;
+}
+
+.popup form {
+    width: 100%;
+    margin-left: 0;
+}
+
+.popup label {
+    font-size:20px;
+    display: block;
+}
+
+.popup .two {
+    margin-left: 1%;
+}
+.popup .two,
+.popup .one {
+    width: 49.5%;
+    float:left;
+}
+
+.popup textarea {
+    width: 100%;
+    resize:none;
+}
+
+.popup select,
+.popup textarea,
+.popup input[type=text] {
+    padding: 5px;
+    font-size: 20px;
+    width: 100%;
+}
