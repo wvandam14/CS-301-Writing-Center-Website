@@ -3,6 +3,14 @@ Title: Make Appointment Popup Template
 Author: Alec Moore
 Date: 3/7/2015
 -->
+<?php 
+    session_start();
+
+    if(empty($_SESSION['permission'])){
+        header('location:index.php');
+    }
+
+?>
 <html lang="en-US">
 <head>
     <meta charset="UTF-8">
@@ -44,8 +52,8 @@ Date: 3/7/2015
     </div>
     <form action="" method="post">
         <div>
-            <label>Client Name</label>
-            <input type="text" name="clientName" value="<?php echo !empty($_POST['clientName']) ? $_POST['clientName']:'' ?>"  placeholder="Client Name"/>
+           <!--  <label>Client Name</label> -->
+            <h2><?php echo $_SESSION['username'] ?></h2>
         </div>
 
         <div>
