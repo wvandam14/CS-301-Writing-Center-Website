@@ -1,0 +1,3 @@
+use writingcenter;
+
+select exists(select 1 from accounts where email_address = $email && password = $password);

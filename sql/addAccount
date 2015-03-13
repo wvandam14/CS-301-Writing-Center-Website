@@ -1,0 +1,16 @@
+use writingcenter;
+
+
+//check for accountDetailId 
+
+
+//save to php variable
+select MAX(accountDetailId) as LatestDetailId from accountdetails;
+
+//values should be variables
+insert into accountdetails(accountDetailId, class_standing, graduation_year, major, secondary_major, minor, bio, missed_appointments, email_address)
+values (null, 'junior', 2020, 'Mathematics', null, null, 'Hello World!', null, 'npetrav20@my.whitworth.edu');
+
+//values should be variables
+insert into accounts(accountId, fname, lname, email_address, password, accountTypeId, accountDetails)
+values (null, 'Nikolai', 'Petrav', 'npetrav20@my.whitworth.edu', 'notpassword', 1, (select accountDetailId from accountdetails where email_address = 'npetrav20@my.whitworth.edu'));
