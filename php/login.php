@@ -21,6 +21,8 @@
 				}
 			}
 
+				$email=$_POST['email'];
+				$accPassword=$_POST['password'];
 
 			if (!validate($password) || !validate($email)) {
 				echo "<h1>Invalid entry</h1>";
@@ -28,9 +30,6 @@
 			}
 			else 
 			{
-
-				$email=$_POST['email'];
-				$accPassword=$_POST['password'];
 
 				// Initializes values to connect to the database
      			$servername = "CS1";
