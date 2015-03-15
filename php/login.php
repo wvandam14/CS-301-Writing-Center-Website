@@ -17,6 +17,7 @@
 		</div>
 		<div id="username-display">
 			<a href="appointmentPopup.php">Appointment</a>
+			<a href="viewAppointments.php">View My Appointments</a>
 			<a href="#"><?php echo empty($_SESSION['username']) ? '':$_SESSION['username']; ?></a>
 			<a href="logout.php" title="">logout</a>
 		</div>
