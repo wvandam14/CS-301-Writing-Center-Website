@@ -2,6 +2,9 @@ $(function(){
 
 	var schedule;
 	var consultants;
+	var consultationFlag = false;
+	var whatsThisFlag = false;
+
 
 	function loadSchedule(){
 		$.getJSON('./data/data.json').done( function(data) {
@@ -9,7 +12,6 @@ $(function(){
 			consultants = data.consultants;
 	    });
 	}
-
 
 
 	$('#apptDate').on('input',function(e){
@@ -29,6 +31,35 @@ $(function(){
 		}
 		
 	});
+
+
+	// Event handler for when the checkbox is checked or unchecked
+	$('#consultationNotes').on('click', function() {
+		if (!consultationFlag) {
+			$('#instructorEmail').show();
+		}
+		else {
+			$('#instructorEmail').hide();
+		}
+
+		// Toggle flag
+		consultationFlag = !consultationFlag;
+	});
+
+	// Event handler for when the checkbox is checked or unchecked
+	$('#whatsThis').on('click', function() {
+		if (!whatsThisFlag) {
+			$('#tooltip').show();
+		}
+		else {
+			$('#tooltip').hide();
+		}
+
+		// Toggle flag
+		whatsThisFlag = !whatsThisFlag;
+	});
+
+
 
 
 	loadSchedule();

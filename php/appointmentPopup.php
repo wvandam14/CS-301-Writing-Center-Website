@@ -147,10 +147,23 @@ Date: 3/7/2015
                     <textarea name="assignmentDescription"><?php echo !empty($_POST['assignmentDescription']) ? $_POST['assignmentDescription']:'' ?></textarea>
                 </div>
 
-                <div>
-                    <input type="checkbox" name="consultationNotes" <?php echo !empty($_POST['consultationNotes']) ? 'checked':'' ?> />
+                <div class="overflow">
+                    <input type="checkbox" name="consultationNotes" id="consultationNotes" <?php echo !empty($_POST['consultationNotes']) ? 'checked':'' ?> />
                     <label>Send Post-Consultation notes to instructor</label>
-                    <a>Whats this?</a>
+                    <div class="relative">
+                        <a id="whatsThis">Whats this?</a>
+                        <div id="tooltip" style="display: none">
+                            <!-- ToDo: Find out what text goes here -->
+                            <p>Describe what post-consultation notes are and why clients may want to use them</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div>
+                    <div id="instructorEmail" style="display: none">
+                        <label>Instructor Email</label>
+                        <input type="email" />
+                    </div>
                 </div>
 
                 <div>
