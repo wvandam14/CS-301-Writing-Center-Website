@@ -180,7 +180,7 @@ Date: 3/7/2015
 
 
                 <div class="overflow">
-                    <input type="checkbox" name="consultationNotes" id="consultationNotes" <?php echo $edit ? ($appointment->send_post_consultation_notes ? 'checked':'') : (!empty($_POST['consultationNotes']) ? 'checked':'' ?> />
+                    <input type="checkbox" name="consultationNotes" id="consultationNotes" <?php echo $edit ? ($appointment->send_post_consultation_notes ? 'checked':'') : (!empty($_POST['consultationNotes']) ? 'checked':'') ?> />
                     <label>Send Post-Consultation notes to instructor</label>
                     <div class="relative">
                         <a id="whatsThis">Whats this?</a>

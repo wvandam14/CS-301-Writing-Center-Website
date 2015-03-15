@@ -6,7 +6,7 @@ $(function(){
 	var old_time;
 	var old_date;
 
-	var consultationFlag = false;
+	var consultationFlag ;
 	var whatsThisFlag = false;
 
 
@@ -61,11 +61,14 @@ $(function(){
 
 	// Event handler for when the checkbox is checked or unchecked
 	$('#consultationNotes').on('click', function() {
+
+		consultationFlag = $('#consultationNotes').is(':checked');
+
 		if (!consultationFlag) {
-			$('#instructorEmail').show();
+			$('#instructorEmail').hide();
 		}
 		else {
-			$('#instructorEmail').hide();
+			$('#instructorEmail').show();
 		}
 
 		// Toggle flag
