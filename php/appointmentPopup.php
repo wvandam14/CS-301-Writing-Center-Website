@@ -5,6 +5,7 @@ Date: 3/7/2015
 -->
 
 <?php 
+
     session_start();
 
     if(empty($_SESSION['permission'])){
@@ -12,6 +13,25 @@ Date: 3/7/2015
     }
 
     require_once('db_connection.php');
+
+
+    if(!$_SERVER['QUERY_STRING']){
+        $edit = false;
+    }
+    else{
+        $edit = true;
+        $appointment_id = $_SERVER['QUERY_STRING'];
+       
+
+        if($_SESSION['permission'] == 2 || $_SESSION['permission'] == 3){
+            if(!userCanEditAppointment($_SESSION['user_id'],$appointment_id)){
+                header("location:appointmentPopup.php");
+            }
+        }
+        $appointment = getAppointmentById($appointment_id);
+    }
+
+  
     
 
     function saveToJSON($data){
@@ -41,7 +61,7 @@ Date: 3/7/2015
  
     if($_SERVER['REQUEST_METHOD'] == 'POST'){
         //print_r($_POST);die();
-        if( empty($_POST['username'])               ||
+        if( 
             empty($_POST['courseNum'])              || 
             empty($_POST['courseName'])             ||
             empty($_POST['apptDate'])               ||
@@ -52,6 +72,7 @@ Date: 3/7/2015
         ){
 
             echo "Missing required information";
+            //print_r($_POST);die();
 
         }
         else{
@@ -72,15 +93,26 @@ Date: 3/7/2015
             $app->appointment_missed = false;
             $app->appointment_cancelled = false;
 
-            //print_r($app);die();
-            if(scheduleAppointment($app)){
-                $_POST = [];
-                updateScheduleFile();
+
+            if($edit){            
+                if($app->schedule_id != $appointment->schedule_id){
+                    $app->old_schedule_id = $appointment->schedule_id;
+                }
+
+                $app->id = $appointment_id;
+
+                if(updateScheduleAppointment($app)){
+                    $_POST = [];
+                    updateScheduleFile();
+                    header('location:'./*$_SERVER['SERVER_NAME'].*/$_SERVER['REQUEST_URI']);
+                }
             }
             else{
-                 //echo "Error scheduling appointment";
-            }
-           
+                if(scheduleAppointment($app)){
+                    $_POST = [];
+                    updateScheduleFile();
+                }
+            }          
         }
     }
  ?>
@@ -100,20 +132,19 @@ Date: 3/7/2015
             <form action="" method="post">
                 <div>
                    <!--  <label>Client Name</label> -->
-                    <h2><?php echo $_SESSION['username'] ?></h2>
-                    <input type='hidden' name="username" value="<?php echo $_SESSION['username'];?>" >
+                    <h2><?php echo  $edit ? $appointment->client_name:$_SESSION['username'] ?></h2>
                 </div>
 
                 <div>
                     <div class="one">
                         <label>Date</label>
-                        <input type='date' id='apptDate' name="apptDate" value="<?php echo !empty($_POST['apptDate']) ? $_POST['apptDate']:'' ?>" >
+                        <input type='date' id='apptDate' name="apptDate" value="<?php echo $edit ? $appointment->date :  (!empty($_POST['apptDate']) ? $_POST['apptDate']:''); ?>" >
                     </div>
 
                     <div class="two">
                         <label>Time</label>
-                        <select name="apptTime" id="apptTime" value="<?php echo !empty($_POST['apptTime']) ? $_POST['apptTime']:'' ?>" >
-                            <option>Choose A Time</option>
+                        <select name="apptTime" id="apptTime" >
+                            <?php echo $edit ? '<option value='.$appointment->schedule_id.'-'.$appointment->consultant_id.'-'.$appointment->time.'>'.$appointment->time.'-'.$appointment->consultant_name.'</option>':"<option>Choose A Time</option>"?>
                         </select>
                     </div>
                 </div>
@@ -121,34 +152,34 @@ Date: 3/7/2015
                 <div>
                     <div class="one">
                         <label>Course Number</label>
-                        <input type="text" name="courseNum" value="<?php echo !empty($_POST['courseNum']) ? $_POST['courseNum']:'' ?>" />
+                        <input type="text" name="courseNum" value="<?php echo $edit ? $appointment->course_number : (!empty($_POST['courseNum']) ? $_POST['courseNum']:''); ?>" />
                     </div>
 
                     <div class="two">
                         <label>Course Name</label>
-                        <input type="text" name="courseName" value="<?php echo !empty($_POST['courseName']) ? $_POST['courseName']:'' ?>" />
+                        <input type="text" name="courseName" value="<?php echo $edit ? $appointment->course_name : (!empty($_POST['courseName']) ? $_POST['courseName']:'') ?>" />
                     </div>
                 </div>
 
                 <div>
                     <div class="one">
                         <label>Instructor Name</label>
-                        <input type="text" name="instructorName" value="<?php echo !empty($_POST['instructorName']) ? $_POST['instructorName']:'' ?>" />
+                        <input type="text" name="instructorName" value="<?php echo $edit ? $appointment->instructor : (!empty($_POST['instructorName']) ? $_POST['instructorName']:'') ?>" />
                     </div>
 
                     <div class="two">
                         <label>Assignment Name</label>
-                        <input type="text" name="assignmentName" value="<?php echo !empty($_POST['assignmentName']) ? $_POST['assignmentName']:'' ?>" />
+                        <input type="text" name="assignmentName" value="<?php echo $edit ? $appointment->assignment :  (!empty($_POST['assignmentName']) ? $_POST['assignmentName']:'') ?>" />
                     </div>
                 </div>
 
                 <div>
                     <label>Assignment Description</label>
-                    <textarea name="assignmentDescription"><?php echo !empty($_POST['assignmentDescription']) ? $_POST['assignmentDescription']:'' ?></textarea>
+                    <textarea name="assignmentDescription"><?php echo $edit ? $appointment->description : (!empty($_POST['assignmentDescription']) ? $_POST['assignmentDescription']:'') ?></textarea>
                 </div>
 
                 <div>
-                    <input type="checkbox" name="consultationNotes" <?php echo !empty($_POST['consultationNotes']) ? 'checked':'' ?> />
+                    <input type="checkbox" name="consultationNotes" <?php echo $edit ? ($appointment->send_post_consultation_notes ? 'checked':'') : (!empty($_POST['consultationNotes']) ? 'checked':'') ?> />
                     <label>Send Post-Consultation notes to instructor</label>
                     <a>Whats this?</a>
                 </div>
