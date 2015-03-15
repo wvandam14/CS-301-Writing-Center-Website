@@ -139,5 +139,89 @@
 		}
 	}
 
+	function getAppointmentById($id){
+
+		$dbc = $GLOBALS['dbc'];
+
+		$q = "SELECT a.course_name,a.course_number,a.instructor,a.assignment,a.send_post_consultation_notes,a.appointment_missed,a.appointment_cancelled,a.description,a.client_id,a.consultant_id,a.schedule_id,s.date_ AS date,s.time_slot AS time,CONCAT(ac.fname,' ',ac.lname) AS client_name,CONCAT(ac2.fname,' ',ac2.lname) AS consultant_name FROM appointments AS a INNER JOIN schedules AS s ON a.schedule_id = s.scheduleID INNER JOIN accounts AS ac ON ac.accountID = a.client_id INNER JOIN accounts AS ac2 ON ac2.accountID = a.consultant_id WHERE a.id = '$id'";
+		$r = $dbc->query($q);
+
+		
+
+		if($r){
+			$appointment = $r->fetch_object();
+			$r->close();
+			//print_r($appointment);die();
+
+			return $appointment;
+		}
+		else{
+			echo '<h1>System error</h1>
+			<p class="error">The appointment could not be retrived due to a system error. We apologize for the inconvenience.</p>';
+			echo '<p>' . mysqli_error($dbc) . '<br/><br/>Query: ' . $q . '</p>';
+		}
+	}
+
+	function userCanEditAppointment($user_id,$appointment_id){
+		$dbc = $GLOBALS['dbc'];
+
+		$q = "SELECT COUNT(id) AS hasPermission FROM appointments WHERE id = '$appointment_id' AND (consultant_id = '$user_id' OR client_id = '$user_id' )";
+		$r = $dbc->query($q);
+
+		if($r){
+			$appointment = $r->fetch_object();
+			$r->close();
+
+			return $appointment->hasPermission > 0;
+		}
+		else{
+			echo '<h1>System error</h1>
+			<p class="error">The appointment could not be retrived due to a system error. We apologize for the inconvenience.</p>';
+			echo '<p>' . mysqli_error($dbc) . '<br/><br/>Query: ' . $q . '</p>';
+		}
+	}
+
+	function updateScheduleAppointment($app){
+		$dbc = $GLOBALS['dbc'];
+
+		$app->course_number = $dbc->real_escape_string(trim($app->course_number));
+        $app->course_name = $dbc->real_escape_string(trim( $app->course_name));
+        $app->instructor = $dbc->real_escape_string( $app->instructor);
+        $app->assignment = $dbc->real_escape_string(trim($app->assignment));
+        $app->send_post_consultation_notes = $dbc->real_escape_string(trim($app->send_post_consultation_notes));
+        $app->description = $dbc->real_escape_string( $app->description);
+        $app->client_id = $dbc->real_escape_string(trim($app->client_id));
+        $app->consultant_id = $dbc->real_escape_string(trim($app->consultant_id));
+        $app->schedule_id = $dbc->real_escape_string(trim($app->schedule_id));
+        $app->date = $dbc->real_escape_string(trim($app->date));
+        $app->appointment_missed = $dbc->real_escape_string(trim($app->appointment_missed));
+        $app->appointment_cancelled = $dbc->real_escape_string(trim($app->appointment_cancelled));
+
+
+
+       
+
+        if(!(empty($app->old_schedule_id))){
+        	$q = "UPDATE schedules AS s SET s.status_ = 'available' WHERE s.scheduleID = '$app->old_schedule_id'";
+        	if(!($r = $dbc->query($q))){
+        		die('Error on freeing old time slot');
+        	}
+        	 $q = "UPDATE schedules AS s SET s.status_ = 'occupied' WHERE s.scheduleID = '$app->schedule_id'";
+        	if(!($r = $dbc->query($q))){
+        		die('Error on reserving new time slot');
+        	}
+        }
+        
+        $q = "UPDATE appointments AS a SET a.course_name = '$app->course_name',a.course_number = '$app->course_number',a.instructor = '$app->instructor',a.assignment = '$app->assignment',a.send_post_consultation_notes = '$app->send_post_consultation_notes',a.appointment_missed = '$app->appointment_missed',a.appointment_cancelled = '$app->appointment_cancelled',a.description = '$app->description',a.client_id = '$app->client_id',a.consultant_id = '$app->consultant_id',a.schedule_id = '$app->schedule_id' WHERE a.id = '$app->id'";
+
+        if($r = $dbc->query($q)){
+        	return true;
+        }
+        else{
+        	die("Error on the update");
+			return false;
+		}
+	}
+
 
 ?>

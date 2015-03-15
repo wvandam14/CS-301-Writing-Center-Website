@@ -2,11 +2,32 @@ $(function(){
 
 	var schedule;
 	var consultants;
+	var old_time;
+	var old_date;
 
 	function loadSchedule(){
+		var old_val;
 		$.getJSON('./data/data.json').done( function(data) {
 			schedule = data.schedule;
 			consultants = data.consultants;
+
+			if(old_time.text() !== "Choose A Time"){
+				old_val = old_time.val();
+
+				for(var i=0;i < schedule.length && schedule[i].date != old_date;i++){}
+				
+				if(i != schedule.length){
+					schedule[i].time_slots.push(old_val);
+					schedule[i].time_slots.sort(function(t1,t2){return t1.split('-')[2] - t2.split('-')[2]});
+				}
+				else{
+					var time_slot = {date:old_date,time_slots:[old_val]};
+					schedule.push(time_slot);
+				}
+
+			}
+
+
 	    });
 	}
 
@@ -23,13 +44,15 @@ $(function(){
 				var args = slot.split('-');
 				 $('#apptTime').append($('<option>', { 
 				        value: slot,
-				        text : consultants[args[1]]+"-"+args[2] 
+				        text : args[2]+"-"+consultants[args[1]]
 				    }));
 			});
 		}
 		
 	});
 
+	old_date = $('#apptDate').val();
+	old_time = $('#apptTime option');
 
 	loadSchedule();
 
