@@ -2,8 +2,14 @@ $(function(){
 
 	var schedule;
 	var consultants;
+
 	var old_time;
 	var old_date;
+
+	var consultationFlag = false;
+	var whatsThisFlag = false;
+
+
 
 	function loadSchedule(){
 		var old_val;
@@ -32,7 +38,6 @@ $(function(){
 	}
 
 
-
 	$('#apptDate').on('input',function(e){
 		var date = $('#apptDate').val();
 
@@ -53,6 +58,35 @@ $(function(){
 
 	old_date = $('#apptDate').val();
 	old_time = $('#apptTime option');
+
+	// Event handler for when the checkbox is checked or unchecked
+	$('#consultationNotes').on('click', function() {
+		if (!consultationFlag) {
+			$('#instructorEmail').show();
+		}
+		else {
+			$('#instructorEmail').hide();
+		}
+
+		// Toggle flag
+		consultationFlag = !consultationFlag;
+	});
+
+	// Event handler for when the checkbox is checked or unchecked
+	$('#whatsThis').on('click', function() {
+		if (!whatsThisFlag) {
+			$('#tooltip').show();
+		}
+		else {
+			$('#tooltip').hide();
+		}
+
+		// Toggle flag
+		whatsThisFlag = !whatsThisFlag;
+	});
+
+
+
 
 	loadSchedule();
 

@@ -79,7 +79,9 @@
 	function getConsultants(){
 		$dbc = $GLOBALS['dbc'];
 
-		$q = "SELECT c.accountID as id,CONCAT(c.fname,' ',c.lname) as name FROM writingcenter.accounts AS c WHERE c.accountTypeId = '2'";
+		$q = "SELECT c.accountID as id,CONCAT(c.fname,' ',c.lname) as name 
+			FROM writingcenter.accounts AS c 
+			WHERE c.accountTypeId = '2'";
 		$r = $dbc->query($q);
 
 		if($r){
@@ -136,6 +138,49 @@
         else{
         	die("Error on the update");
 			return false;
+		}
+	}
+	
+	function getAllAppointments($id, $permission) {
+		$dbc = $GLOBALS['dbc'];
+		
+		if ($permission == 3) {
+			$q = "SELECT CONCAT(appt.description, '|', s.date_, '|', s.time_slot, '|', a.fname, '|', a.lname) as info, appt.id as id
+					FROM appointments as appt
+					inner join schedules as s
+					on appt.schedule_id = s.scheduleID
+					inner join accounts as a
+					on s.consultantID = a.accountId
+					WHERE appt.client_id = '$id'
+					Order by s.date_";
+		} else {
+			$q = "SELECT CONCAT(appt.description, '|', s.date_, '|', s.time_slot, '|', a.fname, '|', a.lname) as info, appt.id as id
+					FROM appointments as appt
+					inner join schedules as s
+					on appt.schedule_id = s.scheduleID
+					inner join accounts as a
+					on appt.client_id = a.accountId
+					WHERE appt.consultant_id = '$id' 
+					Order by s.date_";
+		}
+				
+		$r = $dbc->query($q);
+
+		if($r){
+			$appointments = array();
+			while ($appointment = $r->fetch_object()) {
+				$appointments[$appointment->id] = explode( '|', $appointment->info);
+			}
+		
+			$r->close();
+			//print_r($consultants);die();
+
+			return $appointments;
+		}
+		else{
+			echo '<h1>System error</h1>
+			<p class="error">The list of consultants could not be retrived due to a system error. We apologize for the inconvenience.</p>';
+			echo '<p>' . mysqli_error($dbc) . '<br/><br/>Query: ' . $q . '</p>';
 		}
 	}
 
