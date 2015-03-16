@@ -20,12 +20,11 @@
 					return true;
 				}
 			}
-
 				$email=$_POST['email'];
 				$accPassword=$_POST['password'];
 
 			if (!validate($accPassword) || !validate($email)) {
-				echo "<h1>Invalid entry!123</h1>";
+				echo "<h1>Please do not leave text boxes blank!</h1>";
 
 			}
 			else 
@@ -47,10 +46,9 @@
      			$pass = $accPassword;
      			$em = $email;
 
-     			$stmt = $db->prepare("SELECT 1 from Accounts where password = ? AND email_address = ? VALUES (?, ?)");
+     			$stmt = $db->prepare("SELECT * FROM accounts WHERE password = ? AND email_address = ?");
      			$stmt->bind_param("ss", $pass, $em);
 
-     			
      			$stmt->execute();
 
      			$stmt->bind_result($col1, $col2, $col3, $col4, $col5, $col6, $col7);
@@ -61,10 +59,15 @@
 
      			$db->close();
 
+
      			if ($col1 != NULL){
      				$_SESSION['id'] = $col1;
 					$_SESSION['email'] = $col5;
 					$_SESSION['type'] = $col6;
+
+					header("Location: http://cs1.whitworth.edu/WritingCenter/FeatureSet1/CS-301-Writing-Center-Website/html/");
+
+					exit();
      			}
      			else{
      				echo "<h1>Invalid email/password.</h1>";
