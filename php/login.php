@@ -24,8 +24,8 @@
 				$email=$_POST['email'];
 				$accPassword=$_POST['password'];
 
-			if (!validate($password) || !validate($email)) {
-				echo "<h1>Invalid entry</h1>";
+			if (!validate($accPassword) || !validate($email)) {
+				echo "<h1>Invalid entry!123</h1>";
 
 			}
 			else 
@@ -44,11 +44,13 @@
       				die( 'Connect Error: ' . $db->connect_errno );
      			}
 
+     			$pass = $accPassword;
+     			$em = $email;
+
      			$stmt = $db->prepare("SELECT 1 from Accounts where password = ? AND email_address = ? VALUES (?, ?)");
      			$stmt->bind_param("ss", $pass, $em);
 
-     			$pass = $accPassword;
-     			$em = $email;
+     			
      			$stmt->execute();
 
      			$stmt->bind_result($col1, $col2, $col3, $col4, $col5, $col6, $col7);
