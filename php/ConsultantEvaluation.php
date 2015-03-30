@@ -14,9 +14,9 @@
 
       
       // Initializes values to connect to the database
-      $servername = "127.0.0.1";
-      $username = "Admin";
-      $password = "123";
+      $servername = "CS1";
+      $username = "CS472_2015";
+      $password = "WritingCenter";
 
       // Tries to connect to the database
       $db = new mysqli( $servername, $username, $password, "WritingCenter" );
@@ -26,7 +26,7 @@
       }
 
       // Query to get the Consultant ID based on the name given in the form
-      $query =  'Select Consultants.Consultant_ID FROM Consultants WHERE Consultants.fname =? AND Consultants.lname =?;';
+      $query =  'Select accounts.accountId FROM accounts WHERE accounts.fname =? AND accounts.lname =? AND accountTypeId = 2;';
       if ( $stmt = $db->prepare($query)) {
         // Escape any special characters to prevent monkey business
         $Consultant_Name = $db->real_escape_string($Consultant_Name);
