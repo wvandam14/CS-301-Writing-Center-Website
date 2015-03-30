@@ -30,6 +30,7 @@
 		margin-top: 100px;
 	}
 	.btn {
+        cursor: pointer;
   background: #0e58ad;
   background-image: -webkit-linear-gradient(top, #0e58ad, #022855);
   background-image: -moz-linear-gradient(top, #0e58ad, #022855);

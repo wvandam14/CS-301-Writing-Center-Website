@@ -1,0 +1,92 @@
+.popup, .popup * {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+.popup {
+    width: 750px;
+    margin: 0 auto;
+    background-color: #ffffff;
+    padding: 15px;
+    box-shadow: 0 0 10px rgba(0,0,0,.25);
+}
+
+.popup .head h1 {
+    width: 100%;
+    margin-left: 0;
+}
+
+.popup form {
+    width: 100%;
+    margin-left: 0;
+}
+
+.popup form > div:not(.overflow) {
+    overflow: hidden;
+}
+
+.popup form > div {
+    display: block;
+    margin-bottom: 15px;
+    padding-bottom: 1px;
+}
+
+.popup label {
+    font-size:20px;
+    display: block;
+}
+
+.popup .two {
+    margin-left: 1%;
+}
+.popup .two,
+.popup .one {
+    width: 49.5%;
+    float:left;
+}
+
+.popup textarea {
+    width: 100%;
+    resize:none;
+    min-height: 250px;
+}
+
+.popup input[type=checkbox] {
+    width: 20px;
+    height: 20px;
+    float: left;
+}
+
+.popup select,
+.popup textarea,
+.popup input[type=date],
+.popup input[type=email],
+.popup input[type=text] {
+    padding: 5px;
+    font-size: 20px;
+    width: 100%;
+}
+
+.relative {
+    position: relative;
+}
+
+#whatsThis {
+    cursor: pointer;
+}
+
+#whatsThis:hover {
+    text-decoration: inherit;
+}
+
+#tooltip {
+    position: absolute;
+    bottom: 0;
+    left: 115px;
+    background-color: #FFFFFF;
+    box-shadow: 0 0 5px rgba(0,0,0,.25);
+    padding: 15px;
+    max-width: 200px;
+    overflow: hidden;
+}
