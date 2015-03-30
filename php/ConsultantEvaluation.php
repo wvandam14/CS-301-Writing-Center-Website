@@ -46,7 +46,7 @@
         // This gets the ID from the result (THERE HAS TO BE A BETTER WAY TO DO THIS BUT THIS WORKS FOR NOW)
         $outp = "";
         while ( $row = $result->fetch_array(MYSQLI_ASSOC) ) {
-          $outp .= $row['Consultant_ID'];           
+          $outp .= $row['accountId'];           
         }
         $outp .="";
 
