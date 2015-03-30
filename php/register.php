@@ -3,6 +3,8 @@
   <body>
     <h1> You are now registered! </h1>
     <?php
+
+      include "db_connect.php";
       // This takes all the values from the form to be used in the query
       $Email = $_POST["email"];
       $Fname = $_POST["firstName"];
@@ -19,18 +21,6 @@
       $Delete = $_POST["delete"];
       $Announcement = $_POST["announcement"];
       $Remind = $_POST["remind"];
-
-      // Initializes values to connect to the database
-      $servername = "127.0.0.1";
-      $username = "Admin";
-      $password = "123";
-
-      // Tries to connect to the database
-      $db = new mysqli( $servername, $username, $password, "WritingCenter" );
-      // If it fails, output a connection error
-      if ( $db->connect_errno ) {
-        die( 'Connect Error: ' . $db->connect_errno );
-      }
 
       // Query to get the Consultant ID based on the name given in the form
       $InsertClient = 'Insert into Clients (fname,lname,email_address,class_standing,Graduation_year,major,secondary_major,minor,password) VALUES (?,?,?,?,?,?,?,?,?);';
