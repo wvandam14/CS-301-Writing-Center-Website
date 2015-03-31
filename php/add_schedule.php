@@ -4,14 +4,14 @@
     <h1> Successfully Added a Schedule </h1>
     <?php		
 		$timeSlots = array(
-			'10:00AM', '10:30AM',
-			'11:00AM', '11:30AM',
-			'12:00AM', '12:30AM',
-			'1:00PM', '1:30PM',
-			'2:00PM', '2:30PM',
-			'3:00PM', '3:30PM',
-			'4:00PM', '4:30PM',
-			'5:00PM', '5:30PM',
+			'1000', '1030',
+			'1100', '1130',
+			'1200', '1230',
+			'100', '130',
+			'200', '230',
+			'300', '330',
+			'400', '430',
+			'500', '530',
 		);
 		// Initializes values to connect to the database
 		$servername = "CS1";
@@ -20,7 +20,7 @@
 		$database = "writingcenter";
 		
 		$Month = $_POST["month"];
-		$Date = $_POST["date"];
+		$Date = $_POST["day"];
 		$Year = $_POST["year"];
 		
 		$Date_ = $Year."-".$Month."-".$Date;
@@ -47,11 +47,14 @@
 		}
 		$InsertSchedule = 'INSERT INTO Schedules (consultantID,date_,time_slot,status_) VALUES (?,?,?,?);';
 		
-		foreach ($ConsultantArray as $consultant) {
-					echo '<td><input type="checkbox" name="'.$row["accountId"].$time.'" value=""></td>';
-					
+		foreach ($ConsultantArray as $consultant) {					
 					foreach ($timeSlots as $time) {
-						$Status = $_POST[$consultant.$time];
+						if (isset($_POST[$consultant.$time])) {
+							$status = "open";
+							echo $consultant.$time.' open';
+						} else {
+							$status = "unavailable";
+						}
 						
 						$stmt = $db->prepare($InsertSchedule);
 						
@@ -59,9 +62,9 @@
 						$consultant = $db->real_escape_string($consultant);
 						$Date_ = $db->real_escape_string($Date_);
 						$time = $db->real_escape_string($time);
-						$Status = $db->real_escape_string($Status);
+						$status = $db->real_escape_string($status);
 						// Bind the cleaned parameters to the pre-prepared query
-						$stmt->bind_param("ssss", $consultant,$Date_,$time,$Status);
+						$stmt->bind_param("ssss", $consultant,$Date_,$time,$status);
 						
 						// Execute the query
 						$stmt->execute();
