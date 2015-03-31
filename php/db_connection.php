@@ -105,6 +105,46 @@
 		}
 	}
 
+	function pageAuth($page) {
+
+		$canview = 0;
+
+		$dbc = $GLOBALS['dbc'];
+		$q = "SELECT *
+			 	FROM viewpagepermissions AS VPP, pages AS P
+			 	WHERE P.pageId = VPP.pageId AND
+			 		$_SESSION[permission] = VPP.accountTypeId AND
+			 		\"$page\" = P.pagename;";
+		$r = $dbc->query($q) or die ("ERROR: " .mysqli_error($dbc));
+		if($r) {
+			$canview = 1;
+			$r->close();
+		}
+
+		return $canview;
+	}
+
+	function getPagesInfo() {
+		$info = array();
+		$dbc = $GLOBALS['dbc'];
+		$q = "SELECT VPP.pageId, P.pagename, VPP.accountTypeId, AT.type AS accountType
+				FROM pages AS P, accounttypes AS AT, viewpagepermissions AS VPP
+				WHERE P.pageid = VPP.pageId AND 
+						AT.accountTypeId = VPP.accountTypeId";
+		$r = $dbc->query($q) or die ("ERROR: ".mysqli_error($dbc));
+		if($r) {
+			while($row = $r->fetch_object()){
+				array_push($info, $row);
+			}
+			$r->close();
+		}
+		else {
+			echo "Nothing";
+		}
+		return $info;
+
+	}
+
 	function scheduleAppointment($app){
 		$dbc = $GLOBALS['dbc'];
 
@@ -243,10 +283,6 @@
         $app->date = $dbc->real_escape_string(trim($app->date));
         $app->appointment_missed = $dbc->real_escape_string(trim($app->appointment_missed));
         $app->appointment_cancelled = $dbc->real_escape_string(trim($app->appointment_cancelled));
-
-
-
-       
 
         if(!(empty($app->old_schedule_id))){
         	$q = "UPDATE schedules AS s SET s.status_ = 'available' WHERE s.scheduleID = '$app->old_schedule_id'";
