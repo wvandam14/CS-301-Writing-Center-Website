@@ -21,9 +21,9 @@
       $Remind = $_POST["remind"];
 
       // Initializes values to connect to the database
-      $servername = "127.0.0.1";
-      $username = "Admin";
-      $password = "123";
+      $servername = "CS1";
+      $username = "CS472_2015";
+      $password = "WritingCenter";
 
       // Tries to connect to the database
       $db = new mysqli( $servername, $username, $password, "WritingCenter" );
@@ -33,8 +33,9 @@
       }
 
       // Query to get the Consultant ID based on the name given in the form
-      $InsertClient = 'Insert into Clients (fname,lname,email_address,class_standing,Graduation_year,major,secondary_major,minor,password) VALUES (?,?,?,?,?,?,?,?,?);';
-
+      //$InsertClient = 'Insert into Clients (fname,lname,email_address,class_standing,Graduation_year,major,secondary_major,minor,password) VALUES (?,?,?,?,?,?,?,?,?);';
+      $InsertClientDetails = 'Insert into accountdetails (accountDetailId, class_standing, graduation_year, major, secondary_major, minor, bio, missed_appointments) values(?,?,?,?,?,?,?,?);';
+      $InsertClient = 'Insert into accounts (accountId, fname, lname, email_address, password, accountTypeId, accountDetails) values (?,?,?,?,?,?,?);';
       if ( $stmt = $db->prepare($InsertClient)) {
         // Escape any special characters to prevent monkey business
         $Email = $db->real_escape_string($Email);
