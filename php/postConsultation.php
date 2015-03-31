@@ -20,19 +20,19 @@
 
       // This takes all the values from the checkboxes
 
-      $Assignment_ = ($_POST["Assignment"] == 'Yes') ? 'Yes' : "No";
-      $Ideas = ($_POST["Ideas"] == 'Yes') ? 'Yes' : 'No';
-      $Thesis = ($_POST["Thesis"] == 'Yes') ? 'Yes' : 'No';
-      $Subject = ($_POST["Subject"] == 'Yes') ? 'Yes' : 'No';
-      $Audience = ($_POST["Audience"] == 'Yes') ? 'Yes' : 'No';
-      $Organization = ($_POST["Organization"] == 'Yes') ? 'Yes' : 'No';
-      $Content = ($_POST["Content"] == 'Yes') ? 'Yes' : 'No';
-      $Intro = ($_POST["Intro"] == 'Yes') ? 'Yes' : 'No';
-      $Sources = ($_POST["Sources"] == 'Yes') ? 'Yes' : 'No';
-      $Citations = ($_POST["Citations"] == 'Yes') ? 'Yes' : 'No';
-      $Design = ($_POST["Design"] == 'Yes') ? 'Yes' : 'No';
-      $Sentence = ($_POST["Sentence"] == 'Yes') ? 'Yes' : 'No';
-      $Grammar = ($_POST["Grammar"] == 'Yes') ? 'Yes' : 'No';
+      $Assignment_ = ($_POST["Assignment"] && $_POST["Assignment"] == 'Yes') ? 1 : 0;
+      $Ideas = ($_POST["Ideas"] && $_POST["Ideas"] == 'Yes') ? 'Yes' : 'No';
+      $Thesis = ($_POST["Thesis"] && $_POST["Thesis"] == 'Yes') ? 'Yes' : 'No';
+      $Subject = ($_POST["Subject"] && $_POST["Subject"] == 'Yes') ? 'Yes' : 'No';
+      $Audience = ($_POST["Audience"] && $_POST["Audience"] == 'Yes') ? 'Yes' : 'No';
+      $Organization = ($_POST["Organization"] && $_POST["Organization"] == 'Yes') ? 'Yes' : 'No';
+      $Content = ($_POST["Content"] && $_POST["Content"] == 'Yes') ? 'Yes' : 'No';
+      $Intro = ($_POST["Intro"] && $_POST["Intro"] == 'Yes') ? 'Yes' : 'No';
+      $Sources = ($_POST["Sources"] && $_POST["Sources"] == 'Yes') ? 'Yes' : 'No';
+      $Citations = ($_POST["Citations"] && $_POST["Citations"] == 'Yes') ? 'Yes' : 'No';
+      $Design = ($_POST["Design"] && $_POST["Design"] == 'Yes') ? 'Yes' : 'No';
+      $Sentence = ($_POST["Sentence"] && $_POST["Sentence"] == 'Yes') ? 'Yes' : 'No';
+      $Grammar = ($_POST["Grammar"] && $_POST["Grammar"] == 'Yes') ? 'Yes' : 'No';
 
       // Initializes values to connect to the database
       $servername = "CS1";
@@ -60,7 +60,7 @@
         $stmt->bind_param("ss", $fname_lname[0],$fname_lname[1]);
         
         // Execute the query
-        $result = $stmt->execute();
+        $stmt->execute();
 
         // Retrieve the query results
         $result = $stmt->get_result();
@@ -126,7 +126,7 @@
           // Bind the cleaned parameters to the pre-prepared query1
           $stmt3->bind_param("sssissssssssssssssssss", $Client_ID, $Consultant_ID, $Language, $Email_Instructor, $Class, $projectType, $Instructor, $Date, $Assignment_, $Ideas, $Thesis, $Subject, $Audience, $Organization, $Content, $Intro, $Sources, $Citations, $Design, $Sentence, $Grammar, $Comments);
           // Execute the insertion
-          $stmt3->execute();        
+          $stmt3->execute();
         }
         else {
           die( 'Error in query preparation. error = ' . $db->errno .
@@ -135,15 +135,12 @@
 
         // Close the database
         $db->close();
-        echo "Hello Word after database\n";
       }
 
       else {
         die( 'Error in query preparation. error = ' . $db->errno .
         " " . $db->error );
       }
-      echo "Hello Word\n";
-
     ?>
 
   </body>
