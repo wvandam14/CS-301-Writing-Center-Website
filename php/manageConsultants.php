@@ -1,6 +1,7 @@
 <?php 
 	session_start();
-	$page_title = 'View Appointments';
+	/* STILL IN DEV */
+	$page_title = 'Manage Consultants';
 	if(empty($_SESSION['permission'])){
         header('location:login.php');
     }
@@ -23,16 +24,18 @@
 		<?php require_once("navbar.php"); ?>
 
 		<div id="content">
-		<!-- Start of content -->
-			<ul style="list-style-type: none;">
-				<?php foreach ($data as $id => $info) { ?>
-				<li><a href="appointmentPopup.php?<?php echo $id ?>">
-				<?php for ($i = 0; $i < count($info); $i++) {
-							echo $info[$i] . ' ';
-					}?>
-				</a></li>
-				<?php } ?>
-			<ul>
+			<?php
+
+				require_once('db_connection.php');
+				$consultants = getConsultants();
+				if(empty($consultants)) {
+					echo "There are no consultants to display.";
+				}
+				else {
+					
+				}
+
+			?>
 		</div>
 	</body>
 </html>

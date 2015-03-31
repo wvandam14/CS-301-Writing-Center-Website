@@ -1,7 +1,7 @@
 <?php 
-	DEFINE('DB_USER','root');
-	DEFINE('DB_PASSWORD','');
-	DEFINE('DB_HOST','localhost');
+	DEFINE('DB_USER','CS472_2015');
+	DEFINE('DB_PASSWORD','WritingCenter');
+	DEFINE('DB_HOST','CS1');
 	DEFINE('DB_NAME','writingcenter');
 
 
@@ -23,7 +23,9 @@
 		$client->email = $dbc->real_escape_string($client->email);
 		$client->password = $dbc->real_escape_string($client->password);
 
-		$q = "SELECT u.accountId as id,CONCAT(u.fname,' ',u.lname) as username,u.accountTypeId as permission FROM writingcenter.accounts AS u WHERE u.email_address = '$client->email' AND u.password = '". md5($client->password) ."';";
+		$q = "SELECT u.accountId as id, CONCAT(u.fname,' ',u.lname) as username, u.accountTypeId as permission
+			FROM writingcenter.accounts AS u
+			WHERE u.email_address = '$client->email' AND u.password = '". md5($client->password) ."';";
 		$r = $dbc->query($q);
 
 		if($r){
