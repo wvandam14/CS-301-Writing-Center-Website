@@ -16,17 +16,47 @@
 			<form action = "../php/ConsultantEvaluation.php" method ="post">
 				<p>Consultant:
 					<select name='Consultant'>
-						<option value="noSelection">--Please Select--</option>
-						<option value="addy">Addy</option>
-						<option value="audrey">Audrey</option>
-						<option value="cam">Cam</option>
-						<option value="Hannah Cobb">Hannah Cobb</option>
-						<option value="hcruze">Hannah Cruze</option>
-						<option value="heidi">Heidi</option>
-						<option value="izze">Izze</option>
-						<option value="katie">Katie</option>
-						<option value="sam">Sam</option>
-						<option value="sami">Sami</option>
+						<?php
+							  $servername = "CS1";
+						      $username = "CS472_2015";
+						      $password = "WritingCenter";
+
+						      // Tries to connect to the database
+						      $db = new mysqli( $servername, $username, $password, "WritingCenter" );
+						      // If it fails, output a connection error
+						      if ( $db->connect_error ) {
+						        die( 'Connect Error: ' . $db->connect_error );
+						      }
+
+						      // Query to get the Consultant ID based on the name given in the form
+						      $query =  'select fname, lname from accounts where accountTypeId = 2';
+						      if ( $stmt = $db->prepare($query)) {
+						        // Execute the query
+						        $result = $stmt->execute();
+
+						        // Retrieve the query results
+						        $result = $stmt->get_result();
+
+						        // This gets the ID from the result (THERE HAS TO BE A BETTER WAY TO DO THIS BUT THIS WORKS FOR NOW)
+						        $outp = "";
+						        while ( $row = $result->fetch_array(MYSQLI_ASSOC) ) {
+						        	$fullname = $row['fname'] . " " . $row['lname'];
+						        	
+						        	echo "<option value=\"".$fullname."\">".$fullname."</option>";
+
+						        	
+						          $outp .= $row['Consultant_ID'];           
+						        }
+						        $outp .="";
+
+						        $db->close();
+						        }
+						      else {
+						        die( 'Error in query preparation. error = ' . $db->errno .
+						        " " . $db->error );
+						      }
+
+						 ?>
 					</select>
 				</p>
 					Date:
