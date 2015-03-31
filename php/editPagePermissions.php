@@ -1,6 +1,7 @@
 <?php 
 	session_start();
-	$page_title = 'View Appointments';
+	/* STILL IN DEV */
+	$page_title = 'Edit page permissions';
 	require_once("auth.php");
 	require_once('db_connection.php');
 	
@@ -21,16 +22,20 @@
 		<?php require_once("navbar.php"); ?>
 
 		<div id="content">
-		<!-- Start of content -->
-			<ul style="list-style-type: none;">
-				<?php foreach ($data as $id => $info) { ?>
-				<li><a href="appointmentPopup.php?<?php echo $id ?>">
-				<?php for ($i = 0; $i < count($info); $i++) {
-							echo $info[$i] . ' ';
-					}?>
-				</a></li>
-				<?php } ?>
-			<ul>
+			<?php
+
+				require_once('db_connection.php');
+				$info = getPagesInfo();
+				if(empty($info)) {
+					echo "There isn't any page information to display.";
+				}
+				else {
+					foreach($info as $page) {
+						echo $page;
+					}
+				}
+
+			?>
 		</div>
 	</body>
 </html>
