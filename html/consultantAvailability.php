@@ -8,7 +8,7 @@
 <head>
 	
 	<!--all your standard head stuff-->
-	<script>
+	<script type ="text/javascript">
 		//need, like, onload
 		
 		function create_table(){
@@ -17,6 +17,7 @@
 			
 			//rows for all the days of the week				//Oh, damn. Need to actually, like label the days and times
 			for(var i=0; i<7; i++){
+				table_div.appendChild(document.createTextNode("Hello!<br>"));
 				var tr = document.createElement("tr");
 				table.appendChild(tr);
 				
@@ -30,30 +31,47 @@
 					input.setAttribute("value", 1);
 					td.appendChild(input);
 					
+					td.addEventListener("click", update_availability);
 					//do something when clicked
-					td.addEventListener("click", update_availability());
+					
 					tr.appendChild(td);				
 				}
 			}
 			table_div.appendChild(table);
+			table_div.appendChild(document.createTextNode("Hello!<br>"));
 		}
 		
 		//I think this is the right idea at least?
 		function update_availability(e){
-			if(e.children[0].value == 1){
-				e.children[0].value = 0;
-				e.style.background-color = "blue";
-			}else{
-				e.children[0].value = 1;
-				e.style.background-color = "white";
+
+			e = e || window.event;
+    		var element = e.target || e.srcElement;
+
+			if(element.children[0].value == 1){
+				element.children[0].value = 0;
+				element.style.backgroundColor = "blue";			
 			}
+			
+			else{
+				element.children[0].value = 1;
+				element.style.backgroundColor = "white";
+			}
+			
 		}
+		
+		function test(){
+			alert("ok");
+		}
+		
+		//run creating the table when the page is loaded
+		window.onload = create_table;
 		
 	</script>
 	<!--should have standard CSS applied to table, then change cell color when clicked-->
 	<style>
 		table{
 			width: 100%;
+			border: 1px solid black;
 		}
 		
 		td{
@@ -67,7 +85,7 @@
 	<form>	<!--need form details-->
 		<div id="tablediv">
 		<!--Table with days and times. Dynamically create with javascript? I guess it's also in a form because submit-->
-			<!--when the user clicks on a cell, it changes color and marks status as '1'--handle with javascript-->
+			<!--when the user clicks on a cell, it changes color and marks status as '1'-handle with javascript-->
 		</div>
 		<!--hidden input with user information pulled from session? Can I do that?-->
 		<!--Submit the form! Yay!-->
