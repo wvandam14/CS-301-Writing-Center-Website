@@ -15,11 +15,29 @@
 			var table_div = document.getElementById("tablediv");
 			var table = document.createElement("table");
 			
-			//rows for all the days of the week				//Oh, damn. Need to actually, like label the days and times
+			//rows for all the days of the week	
+			var day_array = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
+			var time_array = ["9:00", "9:30", "10:00", "10:30", "11:00", "11:30", "12:00", "12:30", "1:00", "1:30", "2:00", "2:30", "3:00", "3:30", "4:00", "4:30", "5:00", "5:30", "6:00", "6:30", "7:00", "7:30"];
+			
+			//header date cells
+			var tr = document.createElement("tr");
+			table.appendChild(tr);
+			tr.appendChild(document.createElement("td"));	//in column with days
+			for(var i=0; i<22; i++){
+				var td = document.createElement("td");
+				td.innerHTML = time_array[i];
+				tr.appendChild(td);
+			}
+			
+			//schedule cells
 			for(var i=0; i<7; i++){
-				table_div.appendChild(document.createTextNode("Hello!<br>"));
 				var tr = document.createElement("tr");
 				table.appendChild(tr);
+				
+				//cell for day of week
+				var td = document.createElement("td");
+				td.innerHTML = day_array[i];
+				tr.appendChild(td);
 				
 				//columns for half-hour increments
 				for(var j=0; j<22; j++){
@@ -31,17 +49,16 @@
 					input.setAttribute("value", 1);
 					td.appendChild(input);
 					
-					td.addEventListener("click", update_availability);
 					//do something when clicked
-					
+					td.addEventListener("click", update_availability);
+									
 					tr.appendChild(td);				
 				}
 			}
 			table_div.appendChild(table);
-			table_div.appendChild(document.createTextNode("Hello!<br>"));
 		}
 		
-		//I think this is the right idea at least?
+		//Change the cell color and input value when clicked
 		function update_availability(e){
 
 			e = e || window.event;
@@ -55,19 +72,18 @@
 			else{
 				element.children[0].value = 1;
 				element.style.backgroundColor = "white";
-			}
-			
+			}			
 		}
 		
-		function test(){
+		/*function test(){
 			alert("ok");
-		}
+		}*/
 		
 		//run creating the table when the page is loaded
 		window.onload = create_table;
 		
 	</script>
-	<!--should have standard CSS applied to table, then change cell color when clicked-->
+	<!--table CSS-->
 	<style>
 		table{
 			width: 100%;
