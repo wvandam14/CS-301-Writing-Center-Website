@@ -58,3 +58,32 @@ ul.checkbox li {
   border: 1px transparent solid;
   list-style-type: none; 
 }
+
+#tableholder{
+	margin-right: 150px;
+}
+
+td, th {
+	border: 1px solid black;
+}
+
+table.schecule{
+	text-align: center;
+	border-collapse: collapse;
+}
+
+th.name{
+	width: 150px;
+}
+
+td.unavailable{
+	background-color: #847D81;
+	height: 50px;
+	width: 50px;
+}
+
+td.available{
+	background-color: #022855;
+	height: 50px;
+	width: 50px;
+}
