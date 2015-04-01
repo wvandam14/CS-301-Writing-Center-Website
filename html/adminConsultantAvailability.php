@@ -88,7 +88,7 @@
 				        	
 				        	while($fullname != $consultants[$index]){
 				        		$table .= "<tr><th class=\"name\">" . $consultants[$index] . "</th>";
-				        		$table .= "<td class=\"NA\" colspan=\"22\"><b>Times Not Entered</b></td></tr>";
+				        		$table .= "<td class=\"NA\" colspan=\"22\"><b>Schedule Not Entered</b></td></tr>";
 				        		$index += 1;
 				        	}
 
@@ -109,7 +109,7 @@
 
 				        while($index < count($consultants)) {
 				        	$table .= "<tr><th class=\"name\">" . $consultants[$index] . "</th>";
-				        	$table .= "<td class=\"NA\" colspan=\"22\"><b>Times Not Entered</b></td></tr>";
+				        	$table .= "<td class=\"NA\" colspan=\"22\"><b>Schedule Not Entered</b></td></tr>";
 				        	$index += 1;
 				        }
 
