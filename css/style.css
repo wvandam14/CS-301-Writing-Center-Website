@@ -72,6 +72,12 @@ table.schecule{
 	border-collapse: collapse;
 }
 
+th{
+	background-color: #4B484A;
+	color: #fff;
+	height: 50px;
+}
+
 th.name{
 	width: 150px;
 }

@@ -44,16 +44,17 @@
 						        break;
 						    case 5:
 						        $day = "Friday";
-						        break; 
+						        break;
 						    case 6:
 						        $day = "Saturday";
-						        break;   
+						        break;
 						    default:
 						        $day = "NA";
 						}
 
 				        echo "<h2>$day</h2>";
-				        $table = "<table class = \"schecule\"><tr><th></th><th>9:00-9:30</th><th>9:30-10:00</th><th>10:00-10:30</th><th>10:30-11:00</th><th>11:00-11:30</th><th>11:30-12:00</th><th>12:00-12:30</th><th>12:30-1:00</th><th>1:00-1:30</th><th>1:30-2:00</th><th>2:00-2:30</th><th>2:30-3:00</th><th>3:00-3:30</th><th>3:30-4:00</th><th>4:00-4:30</th><th>4:30-5:00</th><th>5:00-5:30</th><th>5:30-6:00</th><th>6:00-6:30</th><th>6:30-7:00</th><th>7:00-7:30</th><th>7:30-8:00</th></tr>";
+				        //$table = "<table class = \"schecule\"><tr><th></th><th>9:00-9:30</th><th>9:30-10:00</th><th>10:00-10:30</th><th>10:30-11:00</th><th>11:00-11:30</th><th>11:30-12:00</th><th>12:00-12:30</th><th>12:30-1:00</th><th>1:00-1:30</th><th>1:30-2:00</th><th>2:00-2:30</th><th>2:30-3:00</th><th>3:00-3:30</th><th>3:30-4:00</th><th>4:00-4:30</th><th>4:30-5:00</th><th>5:00-5:30</th><th>5:30-6:00</th><th>6:00-6:30</th><th>6:30-7:00</th><th>7:00-7:30</th><th>7:30-8:00</th></tr>";
+				        $table = "<table class = \"schecule\"><tr><th></th><th colspan=\"2\">9:00 am</th><th colspan=\"2\">10:00 am</th><th colspan=\"2\">11:00 am</th><th colspan=\"2\">12:00 pm</th><th colspan=\"2\">1:00 pm</th><th colspan=\"2\">2:00 pm</th><th colspan=\"2\">3:00 pm</th><th colspan=\"2\">4:00 pm</th><th colspan=\"2\">5:00 pm</th><th colspan=\"2\">6:00 pm</th><th colspan=\"2\">7:00 pm</th></tr>";
 				        while ( $row = $result->fetch_array(MYSQLI_ASSOC) ) {
 				        	$fullname = $row['fname'] . " " . $row['lname'];
 				        	$times = $row['times'];
@@ -104,13 +105,3 @@
 		</div>
 	</body>
 </html>
-
-
-
-
-
-
-
-
-
-
