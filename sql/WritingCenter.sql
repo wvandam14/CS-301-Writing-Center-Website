@@ -73,7 +73,7 @@ create table Consultant_Evaluation_Form
 create table `consultant_availability_times` (
 	consultant_Id int NOT NULL,
 	day_Id int(1) NOT NULL,
-	times varchar(20) NOT NULL,
+	times varchar(22) NOT NULL,
 	FOREIGN KEY (consultant_Id) REFERENCES Accounts(accountId),
 	PRIMARY KEY (consultant_Id, day_Id)
 );
