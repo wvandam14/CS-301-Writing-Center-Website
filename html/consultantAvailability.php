@@ -6,7 +6,8 @@
 ?>
 <html>
 <head>
-	
+	<title>Consultant Availability</title>
+	<meta charset="uft-8">
 	<!--all your standard head stuff-->
 	<script type ="text/javascript">
 		//need, like, onload
@@ -45,7 +46,7 @@
 					//make a hidden input for the form.			//is there a less clunky way to do this?
 					var input = document.createElement("input");
 					input.setAttribute("type", "hidden");
-					input.setAttribute("name", i + "[" + j + "]");
+					input.setAttribute("name", "d"+i + "[" + j + "]");
 					input.setAttribute("value", 1);
 					td.appendChild(input);
 					
@@ -93,12 +94,13 @@
 		td{
 			height: 50px;
 			background-color: white;
+			border: 1px solid black;
 		}
 	</style>
 	
 </head>
 <body>
-	<form>	<!--need form details-->
+	<form method="post" action = "availabilityConfirmed.php">
 		<div id="tablediv">
 		<!--Table with days and times. Dynamically create with javascript? I guess it's also in a form because submit-->
 			<!--when the user clicks on a cell, it changes color and marks status as '1'-handle with javascript-->
