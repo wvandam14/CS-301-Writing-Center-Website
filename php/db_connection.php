@@ -235,8 +235,8 @@
         $app->assignment = $dbc->real_escape_string(trim($app->assignment));
         $app->send_post_consultation_notes = $dbc->real_escape_string(trim($app->send_post_consultation_notes));
         $app->description = $dbc->real_escape_string( $app->description);
-        $app->client_id = $dbc->real_escape_string(trim($app->client_id));
-        $app->consultant_id = $dbc->real_escape_string(trim($app->consultant_id));
+        // $app->client_id = $dbc->real_escape_string(trim($app->client_id));
+        // $app->consultant_id = $dbc->real_escape_string(trim($app->consultant_id));
         $app->schedule_id = $dbc->real_escape_string(trim($app->schedule_id));
         $app->date = $dbc->real_escape_string(trim($app->date));
         $app->appointment_missed = $dbc->real_escape_string(trim($app->appointment_missed));
@@ -257,7 +257,7 @@
         	}
         }
         
-        $q = "UPDATE appointments AS a SET a.course_name = '$app->course_name',a.course_number = '$app->course_number',a.instructor = '$app->instructor',a.assignment = '$app->assignment',a.send_post_consultation_notes = '$app->send_post_consultation_notes',a.appointment_missed = '$app->appointment_missed',a.appointment_cancelled = '$app->appointment_cancelled',a.description = '$app->description',a.client_id = '$app->client_id',a.consultant_id = '$app->consultant_id',a.schedule_id = '$app->schedule_id' WHERE a.id = '$app->id'";
+        $q = "UPDATE appointments AS a SET a.course_name = '$app->course_name',a.course_number = '$app->course_number',a.instructor = '$app->instructor',a.assignment = '$app->assignment',a.send_post_consultation_notes = '$app->send_post_consultation_notes',a.appointment_missed = '$app->appointment_missed',a.appointment_cancelled = '$app->appointment_cancelled',a.description = '$app->description', a.schedule_id = '$app->schedule_id' WHERE a.id = '$app->id'";
 
         if($r = $dbc->query($q)){
         	return true;
