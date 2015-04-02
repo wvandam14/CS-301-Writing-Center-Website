@@ -3,6 +3,8 @@
   <body>
     <h1> You are now registered! </h1>
     <?php
+
+      include "db_connect.php";
       // This takes all the values from the form to be used in the query
       $Email = $_POST["email"];
       $Fname = $_POST["firstName"];
@@ -20,6 +22,8 @@
       $Announcement = $_POST["announcement"];
       $Remind = $_POST["remind"];
 
+<<<<<<< HEAD
+=======
       // Initializes values to connect to the database
       $servername = "CS1";
       $username = "CS472_2015";
@@ -32,6 +36,7 @@
         die( 'Connect Error: ' . $db->connect_errno );
       }
 
+>>>>>>> 4ff4917d0f41c2459e834dc30c4ab4d309f5b65a
       // Query to get the Consultant ID based on the name given in the form
       //$InsertClient = 'Insert into Clients (fname,lname,email_address,class_standing,Graduation_year,major,secondary_major,minor,password) VALUES (?,?,?,?,?,?,?,?,?);';
       $InsertClientDetails = 'Insert into accountdetails (accountDetailId, class_standing, graduation_year, major, secondary_major, minor, bio, missed_appointments) values(?,?,?,?,?,?,?,?);';
