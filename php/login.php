@@ -12,9 +12,20 @@
 		<meta http-equiv="content-type" content="text/html"; charset="utf-8" />
 	</head>
 	<body>
+		<div id="header">
+		<h1></h1>
+		</div>
+		<div id="username-display">
+			<a href="appointmentPopup.php">Appointment</a>
+			<a href="viewAppointments.php">View My Appointments</a>
+			<a href="#"><?php echo empty($_SESSION['username']) ? '':$_SESSION['username']; ?></a>
+			<a href="logout.php" title="">logout</a>
+		</div>
 
 		<div id="content">
 		<!-- Start of content -->
+
+
 		<?php 
 
 			function validateEntries($post){
@@ -42,33 +53,35 @@
 			if($_SERVER['REQUEST_METHOD'] == 'POST'){
 
 				$user = validateEntries($_POST);
-				if(empty($user->errors)) {
+				if(empty($user->errors)){
 					require_once('db_connection.php');
 					$u = array();
 					$u = isValidUser($user);
 
-					if(empty($u)) {
+					if(empty($u)){
 						echo '<h1>Error!</h1>
 						<p class="error">The following error(s) occured:<br/>';
 						echo '</p><p>Invalid user name and password combination</p><p><br/></p>';
 					}
-					else {
+					else{
 						$_SESSION['user_id'] = $u['id'];
 						$_SESSION['username'] = $u['username'];
 						$_SESSION['permission'] = $u['permission'];
-						header('location:viewAppointments.php');	
-						exit();			
+
+
+						header('location:login.php');
+						exit();
 					}
+
 				}
-						
-				else {
+				else{
 					echo '<h1>Error!</h1>
 					<p class="error">The following error(s) occured:<br/>';
 					foreach($user->errors as $msg){
 						echo " - $msg<br/>\n";
 					}
-				}
 					echo '</p><p>Please try again.</p><p><br/></p>';
+				}
 			}
 		?>
 		 	
