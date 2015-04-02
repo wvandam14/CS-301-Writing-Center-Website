@@ -1,7 +1,7 @@
 <?php 
 	DEFINE('DB_USER','root');
-	DEFINE('DB_PASSWORD','');
-	DEFINE('DB_HOST','localhost');
+	DEFINE('DB_PASSWORD','writingcenter');
+	DEFINE('DB_HOST','CS472_2015');
 	DEFINE('DB_NAME','writingcenter');
 
 
