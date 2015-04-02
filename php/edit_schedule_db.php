@@ -29,10 +29,10 @@
 		$stmt1 = $db->prepare($GetConsultantID);
 		$Consultant = $db->real_escape_string($Consultant);
 		$stmt1->bind_param("s", $Consultant);
-        // Execute the query
-        $result = $stmt1->execute();
-        // Get the result
-        $result = $stmt1->get_result();
+	        // Execute the query
+	        $result = $stmt1->execute();
+	        // Get the result
+	        $result = $stmt1->get_result();
 		$row = $result->fetch_assoc();
 		$ConsID = $row['accountId'];
 		//echo $row['accountId'];
