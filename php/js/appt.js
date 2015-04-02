@@ -37,6 +37,11 @@ $(function(){
 	    });
 	}
 
+	$('#redirectAppt').on('click', function() {
+		window.location.href = "viewAppointments.php";
+		return false;
+	});
+
 
 	$('#apptDate').on('input',function(e){
 		var date = $('#apptDate').val();
