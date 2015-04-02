@@ -1,13 +1,3 @@
-<<<<<<< HEAD
-<!-- nav bar -->
-<div id="username-display">
-	<a href="appointmentPopup.php">Appointment</a>
-	<a href="viewAppointments.php">View My Appointments</a>
-	<?php if($_SESSION['permission'] == 1) { ?> <a href="manageConsultants.php">Manage Consultants</a><?php } ?>
-	<a href="#"><?php echo empty($_SESSION['username']) ? '':$_SESSION['username']; ?></a>
-	<a href="logout.php" title="">logout</a>
-</div>
-=======
 <!-- session permissions: 0 (client), 1 (consultant), 2 (admin) -->
 
 <nav id="username-display">
@@ -48,4 +38,3 @@
           } ?>
   </ul>
 </nav>
->>>>>>> 8640e70db9291dacee4285a73e7945b867efc2f5
