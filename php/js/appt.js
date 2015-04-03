@@ -42,7 +42,7 @@ $(function(){
 		return false;
 	});
 
-	$('#add_post_notes').on('click', function() {
+	$('#edit_post_notes').on('click', function() {
 		window.location.href = "../html/postConsultation.html?" + $(this).attr("value");
 		return false;
 	});

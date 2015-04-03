@@ -212,8 +212,8 @@ Date: 3/7/2015
                         <input type="checkbox" name="appointment_cancelled" id="appointment_cancelled" <?php echo $edit ? ($appointment->appointment_cancelled ? 'checked':'') : (!empty($_POST['appointment_cancelled']) ? 'checked':'') ?> <?php echo $appointment->appointment_cancelled ? "disabled":''; ?>/>
                         <label>Appointment cancelled</label>
                     </div> 
-                    <div class="addPostNotes">
-                        <button class="btn" type="button" name="add_post_notes" id="add_post_notes" value="<?php echo $appointment_id ?>">Add Post Consultation Notes</button>
+                    <div class="editPostNotes">
+                        <button class="btn" type="button" name="edit_post_notes" id="edit_post_notes" value="<?php echo $appointment_id ?>">Edit Post Consultation Notes</button>
                     </div>
 
                 <?php
