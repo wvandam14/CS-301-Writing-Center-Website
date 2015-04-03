@@ -16,7 +16,11 @@
 		<h1></h1>
 		</div>
 		<div id="username-display">
-			<a href="appointmentPopup.php">Appointment</a>
+			<?php if(!empty($_SESSION['permission'])) {
+				if ($_SESSION['permission'] != 2) {
+			?>
+				<a href="appointmentPopup.php">Appointment</a>
+			<?php }} ?>
 			<a href="viewAppointments.php">View My Appointments</a>
 			<a href="#"><?php echo empty($_SESSION['username']) ? '':$_SESSION['username']; ?></a>
 			<a href="logout.php" title="">logout</a>
