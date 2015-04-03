@@ -17,6 +17,7 @@ Date: 3/7/2015
 
     if(!$_SERVER['QUERY_STRING']){
         $edit = false;
+        $canEdit = false;
     }
     else{
         $edit = true;
@@ -40,9 +41,6 @@ Date: 3/7/2015
         $appointment = getAppointmentById($appointment_id);
         // print_r($appointment);die();
     }
-
-  
-    
 
     function saveToJSON($data){
         $data_json = json_encode($data);
@@ -147,7 +145,7 @@ Date: 3/7/2015
                 <div>
                     <div class="one">
                         <label>Date</label>
-                        <input type='date' id='apptDate' name="apptDate" value="<?php echo $edit ? $appointment->date :  (!empty($_POST['apptDate']) ? $_POST['apptDate']:'');?>" <?php echo $appointment->appointment_cancelled ? "disabled":''; ?> >
+                        <input type='date' id='apptDate' name="apptDate" value="<?php echo $edit ? $appointment->date :  (!empty($_POST['apptDate']) ? $_POST['apptDate']:'');?>" <?php if($edit) {echo $appointment->appointment_cancelled ? "disabled":'';}; ?> >
                     </div>
 
                     <div class="two">
@@ -161,35 +159,35 @@ Date: 3/7/2015
                 <div>
                     <div class="one">
                         <label>Course Number</label>
-                        <input type="text" name="courseNum" value="<?php echo $edit ? $appointment->course_number : (!empty($_POST['courseNum']) ? $_POST['courseNum']:''); ?>" <?php echo $appointment->appointment_cancelled ? "disabled":''; ?>/>
+                        <input type="text" name="courseNum" value="<?php echo $edit ? $appointment->course_number : (!empty($_POST['courseNum']) ? $_POST['courseNum']:''); ?>" <?php if($edit) {echo $appointment->appointment_cancelled ? "disabled":'';}; ?>/>
                     </div>
 
                     <div class="two">
                         <label>Course Name</label>
-                        <input type="text" name="courseName" value="<?php echo $edit ? $appointment->course_name : (!empty($_POST['courseName']) ? $_POST['courseName']:'') ?>" <?php echo $appointment->appointment_cancelled ? "disabled":''; ?>/>
+                        <input type="text" name="courseName" value="<?php echo $edit ? $appointment->course_name : (!empty($_POST['courseName']) ? $_POST['courseName']:'') ?>" <?php if($edit) {echo $appointment->appointment_cancelled ? "disabled":'';}; ?>/>
                     </div>
                 </div>
 
                 <div>
                     <div class="one">
                         <label>Instructor Name</label>
-                        <input type="text" name="instructorName" value="<?php echo $edit ? $appointment->instructor : (!empty($_POST['instructorName']) ? $_POST['instructorName']:'') ?>" <?php echo $appointment->appointment_cancelled ? "disabled":''; ?>/>
+                        <input type="text" name="instructorName" value="<?php echo $edit ? $appointment->instructor : (!empty($_POST['instructorName']) ? $_POST['instructorName']:'') ?>" <?php if($edit) {echo $appointment->appointment_cancelled ? "disabled":'';}; ?>/>
                     </div>
 
                     <div class="two">
                         <label>Assignment Name</label>
-                        <input type="text" name="assignmentName" value="<?php echo $edit ? $appointment->assignment :  (!empty($_POST['assignmentName']) ? $_POST['assignmentName']:'') ?>" <?php echo $appointment->appointment_cancelled ? "disabled":''; ?>/>
+                        <input type="text" name="assignmentName" value="<?php echo $edit ? $appointment->assignment :  (!empty($_POST['assignmentName']) ? $_POST['assignmentName']:'') ?>" <?php if($edit) {echo $appointment->appointment_cancelled ? "disabled":'';}; ?>/>
                     </div>
                 </div>
 
                 <div>
                     <label>Assignment Description</label>
-                    <textarea name="assignmentDescription" <?php echo $appointment->appointment_cancelled ? "disabled":''; ?>><?php echo $edit ? $appointment->description : (!empty($_POST['assignmentDescription']) ? $_POST['assignmentDescription']:'')?></textarea>
+                    <textarea name="assignmentDescription" <?php if($edit) {echo $appointment->appointment_cancelled ? "disabled":'';}; ?>><?php echo $edit ? $appointment->description : (!empty($_POST['assignmentDescription']) ? $_POST['assignmentDescription']:'')?></textarea>
                 </div>
 
 
                 <div class="overflow">
-                    <input type="checkbox" name="consultationNotes" id="consultationNotes" <?php echo $edit ? ($appointment->send_post_consultation_notes ? 'checked':'') : (!empty($_POST['consultationNotes']) ? 'checked':'') ?> <?php echo $appointment->appointment_cancelled ? "disabled":''; ?>/>
+                    <input type="checkbox" name="consultationNotes" id="consultationNotes" <?php echo $edit ? ($appointment->send_post_consultation_notes ? 'checked':'') : (!empty($_POST['consultationNotes']) ? 'checked':'') ?> <?php if($edit) {echo $appointment->appointment_cancelled ? "disabled":'';}; ?>/>
                     <label>Send Post-Consultation notes to instructor</label>
                     <div class="relative">
                         <a id="whatsThis">Whats this?</a>
