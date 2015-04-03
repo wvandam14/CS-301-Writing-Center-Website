@@ -17,7 +17,7 @@
 		</div>
 		<div id="username-display">
 			<?php if(!empty($_SESSION['permission'])) {
-				if ($_SESSION['permission'] != 2) {
+				if ($_SESSION['permission'] == 3) {
 			?>
 				<a href="appointmentPopup.php">Appointment</a>
 			<?php }} ?>
