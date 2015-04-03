@@ -30,7 +30,7 @@ Date: 3/7/2015
                 $canEdit = false;
             }
             else{
-                if($_SESSION['permission'] == 2){
+                if($_SESSION['permission'] == 2 || $_SESSION['permission'] == 3){
                     $canEdit = true;
                 }
                 else{
