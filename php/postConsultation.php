@@ -31,11 +31,18 @@
       $Sentence = $_POST["Sentence"];
       $Grammar = $_POST["Grammar"];
 
+      // $appointment_id = $_SERVER['QUERY_STRING'];
+
       // Initializes values to connect to the database
       $servername = "127.0.0.1";
       $username = "Admin";
       $password = "123";
 
+      // DEFINE('DB_USER','root');
+      // DEFINE('DB_PASSWORD','cs301');
+      // DEFINE('DB_HOST','localhost');
+      // DEFINE('DB_NAME','writingcenter');
+      // $dbc =  new mysqli(DB_HOST,DB_USER,DB_PASSWORD,DB_NAME);
       // Tries to connect to the database
       $db = new mysqli( $servername, $username, $password, "WritingCenter" );
       // If it fails, output a connection error
@@ -129,6 +136,23 @@
           die( 'Error in query preparation. error = ' . $db->errno .
           " " . $db->error );
         }
+
+        //relation of appointment to post consultation notes
+
+        // $query2 = "UPDATE into appointments (post_consultation_notes_id) VALUES (?);";
+        // // Something about monkey business
+        // if($stmt4= $db->prepare($query2)){
+
+        //   // Bind the cleaned parameters to the pre-prepared query1
+        //   $stmt4->bind_param("i", $appointment_id);
+        //   // Execute the insertion
+        //   $stmt4->execute();        
+        // }
+        // else {
+        //   die( 'Error in query preparation. error = ' . $db->errno .
+        //   " " . $db->error );
+        // }
+
 
         // Close the database
         $db->close();

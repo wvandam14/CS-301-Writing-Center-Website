@@ -42,6 +42,10 @@ $(function(){
 		return false;
 	});
 
+	$('#add_post_notes').on('click', function() {
+		window.location.href = "../html/postConsultation.html?" + $(this).attr("value");
+		return false;
+	});
 
 	$('#apptDate').on('input',function(e){
 		var date = $('#apptDate').val();

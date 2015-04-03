@@ -66,7 +66,6 @@ Date: 3/7/2015
         saveToJSON($data); 
     }
 
-
    updateScheduleFile();
  
     if($_SERVER['REQUEST_METHOD'] == 'POST'){
@@ -214,7 +213,7 @@ Date: 3/7/2015
                         <label>Appointment cancelled</label>
                     </div> 
                     <div class="addPostNotes">
-                        <button class="btn" type="button" name="add_post_notes">Add Post Consultation Notes</button>
+                        <button class="btn" type="button" name="add_post_notes" id="add_post_notes" value="<?php echo $appointment_id ?>">Add Post Consultation Notes</button>
                     </div>
 
                 <?php
