@@ -1,0 +1,3 @@
+use writingcenter;
+
+select accountId, accountTypeId from accounts where email_address = $email && password = $password;

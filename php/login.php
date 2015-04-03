@@ -5,80 +5,75 @@
 ?>
 <!DOCTYPE html>
 <html>
-	<head>
-		<title><?php echo $page_title; ?></title>
-		<link rel="stylesheet" href="<?php echo empty($css) ? './include/css/style.css':$css; ?>" type="text/css" media="screen"/>
-		<?php if(!empty($header_line)) echo $header_line; ?>
-		<meta http-equiv="content-type" content="text/html"; charset="utf-8" />
-	</head>
-	<body>
-
-		<div id="content">
-		<!-- Start of content -->
+  <body>
+    <h1>  </h1>
 		<?php 
 
-			function validateEntries($post){
-		
-				$user = new stdClass();
-				$user->errors = array();
-				
-				if(empty($post['email'])){
-					$user->errors[] = "Your forgot to enter your user name.";
-				}
-				else{
-					$user->email = trim($post['email']);
-				}
-
-				if(empty($post['password'])){
-					$user->errors[] = "Your forgot to enter your password.";
-				}
-				else{
-					$user->password = trim($post['password']);
-				}
-
-				return $user;
-			}
-
-			if($_SERVER['REQUEST_METHOD'] == 'POST'){
-
-				$user = validateEntries($_POST);
-				if(empty($user->errors)) {
-					require_once('db_connection.php');
-					$u = array();
-					$u = isValidUser($user);
-
-					if(empty($u)) {
-						echo '<h1>Error!</h1>
-						<p class="error">The following error(s) occured:<br/>';
-						echo '</p><p>Invalid user name and password combination</p><p><br/></p>';
-					}
-					else {
-						$_SESSION['user_id'] = $u['id'];
-						$_SESSION['username'] = $u['username'];
-						$_SESSION['permission'] = $u['permission'];
-						header('location:viewAppointments.php');	
-						exit();			
-					}
-				}
+			$error='';
+			$col1=NULL;
 						
-				else {
-					echo '<h1>Error!</h1>
-					<p class="error">The following error(s) occured:<br/>';
-					foreach($user->errors as $msg){
-						echo " - $msg<br/>\n";
-					}
+			function validate($value) {
+				if (empty($value)) {
+					return false;
 				}
-					echo '</p><p>Please try again.</p><p><br/></p>';
+				else {
+					return true;
+				}
 			}
-		?>
-		 	
-		 	<form action="<?php $_SERVER['PHP_SELF'] ?>" method="post" class="form_login">
-				<h1>Log in</h1>
-				<p>User Name: <input type="text" name="email" size="15" maxlength="20" value="<?php if(isset($_POST['email'])) echo $_POST['email'] ?>"></p>
-				<p>Password: <input type="password" name="password" size="15" maxlength="20" value="<?php if(isset($_POST['password'])) echo $_POST['password'] ?>"></p>
-				<p><input type="submit" name="submit" value="Log in"></p>
-			</form>
+				$email=$_POST['email'];
+				$accPassword=$_POST['password'];
 
-		</div>
-	</body>
+			if (!validate($accPassword) || !validate($email)) {
+				echo "<h1>Please do not leave text boxes blank!</h1>";
+
+			}
+			else 
+			{
+
+				// Initializes values to connect to the database
+     			$servername = "CS1";
+     			$username = "CS472_2015";
+      			$password = "WritingCenter";
+
+				// connect to database
+				$db = new mysqli( $servername, $username, $password, "WritingCenter" );
+
+      			// If it fails, output a connection error
+     			if ( $db->connect_errno ) {
+      				die( 'Connect Error: ' . $db->connect_errno );
+     			}
+
+     			$pass = $accPassword;
+     			$em = $email;
+
+     			$stmt = $db->prepare("SELECT * FROM accounts WHERE password = ? AND email_address = ?");
+     			$stmt->bind_param("ss", $pass, $em);
+
+     			$stmt->execute();
+
+     			$stmt->bind_result($col1, $col2, $col3, $col4, $col5, $col6, $col7);
+     			$stmt->fetch();
+
+     			$stmt->close();
+
+
+     			$db->close();
+
+
+     			if ($col1 != NULL){
+     				$_SESSION['id'] = $col1;
+					$_SESSION['email'] = $col3;
+					$_SESSION['type'] = $col6;
+
+					header("Location: http://cs1.whitworth.edu/WritingCenter/FeatureSet1/CS-301-Writing-Center-Website/html/");
+
+					exit();
+     			}
+     			else{
+     				echo "<h1>Invalid email/password.</h1>";
+     			}
+     		}
+			
+		?>
+  </body>
 </html>
