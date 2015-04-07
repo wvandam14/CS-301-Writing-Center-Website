@@ -7,10 +7,10 @@
               echo "<li>
                       <a href='#'>Administrator Tasks</a>
                       <ul>
-                        <li><a href='#'>Manage Staff Profiles</a></li>
-                        <li><a href='#'>View Staff Availability</a></li>
-                        <li><a href='#'>Create New Schedule</a></li>
-                        <li><a href='#'>Edit Current Schedule</a></li>
+                        <li><a href='editConsultant.php'>Manage Staff Profiles</a></li>
+                        <li><a href='viewAppointments.php'>View Staff Availability</a></li>
+                        <li><a href='add_schedule.php'>Create New Schedule</a></li>
+                        <li><a href='edit_schedule.php'>Edit Current Schedule</a></li>
                         <li><a href='#'>Enter Calendar Events</a></li>
                       </ul>
                     </li>";
@@ -32,7 +32,7 @@
                         <li><a href='#'>Help</a></li>
                         <li><a href='#'>Contact Us</a></li>
                         <li><a href='#'>Edit Account</a></li>
-                        <li><a href='#'>Log Out</a></li>
+                        <li><a href='logout.php'>Log Out</a></li>
                       </ul>
                     </li>";
           } ?>
