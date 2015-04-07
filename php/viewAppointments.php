@@ -18,12 +18,13 @@
 		<meta http-equiv="content-type" content="text/html"; charset="utf-8" />
 	</head>
 	<body>
-		<div id="header">
-		<h1>View Consultant Calendar</h1>
-		</div>
+		
 
 		<?php require_once("navbar.php"); ?>
-		<div id="content">
+		<div id="content" style="margin-left:auto; margin-right:auto; width: 50%">
+			<div id="header">
+				<h1>View Consultant Calendar</h1>
+			</div>
 		<!-- Start of content -->
 			<?php
 
