@@ -244,7 +244,13 @@
 
 
 
-       
+		if($app->appointment_cancelled){
+			$schedule_id = empty($app->old_schedule_id) ? $app->schedule_id:$app->old_schedule_id;
+			$q = "UPDATE schedules AS s SET s.status_ = 'available' WHERE s.scheduleID = '$schedule_id'";
+        	if(!($r = $dbc->query($q))){
+        		die('Error on freeing old time slot');
+        	}
+		}
 
         if(!(empty($app->old_schedule_id))){
         	$q = "UPDATE schedules AS s SET s.status_ = 'available' WHERE s.scheduleID = '$app->old_schedule_id'";
