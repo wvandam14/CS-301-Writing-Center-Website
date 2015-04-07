@@ -38,7 +38,7 @@
 		//echo $row['accountId'];
 		echo $ConsID;
 		
-		$UpdateSchedule = 'Update schedules Set status_ = "unavailable" Where accountId = ? AND date_ = ?';
+		$UpdateSchedule = 'Update schedules Set status_ = "unavailable" Where consultantID = ? AND date_ = ?';
 		if($stmt2 = $db->prepare($UpdateSchedule)){
 			echo "poop";
 		}
