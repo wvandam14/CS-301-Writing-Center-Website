@@ -122,14 +122,9 @@
         //print_r($app);die();
 
         $q = "UPDATE schedules AS s SET s.status_ = 'booked' WHERE s.scheduleID = '$app->schedule_id'";
-
         if($r = $dbc->query($q)){
         	$q = "INSERT INTO appointments (course_name,course_number,instructor,assignment,send_post_consultation_notes,appointment_missed,appointment_cancelled,description,client_id,consultant_id,schedule_id) VALUES ('$app->course_name','$app->course_number','$app->instructor','$app->assignment','$app->send_post_consultation_notes','$app->appointment_missed','$app->appointment_cancelled','$app->description','$app->client_id','$app->consultant_id','$app->schedule_id');";
-<<<<<<< HEAD
-=======
-        	//die($q);
->>>>>>> 50f896ff22c513e434ba71210066f2f0c710533c
-
+        	die($q);
     		if($r = $dbc->query($q)){
     			return true;
     		}
