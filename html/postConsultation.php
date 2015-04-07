@@ -18,6 +18,20 @@ Date: 1/22/2015
 		<img src="../img/wcc-logo.png" alt="WCC Logo" class='logo'>
 	</a>
 	<h1>Post-Consultation Notes</h1>
+	<?php 
+		session_start();
+		//navbar
+		include "../php/navbar.php";
+		
+		//check login
+		if(!isset($_SESSION['user_id'])){
+			echo "You are not logged in. Please <a href='login.html'>log in</a> to continue";
+			exit;
+		}
+	
+	?>
+	
+	
 	<hr>
 	<form action="../php/postConsultation.php" method = "post"><!--attach to a php-->
 	<div class="outlined"><!--modeled this form after the paper we used as a reference-->

@@ -11,6 +11,17 @@
 		<img src="../img/wcc-logo.png" alt="WCC Logo" class='logo'>
 		</a>
 		<h1>Consultant Evaluation</h1>
+		<?php
+			session_start();
+			//navbar
+			include "../php/navbar.php";
+			
+			//check login
+			if(!isset($_SESSION['user_id'])){
+				echo "You are not logged in. Please <a href='login.html'>log in</a> to continue";
+				exit;
+			}
+		?>
 		<!--Have the user input their name and the date-->
 		<div class='container'>
 			<form action = "../php/ConsultantEvaluation.php" method ="post">

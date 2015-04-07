@@ -107,10 +107,6 @@
 			//error message if they don't
 		
 		session_start();
-		///STUFF SO JENNA CAN FORMAT THE PAGE
-		$_SESSION['permission'] = 1;
-		$_SESSION['user_id'] = 42;
-		
 		
 		include "../php/navbar.php";	
 		if(!isset($_SESSION['user_id'])){
