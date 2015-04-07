@@ -56,9 +56,14 @@ $(function(){
 		if(i != schedule.length){
 			$.each(schedule[i].time_slots,function(index,slot){
 				var args = slot.split('-');
+
+					var t = args[2];
+					if (t.length == 3) t = "0" + t;
+					t = t[0]+t[1]+":"+t[2]+t[3];
+
 				 $('#apptTime').append($('<option>', { 
 				        value: slot,
-				        text : args[2]+"-"+consultants[args[1]]
+				        text : t+"-"+consultants[args[1]]
 				    }));
 			});
 		}

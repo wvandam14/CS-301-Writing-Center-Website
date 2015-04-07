@@ -61,6 +61,8 @@ Date: 3/7/2015
         $data = new stdClass();
         $data->consultants = getConsultants();
         $data->schedule = getSchedule();
+        //print_r($data);die();
+
         saveToJSON($data); 
     }
 
@@ -137,10 +139,7 @@ Date: 3/7/2015
                 <h1>Make Appointment</h1>
             </div>
             <form action="" method="post">
-                <div>
-                   <!--  <label>Client Name</label> -->
-                    <h2><?php echo  $edit ? $appointment->client_name:$_SESSION['name'] ?></h2>
-                </div>
+                
 
                 <div>
                     <div class="one">
@@ -221,7 +220,7 @@ Date: 3/7/2015
                 <div>
                     <div id="instructorEmail" style="display: none">
                         <label>Instructor Email</label>
-                        <input type="email" <?php echo $appointment->appointment_cancelled ? "disabled":''; ?>/>
+                        <input type="email" <?php echo $edit ? ($appointment->appointment_cancelled ? "disabled":'') : '' ; ?>/>
                     </div>
                 </div>
 
