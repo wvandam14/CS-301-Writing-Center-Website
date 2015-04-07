@@ -8,6 +8,8 @@ Date: 3/7/2015
 
     session_start();
 
+    print_r($_SESSION);die();
+
     if(empty($_SESSION['type'])){
         header('location:login.php');
     }
@@ -93,7 +95,7 @@ Date: 3/7/2015
             $app->course_name = $_POST['courseName'];
             $app->instructor = $_POST['instructorName'];
             $app->assignment = $_POST['assignmentName'];
-            $app->send_post_consultation_notes = !empty($_POST['consultationNotes']);
+            $app->send_post_consultation_notes = !empty($_POST['consultationNotes']) ? 1 : 0 ;
             $app->description = $_POST['assignmentDescription'];
             $app->client_id = $_SESSION['id'];
             $app->consultant_id = explode('-',$_POST['apptTime'])[1];
