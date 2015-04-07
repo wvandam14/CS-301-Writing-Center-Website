@@ -56,7 +56,6 @@
           die( 'Error in query preparation. error = ' . $db->errno .
           " " . $db->error );
         }
-		echo 'BAM'
     ?>
 
   </body>
