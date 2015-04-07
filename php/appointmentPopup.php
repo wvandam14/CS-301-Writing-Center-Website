@@ -99,8 +99,8 @@ Date: 3/7/2015
             $app->consultant_id = explode('-',$_POST['apptTime'])[1];
             $app->schedule_id = explode('-',$_POST['apptTime'])[0];
             $app->date = $_POST['apptDate'];
-            $app->appointment_missed = !empty($_POST['appointment_missed']);
-            $app->appointment_cancelled = !empty($_POST['appointment_cancelled']);;
+            $app->appointment_missed = !empty($_POST['appointment_missed']) ? 1 : 0 ;
+            $app->appointment_cancelled = !empty($_POST['appointment_cancelled']) ? 1 : 0;
 
 
             if($edit){            
@@ -122,7 +122,7 @@ Date: 3/7/2015
                     updateScheduleFile();
                 }
             }          
-        }
+        } 
     }
  ?>
 <html lang="en-US">
