@@ -7,6 +7,7 @@
 	require_once('db_connection.php');
 	
 	$data = getAllAppointments($_SESSION['id'], $_SESSION['type']);
+	//print_r($data);
 ?>
 <!DOCTYPE html>
 <html>
@@ -26,7 +27,7 @@
 				<h1>View Consultant Calendar</h1>
 			</div>
 		<!-- Start of content -->
-			<?php
+<!-- 			<?php
 
 				$db = new mysqli(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
 				if($db->connect_error) {
@@ -49,26 +50,26 @@
 
 				$db->close();
 
-			?>
+			?> -->
 
-			<table>
-				<th>Name</th>
+			<table id="viewConsultantAppointments">
+				<th>Assignment Description</th>
 				<th>Date</th>
 				<th>Time slot</th>
-				<th>Status</th>
+				<th><?php echo $_SESSION['type'] == 2 ? "Clint Name" : "Consultant Name"; ?></th>
 				<?php
-				
-					foreach($assoc as $row) {
-						echo "<tr>";
-						echo "<td>".$row['fname']." ".$row['lname']."</td>";
-						echo "<td>".$row['date_']."</td>";
-						echo "<td>".$row['time_slot']."</td>";
-						echo "<td>".$row['status_']."</td>";
-						echo "</tr>";
-					}
-
+					foreach ($data as $v => $d) {
 				?>
+				<tr>
+					<?php foreach ($d as $value) { ?>
+						<td><?php echo $value ?></td>
+					<?php } ?>
+					<td><button class="editAppointment" name="editAppointment" value="<?php echo $v ?>">Edit Appointment</button></td>
+				</tr>
+				<?php } ?>
 			</table>
 		</div>
+		<script src="js/jquery-1.11.0.js"></script>
+        <script src="js/appt.js"></script>
 	</body>
 </html>

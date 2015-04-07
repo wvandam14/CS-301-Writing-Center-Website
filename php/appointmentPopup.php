@@ -8,7 +8,7 @@ Date: 3/7/2015
 
     session_start();
 
-    print_r($_SESSION);die();
+    //print_r($_SESSION);die();
 
     if(empty($_SESSION['type'])){
         header('location:login.php');

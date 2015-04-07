@@ -124,7 +124,7 @@
         $q = "UPDATE schedules AS s SET s.status_ = 'booked' WHERE s.scheduleID = '$app->schedule_id'";
         if($r = $dbc->query($q)){
         	$q = "INSERT INTO appointments (course_name,course_number,instructor,assignment,send_post_consultation_notes,appointment_missed,appointment_cancelled,description,client_id,consultant_id,schedule_id) VALUES ('$app->course_name','$app->course_number','$app->instructor','$app->assignment','$app->send_post_consultation_notes','$app->appointment_missed','$app->appointment_cancelled','$app->description','$app->client_id','$app->consultant_id','$app->schedule_id');";
-        	die($q);
+        	//die($q);
     		if($r = $dbc->query($q)){
     			return true;
     		}
@@ -143,7 +143,7 @@
 		$dbc = $GLOBALS['dbc'];
 		
 		if ($permission == 3) {
-			$q = "SELECT CONCAT(appt.description, '|', s.date_, '|', s.time_slot, '|', a.fname, '|', a.lname) as info, appt.id as id
+			$q = "SELECT CONCAT(appt.description, '|', s.date_, '|', s.time_slot, '|', a.fname, ' ', a.lname) as info, appt.id as id
 					FROM appointments as appt
 					inner join schedules as s
 					on appt.schedule_id = s.scheduleID
@@ -152,7 +152,7 @@
 					WHERE appt.client_id = '$id'
 					Order by s.date_";
 		} else {
-			$q = "SELECT CONCAT(appt.description, '|', s.date_, '|', s.time_slot, '|', a.fname, '|', a.lname) as info, appt.id as id
+			$q = "SELECT CONCAT(appt.description, '|', s.date_, '|', s.time_slot, '|', a.fname, ' ' , a.lname) as info, appt.id as id
 					FROM appointments as appt
 					inner join schedules as s
 					on appt.schedule_id = s.scheduleID

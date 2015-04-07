@@ -47,6 +47,11 @@ $(function(){
 		return false;
 	});
 
+	$('.editAppointment').on('click', function() {
+		window.location.href = "appointmentPopup.php?" + $(this).attr("value");
+		return false;
+	});
+
 	$('#apptDate').on('input',function(e){
 		var date = $('#apptDate').val();
 
