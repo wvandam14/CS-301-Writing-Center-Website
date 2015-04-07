@@ -22,6 +22,7 @@
 	</head>
 	<body>
 <<<<<<< HEAD
+<<<<<<< HEAD
 		<div id="header">
 		<h1></h1>
 		</div>
@@ -39,6 +40,8 @@
 		<div id="content">
 		<!-- Start of content -->
 =======
+=======
+>>>>>>> origin/master
 		<img src = "../img/wcc-logo.png" alt = "WCC Logo" class ='logo'>
 		<h1 align = "center">Welcome!</h1>
 		<div> 
@@ -55,6 +58,9 @@
 				<?php
 					$email = $dbc->real_escape_string($_POST['email']);
 					$password = $dbc->real_escape_string($_POST['password']);
+<<<<<<< HEAD
+>>>>>>> origin/master
+=======
 >>>>>>> origin/master
 
 

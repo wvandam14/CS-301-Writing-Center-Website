@@ -18,6 +18,20 @@ Date: 1/22/2015
 		<img src="../img/wcc-logo.png" alt="WCC Logo" class='logo'>
 	</a>
 	<h1>Post-Consultation Notes</h1>
+	<?php 
+		session_start();
+		//navbar
+		include "../php/navbar.php";
+		
+		//check login
+		if(!isset($_SESSION['user_id'])){
+			echo "You are not logged in. Please <a href='login.html'>log in</a> to continue";
+			exit;
+		}
+	
+	?>
+	
+	
 	<hr>
 	<form action="../php/postConsultation.php" method = "post"><!--attach to a php-->
 	<div class="outlined"><!--modeled this form after the paper we used as a reference-->
@@ -41,13 +55,13 @@ Date: 1/22/2015
 				<option>Other</option>
 			</select></p>
 		<p>
-			Instructor Name <select name="Instructor"><!--use php to add in instructor names and course names and section numbers-->
-				<option>N/A</option>
-				<option>This is</option>
-				<option>where the</option>
-				<option>instructor names</option>
-				<option>will go</option>
-			</select>
+			Instructor Name 
+			<input type="text" name="Instructor" size="25" maxlength="254" required="required"/><!--use php to add in instructor names and course names and section numbers-->
+			
+			Course <input type="text" name="Class" size="10" maxlength="254">
+			Section <input type="text" name="Section" size="10" maxlength="254">
+
+			<!--
 			Course <select name="Class">
 				<option>N/A</option>
 				<option>This is</option>
@@ -62,20 +76,52 @@ Date: 1/22/2015
 				<option>section numbers</option>
 				<option>will go</option>
 			</select>
+			-->
+
 		</p>
 		<p>Consultant
 			<select name="Consultant">
-				<option value="noSelection">--Please Select--</option>
-				<option value="addy">Addy</option>
-				<option value="audrey">Audrey</option>
-				<option value="cam">Cam</option>
-				<option value="Hannah Cobb">Hannah Cobb</option>
-				<option value="hcruze">Hannah Cruze</option>
-				<option value="heidi">Heidi</option>
-				<option value="izze">Izze</option>
-				<option value="katie">Katie</option>
-				<option value="sam">Sam</option>
-				<option value="sami">Sami</option>
+				<?php
+				  $servername = "CS1";
+			      $username = "CS472_2015";
+			      $password = "WritingCenter";
+
+			      // Tries to connect to the database
+			      $db = new mysqli( $servername, $username, $password, "WritingCenter" );
+			      // If it fails, output a connection error
+			      if ( $db->connect_error ) {
+			        die( 'Connect Error: ' . $db->connect_error );
+			      }
+
+			      // Query to get the Consultant ID based on the name given in the form
+			      $query =  'select fname, lname from accounts where accountTypeId = 2';
+			      if ( $stmt = $db->prepare($query)) {
+			        // Execute the query
+			        $result = $stmt->execute();
+
+			        // Retrieve the query results
+			        $result = $stmt->get_result();
+
+			        // This gets the ID from the result (THERE HAS TO BE A BETTER WAY TO DO THIS BUT THIS WORKS FOR NOW)
+			        $outp = "";
+			        while ( $row = $result->fetch_array(MYSQLI_ASSOC) ) {
+			        	$fullname = $row['fname'] . " " . $row['lname'];
+			        	
+			        	echo "<option value=\"".$fullname."\">".$fullname."</option>";
+
+			        	
+			          $outp .= $row['Consultant_ID'];           
+			        }
+			        $outp .="";
+
+			        $db->close();
+			        }
+			      else {
+			        die( 'Error in query preparation. error = ' . $db->errno .
+			        " " . $db->error );
+			      }
+
+			 	?>
 			</select>
 		</p>
 	</div>
@@ -85,7 +131,7 @@ Date: 1/22/2015
 	<p>
 		During the consultation, we focused on the following issues:
 	</p>
-	<ul class='checkbox'>
+	<!--<ul class='checkbox'>-->
 			<li><input type="checkbox" value="Yes" id='1' name="Assignment"><label for='1'>understanding the assignment/project</label></li>
 			<li><input type="checkbox" value="Yes" id='2' name="Ideas"><label for='2'>generating ideas/getting started</label></li>
 			<li><input type="checkbox" value="Yes" id='3' name="Thesis"><label for='3'>thesis statement/argument</label></li>
@@ -99,7 +145,7 @@ Date: 1/22/2015
 			<li><input type="checkbox" value="Yes" id='11' name="Design"><label for='11'>document desigm/format</label></li>
 			<li><input type="checkbox" value="Yes" id='12' name="Sentence"><label for='12'>sentence structure</label></li>
 			<li><input type="checkbox" value="Yes" id='13' name="Grammar"><label for='13'>grammar/mechanics</label></li>
-		</ul>
+		<!--</ul>-->
 	</div>
 	<br>
 	<div id="placeholder"><!--this is a place holder box so that the comments section is below those options above-->
