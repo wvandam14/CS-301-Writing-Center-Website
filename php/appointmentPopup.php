@@ -32,13 +32,11 @@ Date: 3/7/2015
                 $canEdit = false;
             }
             else{
-                if($_SESSION['type'] == 2 || $_SESSION['type'] == 3){
-                    $canEdit = true;
-                }
-                else{
-                    $canEdit = false;
-                }
+                $canEdit = true;
             }
+        }
+        else{
+           $canEdit = false;
         }
         $appointment = getAppointmentById($appointment_id);
         // print_r($appointment);die();
@@ -102,8 +100,9 @@ Date: 3/7/2015
             $app->schedule_id = explode('-',$_POST['apptTime'])[0];
             $app->date = $_POST['apptDate'];
             $app->appointment_missed = !empty($_POST['appointment_missed']) ? 1 : 0 ;
-            $app->appointment_cancelled = !empty($_POST['appointment_cancelled']) ? 1 : 0;
+            $app->appointment_cancelled = (!empty($_POST['appointment_cancelled'] || empty($_POST['cancelAppt'])) ? 1 : 0);
 
+            //print_r($app);die();
 
             if($edit){            
                 if($app->schedule_id != $appointment->schedule_id){
@@ -200,7 +199,7 @@ Date: 3/7/2015
                 </div>
 
                 <?php 
-                    if($canEdit){
+                    if($canEdit && $_SESSION['type'] == 2){
                 ?>
                     <div class="apptMissed">
                         <input type="checkbox" name="appointment_missed" id="appointment_missed" <?php echo $edit ? ($appointment->appointment_missed ? 'checked':'') : (!empty($_POST['appointment_missed']) ? 'checked':'') ?> <?php echo $appointment->appointment_cancelled ? "disabled":''; ?>/>
@@ -209,7 +208,7 @@ Date: 3/7/2015
 
                     <div class="apptCancelled">
                         <input type="checkbox" name="appointment_cancelled" id="appointment_cancelled" <?php echo $edit ? ($appointment->appointment_cancelled ? 'checked':'') : (!empty($_POST['appointment_cancelled']) ? 'checked':'') ?> <?php echo $appointment->appointment_cancelled ? "disabled":''; ?>/>
-                        <label>Appointment cancelled</label>
+                        <label>Cancel appointment</label>
                     </div> 
                     <div class="editPostNotes">
                         <button class="btn" type="button" name="edit_post_notes" id="edit_post_notes" value="<?php echo $appointment_id ?>">Edit Post Consultation Notes</button>
@@ -229,6 +228,9 @@ Date: 3/7/2015
                 <div>
                     <button type="submit" class="btn">Save</button>
                     <button class="btn" id="redirectAppt">Go Back</button>
+                    <?php if ($canEdit) :?>
+                        <button type="submit" class="btn" name="cancelAppt" id="cancelAppointment">Cancel Appointment</button>
+                    <?php endif; ?>
                 </div>
 
             </form>
