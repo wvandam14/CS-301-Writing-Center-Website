@@ -48,7 +48,7 @@ $(function(){
 	});
 
 	$('#edit_post_notes').on('click', function() {
-		window.location.href = "../php/postConsultation.php?" + $(this).attr("value");
+		window.location.href = "../html/postConsultation.php?" + $(this).attr("value");
 		return false;
 	});
 
