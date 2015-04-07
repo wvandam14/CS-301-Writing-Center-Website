@@ -125,7 +125,7 @@
 
         if($r = $dbc->query($q)){
         	$q = "INSERT INTO appointments (course_name,course_number,instructor,assignment,send_post_consultation_notes,appointment_missed,appointment_cancelled,description,client_id,consultant_id,schedule_id) VALUES ('$app->course_name','$app->course_number','$app->instructor','$app->assignment','$app->send_post_consultation_notes','$app->appointment_missed','$app->appointment_cancelled','$app->description','$app->client_id','$app->consultant_id','$app->schedule_id');";
-        	//die($q);
+        	die($q);
 
     		if($r = $dbc->query($q)){
     			return true;
