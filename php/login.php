@@ -5,10 +5,13 @@
 	$servername = "CS1";
 	$username = "CS472_2015";
 	$password = "WritingCenter";
+
 	$dbc = new mysqli($servername, $username, $password, "WritingCenter");
+
 	if($dbc->connect_errno){
 		die('Connect Error: ' . $dbc->connect_errno);
 	}
+
 ?>
 <!DOCTYPE html>
 <html>
@@ -32,23 +35,32 @@
 				
 				
 				<?php
-					$email = $_POST['email'];
-					$password = $_POST['password'];
+					$email = $dbc->real_escape_string($_POST['email']);
+					$password = $dbc->real_escape_string($_POST['password']);
+
+
 					$stmt = $dbc->prepare("SELECT * FROM accounts WHERE email_address = ? AND password = ?;");
 					$stmt->bind_param("ss",$email, $password);
 					$stmt->execute();
+
 					$stmt->bind_result($col1, $col2, $col3, $col4, $col5, $col6, $col7);
 				
 					$stmt->fetch();
+
 					$stmt->close();
+
 					$dbc->close();
+
+
 					if($_POST['submit'])
 					{
 						if ($col1 != NULL){
      						$_SESSION['id'] = $col1;
 							$_SESSION['email'] = $col3;
 							$_SESSION['type'] = $col6;
+
 						header("location:../html/index.htm");
+
 						exit();
      				}
      					else
@@ -60,7 +72,7 @@
 				<input type = "submit" name="submit" value = "Log In" class= 'btn'><!-- onclick = "login($login->email, $login->password)"> -->
 				<br><br>
 
-				<a href="register.html">Don't have an account? Click here to register.</a>
+				<a href="../php/register.php">Don't have an account? Click here to register.</a>
 			</form>
 		</div>
 	</body>
