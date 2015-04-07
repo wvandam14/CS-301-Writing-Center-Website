@@ -35,8 +35,8 @@
 				
 				
 				<?php
-					$email = $_POST['email'];
-					$password = $_POST['password'];
+					$email = $dbc->real_escape_string($_POST['email']);
+					$password = $dbc->real_escape_string($_POST['password']);
 
 
 					$stmt = $dbc->prepare("SELECT * FROM accounts WHERE email_address = ? AND password = ?;");
@@ -72,7 +72,7 @@
 				<input type = "submit" name="submit" value = "Log In" class= 'btn'><!-- onclick = "login($login->email, $login->password)"> -->
 				<br><br>
 
-				<a href="register.html">Don't have an account? Click here to register.</a>
+				<a href="../php/register.php">Don't have an account? Click here to register.</a>
 			</form>
 		</div>
 	</body>
