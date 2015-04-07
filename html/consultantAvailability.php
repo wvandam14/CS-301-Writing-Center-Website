@@ -14,7 +14,7 @@
 		function create_table(){
 			var table_div = document.getElementById("tablediv");
 			var table = document.createElement("table");
-			
+			table.className = "schecule";
 			//rows for all the days of the week	
 			var day_array = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
 			var time_array = ["9:00", "9:30", "10:00", "10:30", "11:00", "11:30", "12:00", "12:30", "1:00", "1:30", "2:00", "2:30", "3:00", "3:30", "4:00", "4:30", "5:00", "5:30", "6:00", "6:30", "7:00", "7:30"];
@@ -26,6 +26,7 @@
 			for(var i=0; i<22; i++){
 				var td = document.createElement("th");
 				td.innerHTML = time_array[i];
+				td.className = "name";
 				tr.appendChild(td);
 			}
 			
@@ -33,7 +34,7 @@
 			for(var i=0; i<7; i++){
 				var tr = document.createElement("tr");
 				table.appendChild(tr);
-				table.className = "schecule";
+				
 				
 				//cell for day of week
 				var td = document.createElement("th");
@@ -85,19 +86,6 @@
 		window.onload = create_table;
 		
 	</script>
-	<!--table CSS-->
-	<!--<style>
-		table{
-			width: 100%;
-			border: 1px solid black;
-		}
-		
-		td{
-			height: 50px;
-			background-color: white;
-			border: 1px solid black;
-		}
-	</style>-->
 	
 </head>
 <body>
