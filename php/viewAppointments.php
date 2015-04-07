@@ -6,7 +6,8 @@
  //    }
 	require_once('db_connection.php');
 	
-	$data = getAllAppointments($_SESSION['user_id'], $_SESSION['permission']);
+	$data = getAllAppointments($_SESSION['id'], $_SESSION['type']);
+	//print_r($data);
 ?>
 <!DOCTYPE html>
 <html>
@@ -18,33 +19,15 @@
 		<meta http-equiv="content-type" content="text/html"; charset="utf-8" />
 	</head>
 	<body>
-		<div id="header">
-		<h1>View Consultant Calendar</h1>
-		</div>
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> origin/master
-		<div id="username-display">
-			<?php if(!empty($_SESSION['permission'])) {
-				if ($_SESSION['permission'] == 3) {
-			?>
-				<a href="appointmentPopup.php">Appointment</a>
-			<?php }} ?>
-			<a href="viewAppointments.php">View My Appointments</a>
-			<a href="#"><?php echo empty($_SESSION['username']) ? '':$_SESSION['username']; ?></a>
-			<a href="logout.php" title="">logout</a>
-		</div>
-<<<<<<< HEAD
-=======
-		<?php require_once("navbar.php"); ?>
->>>>>>> origin/master
-=======
->>>>>>> origin/master
+		
 
-		<div id="content">
+		<?php require_once("navbar.php"); ?>
+		<div id="content" style="margin-left:auto; margin-right:auto; width: 50%">
+			<div id="header">
+				<h1>View Consultant Calendar</h1>
+			</div>
 		<!-- Start of content -->
-			<?php
+<!-- 			<?php
 
 				$db = new mysqli(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
 				if($db->connect_error) {
@@ -67,26 +50,26 @@
 
 				$db->close();
 
-			?>
+			?> -->
 
-			<table>
-				<th>Name</th>
+			<table id="viewConsultantAppointments">
+				<th>Assignment Description</th>
 				<th>Date</th>
 				<th>Time slot</th>
-				<th>Status</th>
+				<th><?php echo $_SESSION['type'] == 2 ? "Clint Name" : "Consultant Name"; ?></th>
 				<?php
-				
-					foreach($assoc as $row) {
-						echo "<tr>";
-						echo "<td>".$row['fname']." ".$row['lname']."</td>";
-						echo "<td>".$row['date_']."</td>";
-						echo "<td>".$row['time_slot']."</td>";
-						echo "<td>".$row['status_']."</td>";
-						echo "</tr>";
-					}
-
+					foreach ($data as $v => $d) {
 				?>
+				<tr>
+					<?php foreach ($d as $value) { ?>
+						<td><?php echo $value ?></td>
+					<?php } ?>
+					<td><button class="editAppointment" name="editAppointment" value="<?php echo $v ?>">Edit Appointment</button></td>
+				</tr>
+				<?php } ?>
 			</table>
 		</div>
+		<script src="js/jquery-1.11.0.js"></script>
+        <script src="js/appt.js"></script>
 	</body>
 </html>

@@ -2,7 +2,7 @@
 
 <nav id="username-display">
   <ul>
-    <?php switch($_SESSION['permission']) {
+    <?php switch($_SESSION['type']) {
             case 2:
               echo "<li>
                       <a href='#'>Administrator Tasks</a>

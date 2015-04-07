@@ -59,3 +59,8 @@ ul.checkbox li {
   border: 1px transparent solid;
   list-style-type: none; 
 }
+
+#viewConsultantAppointments th {
+	padding-right: 2em;
+}
+
