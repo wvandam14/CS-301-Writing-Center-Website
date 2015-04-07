@@ -1,17 +1,27 @@
 <?php 
 	session_start();
 	$page_title = 'Log in';
+	//require_once('db_connection.php');
+	$servername = "CS1";
+	$username = "CS472_2015";
+	$password = "WritingCenter";
+
+	$dbc = new mysqli($servername, $username, $password, "WritingCenter");
+
+	if($dbc->connect_errno){
+		die('Connect Error: ' . $dbc->connect_errno);
+	}
 
 ?>
 <!DOCTYPE html>
 <html>
 	<head>
-		<title><?php echo $page_title; ?></title>
-		<link rel="stylesheet" href="<?php echo empty($css) ? './include/css/style.css':$css; ?>" type="text/css" media="screen"/>
-		<?php if(!empty($header_line)) echo $header_line; ?>
-		<meta http-equiv="content-type" content="text/html"; charset="utf-8" />
+		<meta charset = "utf-8">
+		<title> Whitworth University Composition Commons</title>
+		<link rel = "stylesheet" type = "text/css" href = "../css/style.css">
 	</head>
 	<body>
+<<<<<<< HEAD
 		<div id="header">
 		<h1></h1>
 		</div>
@@ -21,31 +31,40 @@
 
 
 		<?php 
-
-			function validateEntries($post){
-		
-				$user = new stdClass();
-				$user->errors = array();
+=======
+		<img src = "../img/wcc-logo.png" alt = "WCC Logo" class ='logo'>
+		<h1 align = "center">Welcome!</h1>
+		<div> 
+			<form action="" method="post">
+				Email Address:<br>
+				<input type = "text" name="email"><br>
+				Password:<br>
+				<input type = "password" name = "password"><br>
+				<!--Submit information and log in to the writing center-->
+				<!--Stay logged in button-->
+				<input type="radio" name="stayLoggedIn" value="login">Check to stay logged in<br><br>
 				
-				if(empty($post['email'])){
-					$user->errors[] = "Your forgot to enter your user name.";
-				}
-				else{
-					$user->email = trim($post['email']);
-				}
+				
+				<?php
+					$email = $_POST['email'];
+					$password = $_POST['password'];
 
-				if(empty($post['password'])){
-					$user->errors[] = "Your forgot to enter your password.";
-				}
-				else{
-					$user->password = trim($post['password']);
-				}
 
-				return $user;
-			}
+					$stmt = $dbc->prepare("SELECT * FROM accounts WHERE email_address = ? AND password = ?;");
+					$stmt->bind_param("ss",$email, $password);
+					$stmt->execute();
+>>>>>>> 49e0979727720a0cf8172a83ef2344a1accc40fd
 
-			if($_SERVER['REQUEST_METHOD'] == 'POST'){
+					$stmt->bind_result($col1, $col2, $col3, $col4, $col5, $col6, $col7);
+				
+					$stmt->fetch();
 
+					$stmt->close();
+
+					$dbc->close();
+
+
+<<<<<<< HEAD
 				$user = validateEntries($_POST);
 				if(empty($user->errors)){
 					require_once('db_connection.php');
@@ -85,7 +104,30 @@
 				<p>Password: <input type="password" name="password" size="15" maxlength="20" value="<?php if(isset($_POST['password'])) echo $_POST['password'] ?>"></p>
 				<p><input type="submit" name="submit" value="Log in"></p>
 			</form>
+=======
+					if($_POST['submit'])
+					{
+						if ($col1 != NULL){
+     						$_SESSION['id'] = $col1;
+							$_SESSION['email'] = $col3;
+							$_SESSION['type'] = $col6;
 
+						header("location:../html/index.htm");
+
+						exit();
+     				}
+     					else
+     					{
+     						echo "<h2>Invalid email/password</h2>";
+     					}
+					}
+				?>
+				<input type = "submit" name="submit" value = "Log In" class= 'btn'><!-- onclick = "login($login->email, $login->password)"> -->
+				<br><br>
+>>>>>>> 49e0979727720a0cf8172a83ef2344a1accc40fd
+
+				<a href="register.html">Don't have an account? Click here to register.</a>
+			</form>
 		</div>
 	</body>
 </html>
