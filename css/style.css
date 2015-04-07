@@ -1,7 +1,6 @@
 /* Whitworth Composition Commons Official Color Scheme:
  #BCB3B8 (grey) , #022855 (navy blue) , #FDB958 (light orange) */
 
-<<<<<<< HEAD
 	img.logo { 
 		height: 150px;
 		width: 650px;
@@ -32,52 +31,6 @@
 	}
 	.btn {
         cursor: pointer;
-=======
-img.logo { 
-	height: 150px;
-	width: 650px;
-	margin-left: 100px;
-	margin-top: 15px;
-}
-
-body {
-	background-color: #BCB3B8;
-	font-family: avenir, trebuchet, helvetica, arial, sans-serif;
-}
-
-h1 {
-	color: #fff;
-	text-align:center;
-	background-color: #022855;
-	border-radius: 10px;
-	margin-left: 100px;
-	width: 650px;
-	padding: 10px;
-}
-
-p {
-	color: black;
-}
-
-p#special { 
-	text-transform: uppercase;
-}
-
-form {
-	width: 500px;
-	margin-left: 150px;
-}
-
-img{
-
-}
-
-#footer{
-	margin-top: 100px;
-}
-
-.btn {
->>>>>>> d4fc3f0920d289e86f962a18cba75902bef60861
   background: #0e58ad;
   background-image: -webkit-linear-gradient(top, #0e58ad, #022855);
   background-image: -moz-linear-gradient(top, #0e58ad, #022855);
@@ -102,59 +55,7 @@ img{
   background-image: linear-gradient(to bottom, #3cb0fd, #3498db);
   text-decoration: none;
 }
-
 ul.checkbox li { 
   border: 1px transparent solid;
   list-style-type: none; 
-}
-
-#tableholder{
-	margin-right: 150px;
-}
-
-h2.day{
-	color: #fff;
-	text-align:center;
-	background-color: #022855;
-	border-radius: 10px;
-	margin-left: 70px;
-	width: 150px;
-	padding: 5px;
-}
-
-td, th {
-	border: 1px solid black;
-}
-
-table.schecule{
-	text-align: center;
-	border-collapse: collapse;
-	margin-left: 50px;
-}
-
-th{
-	background-color: #4B484A;
-	color: #fff;
-	height: 50px;
-}
-
-th.name{
-	width: 150px;
-}
-
-td.unavailable{
-	background-color: #847D81;
-	height: 50px;
-	width: 50px;
-}
-
-td.available{
-	background-color: #022855;
-	height: 50px;
-	width: 50px;
-}
-
-td.NA{
-	background-color: #fff;
-	font-size: 40px;
 }
