@@ -8,7 +8,7 @@ Date: 3/7/2015
 
     session_start();
 
-    if(empty($_SESSION['permission'])){
+    if(empty($_SESSION['type'])){
         header('location:login.php');
     }
 
@@ -24,13 +24,13 @@ Date: 3/7/2015
         $appointment_id = $_SERVER['QUERY_STRING'];
        
 
-        if($_SESSION['permission'] == 2 || $_SESSION['permission'] == 3){
-            if(!userCanEditAppointment($_SESSION['user_id'],$appointment_id)){
+        if($_SESSION['type'] == 2 || $_SESSION['type'] == 3){
+            if(!userCanEditAppointment($_SESSION['id'],$appointment_id)){
                 header("location:viewAppointments.php");
                 $canEdit = false;
             }
             else{
-                if($_SESSION['permission'] == 2 || $_SESSION['permission'] == 3){
+                if($_SESSION['type'] == 2 || $_SESSION['type'] == 3){
                     $canEdit = true;
                 }
                 else{
@@ -93,7 +93,7 @@ Date: 3/7/2015
             $app->assignment = $_POST['assignmentName'];
             $app->send_post_consultation_notes = !empty($_POST['consultationNotes']);
             $app->description = $_POST['assignmentDescription'];
-            $app->client_id = $_SESSION['user_id'];
+            $app->client_id = $_SESSION['id'];
             $app->consultant_id = explode('-',$_POST['apptTime'])[1];
             $app->schedule_id = explode('-',$_POST['apptTime'])[0];
             $app->date = $_POST['apptDate'];
@@ -139,7 +139,7 @@ Date: 3/7/2015
             <form action="" method="post">
                 <div>
                    <!--  <label>Client Name</label> -->
-                    <h2><?php echo  $edit ? $appointment->client_name:$_SESSION['username'] ?></h2>
+                    <h2><?php echo  $edit ? $appointment->client_name:$_SESSION['name'] ?></h2>
                 </div>
 
                 <div>

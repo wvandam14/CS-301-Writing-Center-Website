@@ -6,7 +6,7 @@
  //    }
 	require_once('db_connection.php');
 	
-	$data = getAllAppointments($_SESSION['user_id'], $_SESSION['permission']);
+	$data = getAllAppointments($_SESSION['id'], $_SESSION['type']);
 ?>
 <!DOCTYPE html>
 <html>
@@ -21,27 +21,8 @@
 		<div id="header">
 		<h1>View Consultant Calendar</h1>
 		</div>
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> origin/master
-		<div id="username-display">
-			<?php if(!empty($_SESSION['permission'])) {
-				if ($_SESSION['permission'] == 3) {
-			?>
-				<a href="appointmentPopup.php">Appointment</a>
-			<?php }} ?>
-			<a href="viewAppointments.php">View My Appointments</a>
-			<a href="#"><?php echo empty($_SESSION['username']) ? '':$_SESSION['username']; ?></a>
-			<a href="logout.php" title="">logout</a>
-		</div>
-<<<<<<< HEAD
-=======
-		<?php require_once("navbar.php"); ?>
->>>>>>> origin/master
-=======
->>>>>>> origin/master
 
+		<?php require_once("navbar.php"); ?>
 		<div id="content">
 		<!-- Start of content -->
 			<?php

@@ -56,6 +56,7 @@
 				$_SESSION['id'] = $col1;
 			$_SESSION['email'] = $col5;
 			$_SESSION['type'] = $col6;
+			$_SESSION['name'] = $col2 + $col3;
 
 			header("Location: http://cs1.whitworth.edu/WritingCenter/FeatureSet1/CS-301-Writing-Center-Website/html/");
 

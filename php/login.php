@@ -21,27 +21,10 @@
 		<link rel = "stylesheet" type = "text/css" href = "../css/style.css">
 	</head>
 	<body>
-<<<<<<< HEAD
-<<<<<<< HEAD
-		<div id="header">
-		<h1></h1>
-		</div>
-		<div id="username-display">
-			<?php if(!empty($_SESSION['permission'])) {
-				if ($_SESSION['permission'] == 3) {
-			?>
-				<a href="appointmentPopup.php">Appointment</a>
-			<?php }} ?>
-			<a href="viewAppointments.php">View My Appointments</a>
-			<a href="#"><?php echo empty($_SESSION['username']) ? '':$_SESSION['username']; ?></a>
-			<a href="logout.php" title="">logout</a>
-		</div>
+
 
 		<div id="content">
 		<!-- Start of content -->
-=======
-=======
->>>>>>> origin/master
 		<img src = "../img/wcc-logo.png" alt = "WCC Logo" class ='logo'>
 		<h1 align = "center">Welcome!</h1>
 		<div> 
@@ -58,12 +41,6 @@
 				<?php
 					$email = $dbc->real_escape_string($_POST['email']);
 					$password = $dbc->real_escape_string($_POST['password']);
-<<<<<<< HEAD
->>>>>>> origin/master
-=======
->>>>>>> origin/master
-
-
 					$stmt = $dbc->prepare("SELECT * FROM accounts WHERE email_address = ? AND password = ?;");
 					$stmt->bind_param("ss",$email, $password);
 					$stmt->execute();
@@ -83,6 +60,7 @@
      						$_SESSION['id'] = $col1;
 							$_SESSION['email'] = $col3;
 							$_SESSION['type'] = $col6;
+						
 
 						header("location:../html/index.htm");
 
