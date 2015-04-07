@@ -3,6 +3,7 @@
 	//POST user info
 	//POST all variables --probably have the values in an array
 	$data = array($_POST["d0"], $_POST["d1"], $_POST["d2"], $_POST["d3"], $_POST["d4"], $_POST["d5"], $_POST["d6"]);
+	$user = $_SESSION["user_id"];
 	$time_strings = array("", "", "", "", "", "", "");
 	$array_size = count($data);	
 	//For 0 to 6, take each index in that numbered array and make all into large string
