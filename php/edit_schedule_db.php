@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <body>
-    <h1> Successfully Added a Schedule </h1>
+    <h1> Successfully Cleared A Consultant's Day </h1>
     <?php		
 		// Initializes values to connect to the database
 		$servername = "CS1";
@@ -36,7 +36,7 @@
 		$row = $result->fetch_assoc();
 		$ConsID = $row['accountId'];
 		//echo $row['accountId'];
-		echo $ConsID;
+		//echo $ConsID;
 		
 		$UpdateSchedule = 'Update schedules Set status_ = "unavailable" Where consultantID = ? AND date_ = ?';
 		$stmt2 = $db->prepare($UpdateSchedule);
