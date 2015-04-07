@@ -21,6 +21,10 @@
 		<div id="header">
 		<h1>View Consultant Calendar</h1>
 		</div>
+<<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> origin/master
 		<div id="username-display">
 			<?php if(!empty($_SESSION['permission'])) {
 				if ($_SESSION['permission'] == 3) {
@@ -31,6 +35,12 @@
 			<a href="#"><?php echo empty($_SESSION['username']) ? '':$_SESSION['username']; ?></a>
 			<a href="logout.php" title="">logout</a>
 		</div>
+<<<<<<< HEAD
+=======
+		<?php require_once("navbar.php"); ?>
+>>>>>>> origin/master
+=======
+>>>>>>> origin/master
 
 		<div id="content">
 		<!-- Start of content -->

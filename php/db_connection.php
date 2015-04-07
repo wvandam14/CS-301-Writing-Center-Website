@@ -242,6 +242,10 @@
         $app->appointment_missed = $dbc->real_escape_string(trim($app->appointment_missed));
         $app->appointment_cancelled = $dbc->real_escape_string(trim($app->appointment_cancelled));
 
+<<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> origin/master
 
 
 		if($app->appointment_cancelled){
@@ -252,6 +256,11 @@
         	}
 		}
 
+<<<<<<< HEAD
+=======
+>>>>>>> origin/master
+=======
+>>>>>>> origin/master
         if(!(empty($app->old_schedule_id))){
         	$q = "UPDATE schedules AS s SET s.status_ = 'available' WHERE s.scheduleID = '$app->old_schedule_id'";
         	if(!($r = $dbc->query($q))){
