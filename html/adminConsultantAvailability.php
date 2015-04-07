@@ -6,6 +6,7 @@
 		<link rel="stylesheet" type="text/css" href="../css/style.css">
 	</head>
 	<body>
+		<?php include "../php/navbar.php"; ?>
 		<!--This is the main heading of the form-->
 		<a href="index.htm">
 		<img src="../img/wcc-logo.png" alt="WCC Logo" class='logo'>
@@ -15,6 +16,19 @@
 		<div class='container'>
 			<div id="tableholder">
 				<?php
+					//Permissions
+					session_start();					
+	
+					if(!isset($_SESSION['user_id'])){
+						echo "You are not logged in. Please <a href='login.html'>log in</a> to continue";
+						exit;
+					}
+					if($_SESSION['permission'] != 1){
+						echo "You do not have permission to view this page";
+						exit;
+					}
+					
+					//creating tables
 					function get_consultants($db){
 					  $query =  'select fname, lname from accounts where accountTypeId = 2 Order By lname, fname';
 					  $consultants = array();

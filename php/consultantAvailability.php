@@ -12,7 +12,7 @@
 		foreach($data[$i] as $timeslot){
 			$string .= $timeslot;
 		}
-		echo $string."<br>";
+		//echo $string."<br>";
 		$time_strings[$i] = $string;
 	}
 	
@@ -27,7 +27,52 @@
       if ( $db->connect_errno ) {
         die( 'Connect Error: ' . $db->connect_errno );
       }
-      
+	  $query_check = "Select consultant_Id from consultant_availability_times where consultant_Id = ? and day_Id = ?;";
+	  $query1 = "Insert into consultant_availability_times (consultant_Id, day_Id, times) values (?,?,?);";
+	  $query2 = "Update consultant_availability_times set consultant_Id = ?, day_Id = ?, times = ? where consultant_Id = ? and day_Id = ?;";
+	  for($j=0; $j<$array_size; $j++){
+		if($stmt = $db->prepare($query_check)){
+			$stmt->bind_param("ii", $user, $j);
+			$result = $stmt->execute();
+			$stmt->close();
+		}
+		else {
+			echo "query check<br>";
+			  die( 'Error in query preparation. error = ' . $db->errno .
+			  " " . $db->error );
+			}
+		//if the user has not entered a schedule for this day
+		if(!$result){
+			if($stmt1 = $db->prepare($query1)){
+			  // Bind the cleaned parameters to the pre-prepared query1
+			  $stm1t->bind_param("iis", $user, $j, $time_strings[$j]);
+			  // Execute the insertion
+			  $stmt1->execute();
+			  $stmt1->close();
+			}
+			else {
+			  die( 'Error in query preparation. error = ' . $db->errno .
+			  " " . $db->error );
+			}
+		} 
+		//else update existing row
+		else{
+			if($stmt2 = $db->prepare($query2)){
+				$stmt2->bind_param("iisii", $user, $j, $time_strings[$j], $user, $j);
+				$stmt2->execute();
+				$stmt2->close();
+			}
+			else {
+				echo "update<br>";
+			  die( 'Error in query preparation. error = ' . $db->errno .
+			  " " . $db->error );
+			}
+		}
+	  }
+	  
+	  $db->close();
+	  
+      echo "Schedule successfully updated!<br>";
       
 		
 	//	var_dump($data);
