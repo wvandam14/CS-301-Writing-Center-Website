@@ -1,9 +1,9 @@
 <!-- session permissions: 0 (client), 1 (consultant), 2 (admin) -->
-
 <nav id="username-display">
   <ul>
+    <li><a href="../html/index.htm">Home</a></li>
     <?php switch($_SESSION['type']) {
-            case 2:
+            case 1:
               echo "<li>
                       <a href='#'>Administrator Tasks</a>
                       <ul>
@@ -14,7 +14,7 @@
                         <li><a href='#'>Enter Calendar Events</a></li>
                       </ul>
                     </li>";
-            case 1:
+            case 2:
               echo "<li>
                       <a href='#'>Consultant Tasks</a>
                       <ul>

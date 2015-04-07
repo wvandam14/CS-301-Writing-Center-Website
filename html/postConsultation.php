@@ -12,6 +12,7 @@ Date: 1/22/2015
 	<script src="js/javascript.js" >
 	</script><!not using javascript currently-->
 	<link rel="stylesheet" type="text/css" href="css/style.css"><!--style sheet, can be changed later-->
+	<link rel="stylesheet" type="text/css" href="../css/indexStyle.css"/>
 </head>
 <body>
 	<a href="index.htm">
@@ -24,7 +25,7 @@ Date: 1/22/2015
 		include "../php/navbar.php";
 		
 		//check login
-		if(!isset($_SESSION['user_id'])){
+		if(!isset($_SESSION['type'])){
 			echo "You are not logged in. Please <a href='login.html'>log in</a> to continue";
 			exit;
 		}

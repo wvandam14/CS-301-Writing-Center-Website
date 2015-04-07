@@ -7,7 +7,6 @@ Date: 3/7/2015
 <?php 
 
     session_start();
-
     //print_r($_SESSION);die();
 
     if(empty($_SESSION['type'])){
@@ -101,9 +100,7 @@ Date: 3/7/2015
             $app->date = $_POST['apptDate'];
             $app->appointment_missed = !empty($_POST['appointment_missed']) ? 1 : 0 ;
             $app->appointment_cancelled = (!empty($_POST['appointment_cancelled'] || empty($_POST['cancelAppt'])) ? 1 : 0);
-
             //print_r($app);die();
-
             if($edit){            
                 if($app->schedule_id != $appointment->schedule_id){
                     $app->old_schedule_id = $appointment->schedule_id;
