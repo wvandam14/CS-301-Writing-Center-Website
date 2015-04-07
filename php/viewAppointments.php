@@ -14,6 +14,7 @@
 		<title><?php echo $page_title; ?></title>
 		<link rel="stylesheet" href="<?php echo empty($css) ? '../css/style.css':$css; ?>" type="text/css" media="screen"/>
 		<?php if(!empty($header_line)) echo $header_line; ?>
+		<?php include("navbar.php"); ?>
 		<meta http-equiv="content-type" content="text/html"; charset="utf-8" />
 	</head>
 	<body>
