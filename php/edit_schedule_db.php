@@ -39,9 +39,9 @@
 		echo $ConsID;
 		
 		$UpdateSchedule = 'Update schedules Set status_ = "unavailable" Where consultantID = ? AND date_ = ?';
-		if($stmt2 = $db->prepare($UpdateSchedule)){
-			echo "poop";
-		}
+		$stmt2 = $db->prepare($UpdateSchedule);
+			
+		
 		// Escape any special characters to prevent monkey business
 		$ConsID = $db->real_escape_string($ConsID);
 		$Date_ = $db->real_escape_string($Date_);
