@@ -3,6 +3,8 @@
   <body>
     <h1> Thank you for your feedback! </h1>
     <?php
+
+
       // This takes all the values from the form to be used in the query
       $Email_Instructor = $_POST["emailtoins"];
       $Client_Name = $_POST["Client"];
@@ -17,25 +19,33 @@
       $Section = $_POST["Section"];
 
       // This takes all the values from the checkboxes
-      $Assignment_ = $_POST["Assignment"];
-      $Ideas = $_POST["Ideas"];
-      $Thesis = $_POST["Thesis"];
-      $Subject = $_POST["Subject"];
-      $Audience = $_POST["Audience"];
-      $Organization = $_POST["Organization"];
-      $Content = $_POST["Content"];
-      $Intro = $_POST["Intro"];
-      $Sources = $_POST["Sources"];
-      $Citations = $_POST["Citations"];
-      $Design = $_POST["Design"];
-      $Sentence = $_POST["Sentence"];
-      $Grammar = $_POST["Grammar"];
+
+      $Assignment_ = ($_POST["Assignment"] && $_POST["Assignment"] == 'Yes') ? 1 : 0;
+      $Ideas = ($_POST["Ideas"] && $_POST["Ideas"] == 'Yes') ? 'Yes' : 'No';
+      $Thesis = ($_POST["Thesis"] && $_POST["Thesis"] == 'Yes') ? 'Yes' : 'No';
+      $Subject = ($_POST["Subject"] && $_POST["Subject"] == 'Yes') ? 'Yes' : 'No';
+      $Audience = ($_POST["Audience"] && $_POST["Audience"] == 'Yes') ? 'Yes' : 'No';
+      $Organization = ($_POST["Organization"] && $_POST["Organization"] == 'Yes') ? 'Yes' : 'No';
+      $Content = ($_POST["Content"] && $_POST["Content"] == 'Yes') ? 'Yes' : 'No';
+      $Intro = ($_POST["Intro"] && $_POST["Intro"] == 'Yes') ? 'Yes' : 'No';
+      $Sources = ($_POST["Sources"] && $_POST["Sources"] == 'Yes') ? 'Yes' : 'No';
+      $Citations = ($_POST["Citations"] && $_POST["Citations"] == 'Yes') ? 'Yes' : 'No';
+      $Design = ($_POST["Design"] && $_POST["Design"] == 'Yes') ? 'Yes' : 'No';
+      $Sentence = ($_POST["Sentence"] && $_POST["Sentence"] == 'Yes') ? 'Yes' : 'No';
+      $Grammar = ($_POST["Grammar"] && $_POST["Grammar"] == 'Yes') ? 'Yes' : 'No';
+
+      // $appointment_id = $_SERVER['QUERY_STRING'];
 
       // Initializes values to connect to the database
-      $servername = "127.0.0.1";
-      $username = "Admin";
-      $password = "123";
+      $servername = "CS1";
+      $username = "CS472_2015";
+      $password = "WritingCenter";
 
+      // DEFINE('DB_USER','root');
+      // DEFINE('DB_PASSWORD','');
+      // DEFINE('DB_HOST','localhost');
+      // DEFINE('DB_NAME','writingcenter');
+      // $dbc =  new mysqli(DB_HOST,DB_USER,DB_PASSWORD,DB_NAME);
       // Tries to connect to the database
       $db = new mysqli( $servername, $username, $password, "WritingCenter" );
       // If it fails, output a connection error
@@ -44,8 +54,8 @@
       }
 
       // Query to get the Consultant ID based on the name given in the form
-      $GetConsultantID = 'Select Consultants.Consultant_ID FROM Consultants WHERE Consultants.fname =? AND Consultants.lname =?;';
-      $GetClientID = 'Select Clients.Client_ID FROM Clients WHERE Clients.fname =? AND Clients.lname =?;';
+      $GetConsultantID = 'Select accounts.accountId FROM accounts WHERE accounts.fname =? AND accounts.lname =? AND accountTypeId = 2;';
+      $GetClientID = 'Select accounts.accountId FROM accounts WHERE accounts.fname =? AND accounts.lname =? AND accountTypeId = 3;';
       if ( $stmt = $db->prepare($GetConsultantID)) {
         // Escape any special characters to prevent monkey business
         $Consultant = $db->real_escape_string($Consultant);
@@ -57,7 +67,7 @@
         $stmt->bind_param("ss", $fname_lname[0],$fname_lname[1]);
         
         // Execute the query
-        $result = $stmt->execute();
+        $stmt->execute();
 
         // Retrieve the query results
         $result = $stmt->get_result();
@@ -65,7 +75,7 @@
         // This gets the ID from the result (THERE HAS TO BE A BETTER WAY TO DO THIS BUT THIS WORKS FOR NOW)
         $outp = "";
         while ( $row = $result->fetch_array(MYSQLI_ASSOC) ) {
-          $outp .= $row['Consultant_ID'];           
+          $outp .= $row['accountId'];           
         }
         $outp .="";
 
@@ -88,7 +98,7 @@
         // This gets the ID from the result (THERE HAS TO BE A BETTER WAY TO DO THIS BUT THIS WORKS FOR NOW)
         $outp2 = "";
         while ( $row = $result2->fetch_array(MYSQLI_ASSOC) ) {
-          $outp2 .= $row['Client_ID'];           
+          $outp2 .= $row['accountId'];           
         }
         $outp2 .="";
 
@@ -123,21 +133,38 @@
           // Bind the cleaned parameters to the pre-prepared query1
           $stmt3->bind_param("sssissssssssssssssssss", $Client_ID, $Consultant_ID, $Language, $Email_Instructor, $Class, $projectType, $Instructor, $Date, $Assignment_, $Ideas, $Thesis, $Subject, $Audience, $Organization, $Content, $Intro, $Sources, $Citations, $Design, $Sentence, $Grammar, $Comments);
           // Execute the insertion
-          $stmt3->execute();        
+          $stmt3->execute();
         }
         else {
           die( 'Error in query preparation. error = ' . $db->errno .
           " " . $db->error );
         }
+
+        //relation of appointment to post consultation notes
+
+        // $query2 = "UPDATE into appointments (post_consultation_notes_id) VALUES (?);";
+        // // Something about monkey business
+        // if($stmt4= $db->prepare($query2)){
+
+        //   // Bind the cleaned parameters to the pre-prepared query1
+        //   $stmt4->bind_param("i", $appointment_id);
+        //   // Execute the insertion
+        //   $stmt4->execute();        
+        // }
+        // else {
+        //   die( 'Error in query preparation. error = ' . $db->errno .
+        //   " " . $db->error );
+        // }
+
 
         // Close the database
         $db->close();
       }
-        else {
-          die( 'Error in query preparation. error = ' . $db->errno .
-          " " . $db->error );
-        }
 
+      else {
+        die( 'Error in query preparation. error = ' . $db->errno .
+        " " . $db->error );
+      }
     ?>
 
   </body>

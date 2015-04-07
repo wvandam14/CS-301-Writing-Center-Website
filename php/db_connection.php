@@ -1,7 +1,7 @@
 <?php 
 	DEFINE('DB_USER','CS472_2015');
 	DEFINE('DB_PASSWORD','WritingCenter');
-	DEFINE('DB_HOST','CS1');
+	DEFINE('DB_HOST','cs1');
 	DEFINE('DB_NAME','writingcenter');
 
 
@@ -23,9 +23,7 @@
 		$client->email = $dbc->real_escape_string($client->email);
 		$client->password = $dbc->real_escape_string($client->password);
 
-		$q = "SELECT u.accountId as id, CONCAT(u.fname,' ',u.lname) as username, u.accountTypeId as permission
-			FROM writingcenter.accounts AS u
-			WHERE u.email_address = '$client->email' AND u.password = '". md5($client->password) ."';";
+		$q = "SELECT u.accountId as id,CONCAT(u.fname,' ',u.lname) as username,u.accountTypeId as permission FROM writingcenter.accounts AS u WHERE u.email_address = '$client->email' AND u.password = '". md5($client->password) ."';";
 		$r = $dbc->query($q);
 
 		if($r){
@@ -103,46 +101,6 @@
 			<p class="error">The list of consultants could not be retrived due to a system error. We apologize for the inconvenience.</p>';
 			echo '<p>' . mysqli_error($dbc) . '<br/><br/>Query: ' . $q . '</p>';
 		}
-	}
-
-	function pageAuth($page) {
-
-		$canview = 0;
-
-		$dbc = $GLOBALS['dbc'];
-		$q = "SELECT *
-			 	FROM viewpagepermissions AS VPP, pages AS P
-			 	WHERE P.pageId = VPP.pageId AND
-			 		$_SESSION[permission] = VPP.accountTypeId AND
-			 		\"$page\" = P.pagename;";
-		$r = $dbc->query($q) or die ("ERROR: " .mysqli_error($dbc));
-		if($r) {
-			$canview = 1;
-			$r->close();
-		}
-
-		return $canview;
-	}
-
-	function getPagesInfo() {
-		$info = array();
-		$dbc = $GLOBALS['dbc'];
-		$q = "SELECT VPP.pageId, P.pagename, VPP.accountTypeId, AT.type AS accountType
-				FROM pages AS P, accounttypes AS AT, viewpagepermissions AS VPP
-				WHERE P.pageid = VPP.pageId AND 
-						AT.accountTypeId = VPP.accountTypeId";
-		$r = $dbc->query($q) or die ("ERROR: ".mysqli_error($dbc));
-		if($r) {
-			while($row = $r->fetch_object()){
-				array_push($info, $row);
-			}
-			$r->close();
-		}
-		else {
-			echo "Nothing";
-		}
-		return $info;
-
 	}
 
 	function scheduleAppointment($app){
@@ -277,12 +235,22 @@
         $app->assignment = $dbc->real_escape_string(trim($app->assignment));
         $app->send_post_consultation_notes = $dbc->real_escape_string(trim($app->send_post_consultation_notes));
         $app->description = $dbc->real_escape_string( $app->description);
-        $app->client_id = $dbc->real_escape_string(trim($app->client_id));
-        $app->consultant_id = $dbc->real_escape_string(trim($app->consultant_id));
+        // $app->client_id = $dbc->real_escape_string(trim($app->client_id));
+        // $app->consultant_id = $dbc->real_escape_string(trim($app->consultant_id));
         $app->schedule_id = $dbc->real_escape_string(trim($app->schedule_id));
         $app->date = $dbc->real_escape_string(trim($app->date));
         $app->appointment_missed = $dbc->real_escape_string(trim($app->appointment_missed));
         $app->appointment_cancelled = $dbc->real_escape_string(trim($app->appointment_cancelled));
+
+
+
+		if($app->appointment_cancelled){
+			$schedule_id = empty($app->old_schedule_id) ? $app->schedule_id:$app->old_schedule_id;
+			$q = "UPDATE schedules AS s SET s.status_ = 'available' WHERE s.scheduleID = '$schedule_id'";
+        	if(!($r = $dbc->query($q))){
+        		die('Error on freeing old time slot');
+        	}
+		}
 
         if(!(empty($app->old_schedule_id))){
         	$q = "UPDATE schedules AS s SET s.status_ = 'available' WHERE s.scheduleID = '$app->old_schedule_id'";
@@ -295,7 +263,7 @@
         	}
         }
         
-        $q = "UPDATE appointments AS a SET a.course_name = '$app->course_name',a.course_number = '$app->course_number',a.instructor = '$app->instructor',a.assignment = '$app->assignment',a.send_post_consultation_notes = '$app->send_post_consultation_notes',a.appointment_missed = '$app->appointment_missed',a.appointment_cancelled = '$app->appointment_cancelled',a.description = '$app->description',a.client_id = '$app->client_id',a.consultant_id = '$app->consultant_id',a.schedule_id = '$app->schedule_id' WHERE a.id = '$app->id'";
+        $q = "UPDATE appointments AS a SET a.course_name = '$app->course_name',a.course_number = '$app->course_number',a.instructor = '$app->instructor',a.assignment = '$app->assignment',a.send_post_consultation_notes = '$app->send_post_consultation_notes',a.appointment_missed = '$app->appointment_missed',a.appointment_cancelled = '$app->appointment_cancelled',a.description = '$app->description', a.schedule_id = '$app->schedule_id' WHERE a.id = '$app->id'";
 
         if($r = $dbc->query($q)){
         	return true;
