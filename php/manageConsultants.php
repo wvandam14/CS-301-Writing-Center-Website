@@ -25,6 +25,8 @@
 
 		$stmt->close();
 
+		echo "HERE";
+
 		$stmt = $db->prepare("INSERT INTO accounts (fname, lname, email_address, password, accounttypeid, accountdetails) values (?,?,?,?,2,?)");
 		$fname = $db->real_escape_string($_POST['fname']);
 		$lname = $db->real_escape_string($_POST['lname']);
@@ -74,17 +76,16 @@
 	</head>
 	<body>
 		<?php require_once("navbar.php"); ?>
-
+		<h1><i>Manage Consultants</i></h1>
 		<div id="content">
 			<?php
-			require_once('db_connection.php');
 				$consultants = getConsultants();
 				if(empty($consultants)) {
 					echo "There are no consultants to display.";
 				}
 				else {
 					?>
-						<h1><i>Manage Consultants</i></h1>
+						
 
 						<h2>Delete Consultants</h2>
 						<form name = "removeConsultant" action = "<?php echo $_SERVER['PHP_SELF'] ?>" method = "POST">
