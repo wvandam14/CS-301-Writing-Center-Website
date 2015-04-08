@@ -3,34 +3,36 @@ Title: Survey form prototype
 Author: August Peverly
 Date: 1/22/2015
 -->
-<html lang="en-US"><head>
+<html lang="en-US">
+<head>
 
 	<meta charset="UTF-8">
 	
-	<title>Public Files</title>
+	<title>Post Consultation</title>
 	<!--
 	<script src="js/javascript.js" >
 	</script><!not using javascript currently-->
-	<link rel="stylesheet" type="text/css" href="css/style.css"><!--style sheet, can be changed later-->
-	<link rel="stylesheet" type="text/css" href="../css/indexStyle.css"/>
+	<link rel="stylesheet" type="text/css" href="../css/style.css">
+	<link rel="stylesheet" type="text/css" href="../css/indexStyle.css">
 </head>
 <body>
-	<a href="index.htm">
-		<img src="../img/wcc-logo.png" alt="WCC Logo" class='logo'>
-	</a>
-	<h1>Post-Consultation Notes</h1>
 	<?php 
 		session_start();
 		//navbar
 		include "../php/navbar.php";
 		
 		//check login
-		if(!isset($_SESSION['type'])){
+		if(!isset($_SESSION['id'])){
 			echo "You are not logged in. Please <a href='login.html'>log in</a> to continue";
 			exit;
 		}
 	
 	?>
+	<a href="index.htm">
+		<img src="../img/wcc-logo.png" alt="WCC Logo" class='logo'>
+	</a>
+	<h1>Post-Consultation Notes</h1>
+	
 	
 	
 	<hr>

@@ -1,8 +1,18 @@
 <!DOCTYPE html>
 <html>
+<head>
+	<meta charset="utf-8">
+	<title>Consultant Evaluation Form</title>
+	<link rel="stylesheet" type="text/css" href="../css/style.css">
+	<link rel="stylesheet" type="text/css" href="../css/indexStyle.css">	
+</head>
   <body>
-    <h1> Thank you for your feedback! </h1>
     <?php
+		session_start();
+		//navbar
+		include "../php/navbar.php";
+		echo "<h1> Consultant Evauluation </h1>";
+		echo "<h2> Thank you for your feedback! </h2>";
       // This takes all the values from the form to be used in the query
       $Consultant_Name = $_POST["Consultant"];
       $Date = $_POST["Date"];
