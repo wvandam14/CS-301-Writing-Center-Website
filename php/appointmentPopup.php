@@ -11,7 +11,8 @@ Date: 3/7/2015
 
     if(empty($_SESSION['type'])){
         header('location:login.php');
-    }
+    } else if ($_SESSION['type'] != 3)
+        header('location:../html/index.htm');
 
     require_once('db_connection.php');
 
@@ -116,6 +117,7 @@ Date: 3/7/2015
                 if(scheduleAppointment($app)){
                     $_POST = [];
                     updateScheduleFile();
+                    header('location:viewAppointments.php');
                 }
             }          
         } 

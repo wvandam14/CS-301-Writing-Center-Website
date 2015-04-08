@@ -51,7 +51,7 @@ $(function(){
 	// });
 
 	$('#edit_post_notes').on('click', function() {
-		window.location.href = "../html/postConsultation.php?" + $(this).attr("value");
+		window.location.href = "../html/postConsultation.php?id" + $(this).attr("value");
 		return false;
 	});
 
@@ -60,7 +60,7 @@ $(function(){
 		return false;
 	});
 
-	$('#apptDate').on('click',function(e){
+	$('#apptDate').on('blur',function(e){
 		var date = $('#apptDate').val();
 
 		$('#apptTime').find('option').remove().end().append('<option>Choose A Time</option>');
