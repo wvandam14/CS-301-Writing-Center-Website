@@ -23,7 +23,7 @@
                       <ul>
                         <li><a href='#'>Availability Form</a></li>
                         <li><a href='#'>Evaluation Form</a></li>
-                        <li><a href='#'>Staff Calendar</a></li>
+                        <li><a href='../php/viewStaffAvailability.php'>Staff Calendar</a></li>
                         <li><a href='../html/editConsultant.php'>Edit Consultant Profile</a></li>
                         <li><a href='logout.php'>Log Out</a></li>
                       </ul>
