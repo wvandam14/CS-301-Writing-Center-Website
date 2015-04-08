@@ -1,123 +1,102 @@
-<?php 
+<?php
 
-	$error='';
-	$col1=NULL;
-				
-	function validate($value) {
-		if (empty($value)) {
-			return false;
-		}
-		else {
-			return true;
-		}
+	//check if consultant, else die()
+
+    session_start();
+    $servername = "CS1";
+	$username = "CS472_2015";
+	$password = "WritingCenter";
+
+	// connect to database
+	$db = new mysqli( $servername, $username, $password, "WritingCenter" );
+
+    if ( $db->connect_errno ) {
+		die( 'Connect Error: ' . $db->connect_errno );
 	}
-		$email=$_POST['email'];
-		$accPassword=$_POST['password'];
 
-	if (!validate($accPassword) || !validate($email)) {
-		echo "<h1>Please do not leave text boxes blank!</h1>";
+	/*Get current user and then query for their current preferences & info */
+	$curUser = $_SESSION['id'];
+	$curEmail = $_SESSION['email'];
+	$curType = $_SESSION['type'];
+	$stmt = $db->prepare("SELECT * FROM accounts WHERE accountId = ?");
+	$stmt->bind_param("i", $curUser);
 
-	}
-	else 
-	{
+	$stmt->execute();
 
-		// Initializes values to connect to the database
-			$servername = "CS1";
-			$username = "CS472_2015";
-			$password = "WritingCenter";
+	$stmt->bind_result($col1, $col2, $col3, $col4, $col5, $col6, $col7);
+	$stmt->fetch();
 
-		// connect to database
-		$db = new mysqli( $servername, $username, $password, "WritingCenter" );
+	$stmt->close();
 
-			// If it fails, output a connection error
-			if ( $db->connect_errno ) {
-				die( 'Connect Error: ' . $db->connect_errno );
-			}
+	$stmt = $db->prepare("SELECT * FROM accountDetails WHERE accountDetailId = ?");
+	$stmt->bind_param("i", $col7);
 
-			$pass = $accPassword;
-			$em = $email;
+	$stmt->execute();
 
-			$stmt = $db->prepare("SELECT * FROM accounts WHERE email_address = ?");
-			$stmt->bind_param("ss", $em);
+	$stmt->bind_result($colx1, $colx2, $colx3, $colx4, $colx5, $colx6, $colx7, $colx8);
+	$stmt->fetch();
 
-			$stmt->execute();
-
-			$stmt->bind_result($col1, $col2, $col3, $col4, $col5, $col6, $col7);
-			$stmt->fetch();
-
-			$stmt->close();
-
-
-			$db->close();
-
-
-			if ($col1 != NULL){
-				$_SESSION['id'] = $col1;
-			$_SESSION['email'] = $col5;
-			$_SESSION['type'] = $col6;
-
-			header("Location: http://cs1.whitworth.edu/WritingCenter/FeatureSet1/CS-301-Writing-Center-Website/html/");
-
-			exit();
-			}
-			else{
-				echo "<h1>Invalid email/password.</h1>";
-			}
-		}
-	
+	$stmt->close();
+	$db->close();
 ?>
-
-<!--
-
-TODO: 
-
-	- Get current logged in user from session data
-	- Populate form fields from DB
-	- cleanse input data
-	- separate .php file to push updated form info to DB
-
--->
-
 <!DOCTYPE html>
 <html>
 	<head>
-		<meta charset="utf-8">
-		<title>Whitworth University Composition Commons</title>
-		<link rel="stylesheet" type="text/css" href="../css/style.css">
+		<title><?php echo $page_title; ?></title>
+		<link rel="stylesheet" href="<?php echo empty($css) ? '../css/style.css':$css; ?>" type="text/css" media="screen"/>
+		<?php if(!empty($header_line)) echo $header_line; ?>
+		<?php include("navbar.php"); ?>
+		<meta http-equiv="content-type" content="text/html"; charset="utf-8" />
 	</head>
 	<body>
-		<a href="index.htm">
-		<img src="../img/wcc-logo.png" alt="WCC Logo" class='logo'>
-		</a>
-		<!-- To Do: Find a way to get the text boxes to line up with one another, (floated divs?) -->
-		<h1>Update Consultant Account</h1>
-		<form action = "../php/register.php" method = "post">
-			<!--Personal info-->
-			Email Address:
-			<input type="text" name="email" value="<? echo $consultant->email; ?>"><br><br>
-			First Name:
-			<input type="text" name="firstName"><br>
-			Last Name:
-			<input type="text" name="lastName"><br><br>
-			<!--Password info-->
-			Password:
-			<input type="text" name="password"><br>
-			Re-Enter Password:
-			<input type="text" name="REpassword"><br><br>
-			<!--Student info-->
-			Standing:
-			<select name = "standing">
-				<option value="noSelection1">--Please Select--</option>
+		<div id="header">
+			<a href="index.htm">
+				<img src="../img/wcc-logo.png" alt="WCC Logo" class='logo'>
+			</a>
+			<h1>Edit Consultant Profile</h1>
+		</div>
+		<div id="username-display">
+			<?php if(!empty($_SESSION['permission'])) {
+				if ($_SESSION['permission'] == 3) {
+			?>
+				<a href="../php/appointmentPopup.php">Appointment</a>
+			<?php }} ?>
+			<a href="../php/viewAppointments.php">View My Appointments</a>
+			<a href="#"><?php echo empty($_SESSION['username']) ? '':$_SESSION['username']; ?></a>
+			<a href="../php/logout.php" title="">logout</a>
+		</div>
+
+		<div id="content">
+		<?php if ($col6 == 2) { ?>
+			<form action = "../php/editConsultantSubmit.php" method = "post">
+			  <!--Personal info-->
+			  Email Address:
+			  <input type="text" name="email" value="<?php echo $col4; ?>"><br><br>
+			  First Name:
+			  <input type="text" name="firstName" value ="<?php echo $col2; ?>"><br>
+			  Last Name:
+			  <input type="text" name="lastName" value ="<?php echo $col3; ?>"><br><br>
+			  <!--Password info-->
+			  Password:
+			  <input type="password" name="password" value =""><br>
+			  Re-Enter Password:
+			  <input type="password" name="REpassword" value =""><br><br>
+			  <!--Student info-->
+			  Standing:
+			  <select name = "standing">
+				<option value="<?php echo $colx2; ?>"><?php echo $colx2; ?></option>
+				<option value="No Selection">--Please Select--</option>
 				<option value="Freshman">Freshman</option>
 				<option value="Sophomore">Sophomore</option>
 				<option value="Junior">Junior</option>
 				<option value="Senior">Senior</option>
 				<option value="GradStudent">Graduate Student</option>
 				<option value="Staff">Staff</option>
-			</select>
-			<br>
-			Graduation Year:
-			<select name = "Graduation_Year">
+			  </select>
+			  <br>
+			  Graduation Year:
+			  <select name = "Graduation_Year">
+				<option value="<?php echo $colx3; ?>"><?php echo $colx3; ?></option>
 				<option value="No Selection">--Please Select--</option>
 				<option value="2014">2014</option>
 				<option value="2015">2015</option>
@@ -125,27 +104,12 @@ TODO:
 				<option value="2017">2017</option>
 				<option value="2018">2018</option>
 				<option value="NA">N/A</option>
-			</select>
-			<br>
-			First or Home Language:
-			<select name = "Language">
-				<option value="No Selection">--Please Select--</option>
-				<option value="English">English</option>
-				<option value="Arabic">Arabic</option>
-				<option value="Chinese">Chinese</option>
-				<option value="French">French</option>
-				<option value="German">German</option>
-				<option value="Japanese">Japanese</option>
-				<option value="Korean">Korean</option>
-				<option value="Portuguese">Portuguese</option>
-				<option value="Russian">Russian</option>
-				<option value="Spanish">Spanish</option>
-				<option value="Other">Other</option>
-			</select>
-			<br><br>
-			<!--Majors and minors-->
-			Major:
-			<select name = "Major">
+			  </select>
+			  <br>
+			  <!--Majors and minors-->
+			  Major:
+			  <select name = "Major">
+				<option value="<?php echo $colx4; ?>"><?php echo $colx4; ?></option>
 				<option value="Undeclared">--Undeclared--</option>
 				<option value="Accounting">Accounting</option>
 				<option value="American Studies">American Studies</option>
@@ -189,10 +153,11 @@ TODO:
 				<option value="Speech Communication">Speech Communication</option>
 				<option value="Theatre">Theatre</option>
 				<option value="Theology">Theology</option>
-			</select>
-			<br>
-			Secondary Major:
-			<select name = "Secondary_Major">
+			  </select>
+			  <br>
+			  Secondary Major:
+			  <select name = "Secondary_Major">
+				<option value="<?php echo $colx5; ?>"><?php echo $colx5; ?></option>
 				<option value="Undeclared">--Undeclared--</option>
 				<option value="Accounting">Accounting</option>
 				<option value="American Studies">American Studies</option>
@@ -236,10 +201,11 @@ TODO:
 				<option value="Speech Communication">Speech Communication</option>
 				<option value="Theatre">Theatre</option>
 				<option value="Theology">Theology</option>
-			</select>
-			<br>
-			Minor:
-			<select name = "Minor">
+			  </select>
+			  <br>
+			  Minor:
+			  <select name = "Minor">
+				<option value="<?php echo $colx6; ?>"><?php echo $colx6; ?></option>
 				<option value="Undeclared">--Undeclared--</option>
 				<option value="Accounting">Accounting</option>
 				<option value="American Studies">American Studies</option>
@@ -283,34 +249,17 @@ TODO:
 				<option value="Speech Communication">Speech Communication</option>
 				<option value="Theatre">Theatre</option>
 				<option value="Theology">Theology</option>
-			</select>
-			<br>
-			<!--Email options for users-->
-			Send an Email:<br><br>
-			When I make my appointment.
-			<input type="radio" name="appointment" value="Yes">Yes
-			<input type="radio" name="appointment" value="No">No
-			<br>
-			When I modify an appointment.
-			<input type="radio" name="modify" value="Yes">Yes
-			<input type="radio" name="modify" value="No">No
-			<br>
-			When I delete an appointment.
-			<input type="radio" name="delete" value="Yes">Yes
-			<input type="radio" name="delete" value="No">No
-			<br>
-			When an announcement or mass email is sent.
-			<input type="radio" name="announcement" value="Yes">Yes
-			<input type="radio" name="announcement" value="No">No
-			<br>
-			To remind me of my upcoming appointment.
-			<input type="radio" name="remind" value="Yes">Yes
-			<input type="radio" name="remind" value="No">No
-			<br>
-			<input type = "submit">
-		</form>
+			  </select>
+			  <br>
+			  <br>
+			  <input type = "submit" name="submit" value = "Update" class = 'btn'>
+			</form>
+		<?php } else {
+				echo 'You do not have permission to visit this page';
+				exit();
+			}
+		?>
+		<!-- End of content -->
+		</div>
 	</body>
 </html>
-
-
- 
