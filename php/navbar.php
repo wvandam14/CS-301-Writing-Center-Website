@@ -12,6 +12,7 @@
                         <li><a href='add_schedule.php'>Create New Schedule</a></li>
                         <li><a href='edit_schedule.php'>Edit Current Schedule</a></li>
                         <li><a href='#'>Enter Calendar Events</a></li>
+                        <li><a href='logout.php'>Log Out</a></li>
                       </ul>
                     </li>";
             case 2:
@@ -22,9 +23,10 @@
                         <li><a href='#'>Evaluation Form</a></li>
                         <li><a href='#'>Staff Calendar</a></li>
                         <li><a href='#'>Edit Consultant Profile</a></li>
+                        <li><a href='logout.php'>Log Out</a></li>
                       </ul>
                     </li>";
-            case 0:
+            case 3:
               echo "<li>
                       <a href='#'>Basic Tasks</a>
                       <ul>

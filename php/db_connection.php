@@ -143,7 +143,7 @@
 		$dbc = $GLOBALS['dbc'];
 		
 		if ($permission == 3) {
-			$q = "SELECT CONCAT(appt.description, '|', s.date_, '|', s.time_slot, '|', a.fname, ' ', a.lname) as info, appt.id as id
+			$q = "SELECT CONCAT(appt.description, '|', s.date_, '|', s.time_slot, '|', a.fname, ' ', a.lname, '|', appt.appointment_cancelled) as info, appt.id as id
 					FROM appointments as appt
 					inner join schedules as s
 					on appt.schedule_id = s.scheduleID
@@ -152,7 +152,7 @@
 					WHERE appt.client_id = '$id'
 					Order by s.date_";
 		} else {
-			$q = "SELECT CONCAT(appt.description, '|', s.date_, '|', s.time_slot, '|', a.fname, ' ' , a.lname) as info, appt.id as id
+			$q = "SELECT CONCAT(appt.description, '|', s.date_, '|', s.time_slot, '|', a.fname, ' ' , a.lname, '|', appt.appointment_cancelled) as info, appt.id as id
 					FROM appointments as appt
 					inner join schedules as s
 					on appt.schedule_id = s.scheduleID
