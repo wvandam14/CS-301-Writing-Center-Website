@@ -11,7 +11,8 @@ Date: 3/7/2015
 
     if(empty($_SESSION['type'])){
         header('location:login.php');
-    }
+    } else if ($_SESSION['type'] != 3)
+        header('location:../html/index.htm');
 
     require_once('db_connection.php');
 
@@ -60,7 +61,7 @@ Date: 3/7/2015
         $data = new stdClass();
         $data->consultants = getConsultants();
         $data->schedule = getSchedule();
-        //print_r($data);die();
+        //print_r($data->consultants);die();
 
         saveToJSON($data); 
     }
@@ -78,15 +79,13 @@ Date: 3/7/2015
             empty($_POST['assignmentName'])         ||
             empty($_POST['assignmentDescription'])
         ){
-
-            echo "Missing required information";
+            $missing = true;
             //print_r($_POST);die();
-
         }
         else{
 
             $app = new stdClass();
-
+            //print_r($_POST);die();
            
             $app->course_number = $_POST['courseNum'];
             $app->course_name = $_POST['courseName'];
@@ -99,8 +98,8 @@ Date: 3/7/2015
             $app->schedule_id = explode('-',$_POST['apptTime'])[0];
             $app->date = $_POST['apptDate'];
             $app->appointment_missed = !empty($_POST['appointment_missed']) ? 1 : 0 ;
-            $app->appointment_cancelled = (!empty($_POST['appointment_cancelled'] || empty($_POST['cancelAppt'])) ? 1 : 0);
-            //print_r($app);die();
+            $app->appointment_cancelled = (!empty(isset($_POST['appointment_cancelled']) || !empty($_POST['cancelAppt'])) ? 1 : 0);
+            //print_r($app->appointment_cancelled);die();
             if($edit){            
                 if($app->schedule_id != $appointment->schedule_id){
                     $app->old_schedule_id = $appointment->schedule_id;
@@ -118,6 +117,7 @@ Date: 3/7/2015
                 if(scheduleAppointment($app)){
                     $_POST = [];
                     updateScheduleFile();
+                    header('location:viewAppointments.php');
                 }
             }          
         } 
@@ -136,6 +136,8 @@ Date: 3/7/2015
             <div class="head">
                 <h1>Make Appointment</h1>
             </div>
+            <?php echo !empty($missing) ? "<h2 align='center'>Missing required information</h2>" : '' ?>
+            <?php echo $edit ? ($appointment->appointment_cancelled ? "<h2 align='center'>This appointment has been cancelled</h2>":'') : '' ; ?>
             <form action="" method="post">
                 
 
@@ -223,11 +225,14 @@ Date: 3/7/2015
                 </div>
 
                 <div>
-                    <button type="submit" class="btn">Save</button>
-                    <button class="btn" id="redirectAppt">Go Back</button>
-                    <?php if ($canEdit) :?>
-                        <button type="submit" class="btn" name="cancelAppt" id="cancelAppointment">Cancel Appointment</button>
-                    <?php endif; ?>
+                    <?php if(($edit && !empty(!$appointment->appointment_cancelled)) || !$edit) { 
+                    ?>
+                        <button type="submit" class="btn">Save</button>
+                        <?php if ($canEdit) :?>
+                            <button type="submit" class="btn" name="cancelAppt" value="1" id="cancelAppointment">Cancel Appointment</button>
+                        <?php endif; ?>
+                    <?php } ?>
+                    <button class="btn" value="<?php echo $edit ?>" id="redirectAppt">Go Back</button>
                 </div>
 
             </form>

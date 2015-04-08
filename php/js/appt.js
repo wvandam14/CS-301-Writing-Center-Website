@@ -33,22 +33,25 @@ $(function(){
 
 			}
 
-
 	    });
 	}
 
 	$('#redirectAppt').on('click', function() {
-		window.location.href = "viewAppointments.php";
+		var index = $(this).attr("value");
+		if (index)
+			window.location.href = "viewAppointments.php";
+		else
+			window.location.href = "../html/index.htm";
 		return false;
 	});
 
-	$('#redirectViewAppt').on('click', function() {
-		window.location.href = "../html/index.htm";
-		return false;
-	});
+	// $('#redirectViewAppt').on('click', function() {
+	// 	window.location.href = "../html/index.htm";
+	// 	return false;
+	// });
 
 	$('#edit_post_notes').on('click', function() {
-		window.location.href = "../html/postConsultation.php?" + $(this).attr("value");
+		window.location.href = "../html/postConsultation.php?id" + $(this).attr("value");
 		return false;
 	});
 
@@ -57,7 +60,7 @@ $(function(){
 		return false;
 	});
 
-	$('#apptDate').on('load',function(e){
+	$('#apptDate').on('blur',function(e){
 		var date = $('#apptDate').val();
 
 		$('#apptTime').find('option').remove().end().append('<option>Choose A Time</option>');

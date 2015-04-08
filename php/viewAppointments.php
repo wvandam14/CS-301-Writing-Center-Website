@@ -34,14 +34,19 @@
 				<th>Date</th>
 				<th>Time slot</th>
 				<th><?php echo $_SESSION['type'] == 2 ? "Client Name" : "Consultant Name"; ?></th>
+				<th>Status</th>
 				<?php
 					foreach ($data as $v => $d) {
 				?>
 				<tr>
-					<?php foreach ($d as $value) { ?>
-						<td><?php echo $value ?></td>
+					<?php for ($i = 0; $i < count($d)-1; $i++) { ?>
+						<td><?php echo $d[$i] ?></td>
 					<?php } ?>
-					<td style="border:none"><button class="editAppointment" name="editAppointment" value="<?php echo $v ?>">Edit Appointment</button></td>
+					<td>
+						<button class="editAppointment" name="editAppointment" value="<?php echo $v ?>">
+							<?php echo $d[4] == 0 ? "Edit Appointment" : "View Appointment" ?>
+						</button>
+					</td> 					
 				</tr>
 				<?php } ?>
 			</table>
