@@ -26,7 +26,6 @@
                         <li><a href='#'>Evaluation Form</a></li>
                         <li><a href='../php/viewAvailability.php'>Staff Calendar</a></li>
                         <li><a href='../html/editConsultant.php'>Edit Consultant Profile</a></li>
-                        <li><a href='../php/viewAppointments.php'>View My Appointments</a></li>
                         <li><a href='../php/logout.php'>Log Out</a></li>
                       </ul>
                     </li>";
