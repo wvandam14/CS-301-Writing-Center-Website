@@ -7,17 +7,22 @@ Date: 3/7/2015
 <?php 
 
     session_start();
-    //print_r($_SESSION);die();
+   
 
     if(empty($_SESSION['type'])){
         header('location:login.php');
-    } else if ($_SESSION['type'] != 3)
-        header('location:../html/index.php');
+    } 
+
 
     require_once('db_connection.php');
 
-
+    //print_r($_SERVER);die();
     if(!$_SERVER['QUERY_STRING']){
+
+        /*if($_SESSION['type'] == 2){
+            header('location:../html/index.php');
+        }*/
+
         $edit = false;
         $canEdit = false;
     }

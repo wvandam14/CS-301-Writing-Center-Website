@@ -194,8 +194,21 @@
 		if($r){
 			$appointments = array();
 			while ($appointment = $r->fetch_object()) {
+
 				$appointments[$appointment->id] = explode( '|', $appointment->info);
+
+				$date = strtotime($appointments[$appointment->id][1]);
+				$appointments[$appointment->id][1] = date("m/d/y", $date);
+
+				$time = $appointments[$appointment->id][2];
+			
+				if(strlen($time) == 3){
+					$time = "0".$time;
+				}
+				$appointments[$appointment->id][2] = $time[0].$time[1].':'.$time[2].$time[3];
+
 			}
+			//print_r($appointments);die();
 		
 			$r->close();
 			//print_r($consultants);die();
