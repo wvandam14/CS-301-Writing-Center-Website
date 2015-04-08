@@ -33,7 +33,7 @@
 		<title><?php echo $page_title; ?></title>
 		<link rel="stylesheet" href="<?php echo empty($css) ? '../css/style.css':$css; ?>" type="text/css" media="screen"/>
 		<?php if(!empty($header_line)) echo $header_line; ?>
-		<?php include("navbar.php"); ?>
+		<?php include("../php/navbar.php"); ?>
 		<meta http-equiv="content-type" content="text/html"; charset="utf-8" />
 	</head>
 	<body>
@@ -51,7 +51,6 @@
 			<?php }} ?>
 			<a href="../php/viewAppointments.php">View My Appointments</a>
 			<a href="#"><?php echo empty($_SESSION['username']) ? '':$_SESSION['username']; ?></a>
-			<a href="../php/logout.php" title="">logout</a>
 		</div>
 
 		<div id="content">
