@@ -73,15 +73,10 @@
 		<meta http-equiv="content-type" content="text/html"; charset="utf-8" />
 	</head>
 	<body>
-		<div id="header">
-		<h1></h1>
-		</div>
 		<?php require_once("navbar.php"); ?>
 
 		<div id="content">
 			<?php
-
-				require_once('db_connection.php');
 				$consultants = getConsultants();
 				if(empty($consultants)) {
 					echo "There are no consultants to display.";

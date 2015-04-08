@@ -11,6 +11,7 @@
                       <ul>
                         <li><a href='#'>Manage Staff Profiles</a></li>
                         <li><a href='../php/viewStaffAvailability.php'>View Staff Availability</a></li>
+                        <li><a href='../php/manageConsultants.php'>Add/Remove Consultants</a></li>
                         <li><a href='../php/add_schedule.php'>Create New Schedule</a></li>
                         <li><a href='../php/edit_schedule.php'>Edit Current Schedule</a></li>
                         <li><a href='#'>Enter Calendar Events</a></li>
