@@ -21,10 +21,6 @@
 		<link rel = "stylesheet" type = "text/css" href = "../css/style.css">
 	</head>
 	<body>
-
-
-		<div id="content">
-		<!-- Start of content -->
 		<img src = "../img/wcc-logo.png" alt = "WCC Logo" class ='logo'>
 		<h1 align = "center">Welcome!</h1>
 		<div> 
@@ -41,8 +37,10 @@
 				<?php
 					$email = $dbc->real_escape_string($_POST['email']);
 					$password = $dbc->real_escape_string($_POST['password']);
+
+
 					$stmt = $dbc->prepare("SELECT * FROM accounts WHERE email_address = ? AND password = ?;");
-					$stmt->bind_param("ss",$email, $password);
+					$stmt->bind_param("ss",$email, md5($password));
 					$stmt->execute();
 
 					$stmt->bind_result($col1, $col2, $col3, $col4, $col5, $col6, $col7);
@@ -60,7 +58,6 @@
      						$_SESSION['id'] = $col1;
 							$_SESSION['email'] = $col3;
 							$_SESSION['type'] = $col6;
-						
 
 						header("location:../html/index.htm");
 
@@ -75,7 +72,7 @@
 				<input type = "submit" name="submit" value = "Log In" class= 'btn'><!-- onclick = "login($login->email, $login->password)"> -->
 				<br><br>
 
-				<a href="../php/register.php">Don't have an account? Click here to register.</a>
+				<a href="../html/register.php">Don't have an account? Click here to register.</a>
 			</form>
 		</div>
 	</body>
