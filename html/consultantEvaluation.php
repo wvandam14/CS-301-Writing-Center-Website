@@ -73,7 +73,7 @@
 					</select>
 				</p>
 					Date:
-					<input type="date" name="Date" size="20" required="required">
+					<input type="date" name="Date" placeholder="yyyy-mm-dd" size="20" required="required">
 				</p>
 			<!--Consultant questions with score response-->
 				<p>The consultant explained ideas to me in a way that I can understand and use.<br>

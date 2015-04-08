@@ -6,77 +6,53 @@
  //    }
 	require_once('db_connection.php');
 	
-	$data = getAllAppointments($_SESSION['user_id'], $_SESSION['permission']);
+	$data = getAllAppointments($_SESSION['id'], $_SESSION['type']);
+	//print_r($data);
 ?>
 <!DOCTYPE html>
 <html>
 	<head>
 		<title><?php echo $page_title; ?></title>
 		<link rel="stylesheet" href="<?php echo empty($css) ? '../css/style.css':$css; ?>" type="text/css" media="screen"/>
+		<link rel="stylesheet" type="text/css" href="../css/indexStyle.css"/>
 		<?php if(!empty($header_line)) echo $header_line; ?>
 		<?php include("navbar.php"); ?>
 		<meta http-equiv="content-type" content="text/html"; charset="utf-8" />
 	</head>
 	<body>
-		<div id="header">
-		<h1>View Consultant Calendar</h1>
-		</div>
-		<div id="username-display">
-			<?php if(!empty($_SESSION['permission'])) {
-				if ($_SESSION['permission'] == 3) {
-			?>
-				<a href="appointmentPopup.php">Appointment</a>
-			<?php }} ?>
-			<a href="viewAppointments.php">View My Appointments</a>
-			<a href="#"><?php echo empty($_SESSION['username']) ? '':$_SESSION['username']; ?></a>
-			<a href="logout.php" title="">logout</a>
-		</div>
-
+		
+		
+		<?php require_once("navbar.php"); ?>
 		<div id="content">
+			<!-- <div id="header"> -->
+				<h1><?php echo $_SESSION['type'] == 2 ? "Consultant Calendar" : "Client Calendar"; ?></h1>
+			<!-- </div> -->
 		<!-- Start of content -->
-			<?php
 
-				$db = new mysqli(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
-				if($db->connect_error) {
-					die('Connect error: '.$db->connect_error);
-				}
-
-				$stmt = "SELECT fname, lname, date_, time_slot, status_
-						 FROM accounts INNER JOIN schedules ON accountid = consultantid
-						 WHERE consultantid IS NOT NULL
-						 ORDER BY date_ ASC, fname";
-
-				$result = $db->query($stmt);
-
-				$assoc = array();
-				if($result) {
-					while($row = $result->fetch_assoc()) {
-						array_push($assoc, $row);
-					}
-				}
-
-				$db->close();
-
-			?>
-
-			<table>
-				<th>Name</th>
+			<table id="viewConsultantAppointments">
+				<th>Assignment Description</th>
 				<th>Date</th>
 				<th>Time slot</th>
+				<th><?php echo $_SESSION['type'] == 2 ? "Client Name" : "Consultant Name"; ?></th>
 				<th>Status</th>
 				<?php
-				
-					foreach($assoc as $row) {
-						echo "<tr>";
-						echo "<td>".$row['fname']." ".$row['lname']."</td>";
-						echo "<td>".$row['date_']."</td>";
-						echo "<td>".$row['time_slot']."</td>";
-						echo "<td>".$row['status_']."</td>";
-						echo "</tr>";
-					}
-
+					foreach ($data as $v => $d) {
 				?>
+				<tr>
+					<?php for ($i = 0; $i < count($d)-1; $i++) { ?>
+						<td><?php echo $d[$i] ?></td>
+					<?php } ?>
+					<td>
+						<button class="editAppointment" name="editAppointment" value="<?php echo $v ?>">
+							<?php echo $d[4] == 0 ? "Edit Appointment" : "View Appointment" ?>
+						</button>
+					</td> 					
+				</tr>
+				<?php } ?>
 			</table>
+<!-- 			<button class="btn" id="redirectViewAppt">Go Back</button> -->
 		</div>
+		<script src="js/jquery-1.11.0.js"></script>
+        <script src="js/appt.js"></script>
 	</body>
 </html>

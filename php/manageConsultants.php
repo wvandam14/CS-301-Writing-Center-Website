@@ -88,7 +88,7 @@
 				}
 				else {
 					?>
-						<h1><i>Welcome to le shit show, admins</i></h1>
+						<h1><i>Manage Consultants</i></h1>
 
 						<h2>Delete Consultants</h2>
 						<form name = "removeConsultant" action = "<?php echo $_SERVER['PHP_SELF'] ?>" method = "POST">

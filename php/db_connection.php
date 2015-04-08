@@ -50,9 +50,9 @@
 		// echo $today."<br/>".$nextWeek."<br/>".$nextMonth."<br/>";
 		// die();
 
-		/*$q = "SELECT s.date_ AS date,CONCAT(s.consultantID,'-',GROUP_CONCAT(s.time_slot ORDER BY s.time_slot ASC SEPARATOR ',')) AS time_slots FROM schedules AS s WHERE s.status_ = 'available' GROUP BY s.date_  ORDER BY s.date_ ASC";*/
+		/*$q = "SELECT s.date_ AS date,CONCAT(s.consultantID,'-',GROUP_CONCAT(s.time_slot ORDER BY s.time_slot ASC SEPARATOR ',')) AS time_slots FROM schedules AS s WHERE s.status_ = 'open' GROUP BY s.date_  ORDER BY s.date_ ASC";*/
 
-		$q = "SELECT s.date_ AS date,GROUP_CONCAT(DISTINCT CONCAT(s.scheduleid,'-',s.consultantID,'-',s.time_slot) ORDER BY s.time_slot SEPARATOR ',') AS time_slots FROM schedules AS s WHERE s.status_ = 'available' GROUP BY s.date_ ORDER BY s.date_ ASC";
+		$q = "SELECT s.date_ AS date,GROUP_CONCAT(DISTINCT CONCAT(s.scheduleid,'-',s.consultantID,'-',s.time_slot) ORDER BY s.time_slot SEPARATOR ',') AS time_slots FROM schedules AS s WHERE s.status_ = 'open' GROUP BY s.date_ ORDER BY s.date_ ASC";
 		$r = $dbc->query($q);
 
 		if($r){
@@ -119,14 +119,12 @@
         $app->appointment_missed = $dbc->real_escape_string(trim($app->appointment_missed));
         $app->appointment_cancelled = $dbc->real_escape_string(trim($app->appointment_cancelled));
 
+        //print_r($app);die();
 
-
-        $q = "UPDATE schedules AS s SET s.status_ = 'occupied' WHERE s.scheduleID = '$app->schedule_id'";
-
+        $q = "UPDATE schedules AS s SET s.status_ = 'booked' WHERE s.scheduleID = '$app->schedule_id'";
         if($r = $dbc->query($q)){
         	$q = "INSERT INTO appointments (course_name,course_number,instructor,assignment,send_post_consultation_notes,appointment_missed,appointment_cancelled,description,client_id,consultant_id,schedule_id) VALUES ('$app->course_name','$app->course_number','$app->instructor','$app->assignment','$app->send_post_consultation_notes','$app->appointment_missed','$app->appointment_cancelled','$app->description','$app->client_id','$app->consultant_id','$app->schedule_id');";
         	//die($q);
-
     		if($r = $dbc->query($q)){
     			return true;
     		}
@@ -145,7 +143,7 @@
 		$dbc = $GLOBALS['dbc'];
 		
 		if ($permission == 3) {
-			$q = "SELECT CONCAT(appt.description, '|', s.date_, '|', s.time_slot, '|', a.fname, '|', a.lname) as info, appt.id as id
+			$q = "SELECT CONCAT(appt.description, '|', s.date_, '|', s.time_slot, '|', a.fname, ' ', a.lname, '|', appt.appointment_cancelled) as info, appt.id as id
 					FROM appointments as appt
 					inner join schedules as s
 					on appt.schedule_id = s.scheduleID
@@ -154,7 +152,7 @@
 					WHERE appt.client_id = '$id'
 					Order by s.date_";
 		} else {
-			$q = "SELECT CONCAT(appt.description, '|', s.date_, '|', s.time_slot, '|', a.fname, '|', a.lname) as info, appt.id as id
+			$q = "SELECT CONCAT(appt.description, '|', s.date_, '|', s.time_slot, '|', a.fname, ' ' , a.lname, '|', appt.appointment_cancelled) as info, appt.id as id
 					FROM appointments as appt
 					inner join schedules as s
 					on appt.schedule_id = s.scheduleID
@@ -242,22 +240,20 @@
         $app->appointment_missed = $dbc->real_escape_string(trim($app->appointment_missed));
         $app->appointment_cancelled = $dbc->real_escape_string(trim($app->appointment_cancelled));
 
-
-
 		if($app->appointment_cancelled){
 			$schedule_id = empty($app->old_schedule_id) ? $app->schedule_id:$app->old_schedule_id;
-			$q = "UPDATE schedules AS s SET s.status_ = 'available' WHERE s.scheduleID = '$schedule_id'";
+			$q = "UPDATE schedules AS s SET s.status_ = 'open' WHERE s.scheduleID = '$schedule_id'";
         	if(!($r = $dbc->query($q))){
         		die('Error on freeing old time slot');
         	}
 		}
 
         if(!(empty($app->old_schedule_id))){
-        	$q = "UPDATE schedules AS s SET s.status_ = 'available' WHERE s.scheduleID = '$app->old_schedule_id'";
+        	$q = "UPDATE schedules AS s SET s.status_ = 'open' WHERE s.scheduleID = '$app->old_schedule_id'";
         	if(!($r = $dbc->query($q))){
         		die('Error on freeing old time slot');
         	}
-        	 $q = "UPDATE schedules AS s SET s.status_ = 'occupied' WHERE s.scheduleID = '$app->schedule_id'";
+        	 $q = "UPDATE schedules AS s SET s.status_ = 'booked' WHERE s.scheduleID = '$app->schedule_id'";
         	if(!($r = $dbc->query($q))){
         		die('Error on reserving new time slot');
         	}
