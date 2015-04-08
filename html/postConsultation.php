@@ -44,7 +44,8 @@ Date: 1/22/2015
 		<p>Client:
 			<input type="text" name="Client" size="25" maxlength="254" required="required"/>
 			Date:
-			<input type="date" name="date" required="required"/></p>
+			<input type="date" placeholder="yyyy-mm-dd" name="date" required="required"/>			
+		</p>
 		<p>
 			Client is a: <select name="clientType"><!--origional form had different class standing options-->
 				<option>Student</option>
