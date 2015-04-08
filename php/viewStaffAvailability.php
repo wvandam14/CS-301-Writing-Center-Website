@@ -5,6 +5,7 @@
  //        header('location:login.php');
  //    }
 	require_once('db_connection.php');
+	require_once("navbar.php");
 	
 	$data = getAllAppointments($_SESSION['user_id'], $_SESSION['permission']);
 ?>
@@ -26,9 +27,7 @@
 			?>
 				<a href="appointmentPopup.php">Appointment</a>
 			<?php }} ?>
-			<a href="viewAppointments.php">View My Appointments</a>
 			<a href="#"><?php echo empty($_SESSION['username']) ? '':$_SESSION['username']; ?></a>
-			<a href="logout.php" title="">logout</a>
 		</div>
 
 		<div id="content">

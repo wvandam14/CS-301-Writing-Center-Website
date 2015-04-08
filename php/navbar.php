@@ -10,7 +10,7 @@
                       <a href='#'>Administrator Tasks</a>
                       <ul>
                         <li><a href='#'>Manage Staff Profiles</a></li>
-                        <li><a href='../php/viewAppointments.php'>View Staff Availability</a></li>
+                        <li><a href='../php/viewStaffAvailability.php'>View Staff Availability</a></li>
                         <li><a href='../php/add_schedule.php'>Create New Schedule</a></li>
                         <li><a href='../php/edit_schedule.php'>Edit Current Schedule</a></li>
                         <li><a href='#'>Enter Calendar Events</a></li>
@@ -23,7 +23,7 @@
                       <ul>
                         <li><a href='#'>Availability Form</a></li>
                         <li><a href='#'>Evaluation Form</a></li>
-                        <li><a href='../php/viewStaffAvailability.php'>Staff Calendar</a></li>
+                        <li><a href='../php/viewAvailability.php'>Staff Calendar</a></li>
                         <li><a href='../html/editConsultant.php'>Edit Consultant Profile</a></li>
                         <li><a href='logout.php'>Log Out</a></li>
                       </ul>
