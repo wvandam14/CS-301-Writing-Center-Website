@@ -25,8 +25,6 @@
 
 		$stmt->close();
 
-		echo "HERE";
-
 		$stmt = $db->prepare("INSERT INTO accounts (fname, lname, email_address, password, accounttypeid, accountdetails) values (?,?,?,?,2,?)");
 		$fname = $db->real_escape_string($_POST['fname']);
 		$lname = $db->real_escape_string($_POST['lname']);
@@ -44,17 +42,20 @@
 			die('Connect error: '.$db->connect_error);
 		}
 
-		$stmt = $db->prepare("SELECT accountDetails from accounts where accountId = ?");
+		$stmt = $db->prepare("SELECT accountDetails, fname, lname from accounts where accountId = ?");
 		$id = $_POST['id'];
 		$stmt->bind_param('i', $id);
 		$stmt->execute();
 		
 		$accountDetailsID;
+		$fname;
+		$lname;
 		$result = $stmt->get_result();
 		if($data = $result->fetch_assoc()) {
 			$accountDetailsID = $data['accountDetails'];
+			$fname = $data['fname'];
+			$lname = $data['lname'];
 		}
-
 		$stmt = $db->prepare("DELETE FROM accounts WHERE accountId = ?");
 		$stmt->bind_param('i', $id);
 		$stmt->execute();
@@ -62,6 +63,8 @@
 		$stmt = $db->prepare("DELETE FROM accountdetails WHERE accountDetailId = ?");
 		$stmt->bind_param('i', $accountDetailsID);
 		$stmt->execute();
+
+		echo "Consultant named ".$fname." ".$lname." deleted.";
 	}
 	
 
@@ -92,7 +95,6 @@
 							<select name = "id">
 								<?php
 									$consultants = getConsultantsWithoutModifyingKeyValue(); // because the other function returns specific key values. This will return the general key value
-									print_r($consultants);
 									foreach($consultants as $c) {
 										echo "<option value = ".$c['id'].">".$c['name']."</option>";
 									}
