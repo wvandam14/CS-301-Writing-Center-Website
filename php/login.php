@@ -59,7 +59,7 @@
 							$_SESSION['email'] = $col3;
 							$_SESSION['type'] = $col6;
 
-						header("location:../html/index.htm");
+						header("location:../html/index.php");
 
 						exit();
      				}
