@@ -1,9 +1,20 @@
 <!DOCTYPE html>
 <html>
+<head>
+<head>
+	<meta charset="utf-8">
+	<title>Post Consultation-Notes</title>
+	<link rel="stylesheet" type="text/css" href="../css/style.css">
+	<link rel="stylesheet" type="text/css" href="../css/indexStyle.css">	
+</head>
+</head>
   <body>
-    <h1> Thank you for your feedback! </h1>
     <?php
-
+		session_start();
+		//navbar
+		include "../php/navbar.php";
+		echo "<h1> Post Consultation-Notes</h1>";
+		echo "<h2> Thank you for your feedback! </h2>";
 
       // This takes all the values from the form to be used in the query
       $Email_Instructor = $_POST["emailtoins"];
