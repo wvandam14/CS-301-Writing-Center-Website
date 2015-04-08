@@ -10,9 +10,9 @@
                       <a href='#'>Administrator Tasks</a>
                       <ul>
                         <li><a href='#'>Manage Staff Profiles</a></li>
-                        <li><a href='viewAppointments.php'>View Staff Availability</a></li>
-                        <li><a href='add_schedule.php'>Create New Schedule</a></li>
-                        <li><a href='edit_schedule.php'>Edit Current Schedule</a></li>
+                        <li><a href='../php/viewAppointments.php'>View Staff Availability</a></li>
+                        <li><a href='../php/add_schedule.php'>Create New Schedule</a></li>
+                        <li><a href='../php/edit_schedule.php'>Edit Current Schedule</a></li>
                         <li><a href='#'>Enter Calendar Events</a></li>
                         <li><a href='logout.php'>Log Out</a></li>
                       </ul>
