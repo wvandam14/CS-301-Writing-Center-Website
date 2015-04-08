@@ -1,4 +1,6 @@
 <!-- session permissions: 0 (client), 1 (consultant), 2 (admin) -->
+<link rel="stylesheet" type="text/css" href="../css/indexStyle.css">
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 <nav id="username-display">
   <ul>
     <li><a href="../html/index.htm">Home</a></li>
