@@ -19,20 +19,21 @@
       $Section = $_POST["Section"];
 
       // This takes all the values from the checkboxes
-
-      $Assignment_ = ($_POST["Assignment"] && $_POST["Assignment"] == 'Yes') ? 1 : 0;
-      $Ideas = ($_POST["Ideas"] && $_POST["Ideas"] == 'Yes') ? 'Yes' : 'No';
-      $Thesis = ($_POST["Thesis"] && $_POST["Thesis"] == 'Yes') ? 'Yes' : 'No';
-      $Subject = ($_POST["Subject"] && $_POST["Subject"] == 'Yes') ? 'Yes' : 'No';
-      $Audience = ($_POST["Audience"] && $_POST["Audience"] == 'Yes') ? 'Yes' : 'No';
-      $Organization = ($_POST["Organization"] && $_POST["Organization"] == 'Yes') ? 'Yes' : 'No';
-      $Content = ($_POST["Content"] && $_POST["Content"] == 'Yes') ? 'Yes' : 'No';
-      $Intro = ($_POST["Intro"] && $_POST["Intro"] == 'Yes') ? 'Yes' : 'No';
-      $Sources = ($_POST["Sources"] && $_POST["Sources"] == 'Yes') ? 'Yes' : 'No';
-      $Citations = ($_POST["Citations"] && $_POST["Citations"] == 'Yes') ? 'Yes' : 'No';
-      $Design = ($_POST["Design"] && $_POST["Design"] == 'Yes') ? 'Yes' : 'No';
-      $Sentence = ($_POST["Sentence"] && $_POST["Sentence"] == 'Yes') ? 'Yes' : 'No';
-      $Grammar = ($_POST["Grammar"] && $_POST["Grammar"] == 'Yes') ? 'Yes' : 'No';
+	  
+	  $Assignment_ = isset($_POST["Assignment"]) ? 1 : 0;
+      $Ideas = isset($_POST["Ideas"]) ? 'Yes' : 'No';
+      $Thesis = isset($_POST["Thesis"]) ? 'Yes' : 'No';
+      $Subject = isset($_POST["Subject"]) ? 'Yes' : 'No';
+      $Audience = isset($_POST["Audience"]) ? 'Yes' : 'No';
+      $Organization = isset($_POST["Organization"]) ? 'Yes' : 'No';
+      $Content = isset($_POST["Content"]) ? 'Yes' : 'No';
+      $Intro = isset($_POST["Intro"]) ? 'Yes' : 'No';
+      $Sources = isset($_POST["Sources"]) ? 'Yes' : 'No';
+      $Citations = isset($_POST["Citations"]) ? 'Yes' : 'No';
+      $Design = isset($_POST["Design"]) ? 'Yes' : 'No';
+      $Sentence = isset($_POST["Sentence"]) ? 'Yes' : 'No';
+      $Grammar = isset($_POST["Grammar"]) ? 'Yes' : 'No';
+	  
 
       // $appointment_id = $_SERVER['QUERY_STRING'];
 

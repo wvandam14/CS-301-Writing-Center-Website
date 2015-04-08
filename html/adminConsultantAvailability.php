@@ -4,6 +4,8 @@
 		<meta charset="utf-8">
 		<title>Consultant Availability</title>
 		<link rel="stylesheet" type="text/css" href="../css/style.css">
+		<link rel="stylesheet" type="text/css" href="../css/indexStyle.css">
+		<link rel="stylesheet" type="text/css" href="../css/tablestyles.css">
 	</head>
 	<body>
 		<?php include "../php/navbar.php"; ?>
@@ -19,11 +21,11 @@
 					//Permissions
 					session_start();					
 	
-					if(!isset($_SESSION['user_id'])){
+					if(!isset($_SESSION['id'])){
 						echo "You are not logged in. Please <a href='login.html'>log in</a> to continue";
 						exit;
 					}
-					if($_SESSION['permission'] != 1){
+					if($_SESSION['type'] != 1){
 						echo "You do not have permission to view this page";
 						exit;
 					}

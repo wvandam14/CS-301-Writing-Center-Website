@@ -4,8 +4,10 @@
 		<meta charset="utf-8">
 		<title>Consultant Evaluation Form</title>
 		<link rel="stylesheet" type="text/css" href="../css/style.css">
-	</head>
+		<link rel="stylesheet" type="text/css" href="../css/indexStyle.css">	
+</head>
 	<body>
+		<?php include "../php/navbar.php"; ?>
 		<!--This is the main heading of the form-->
 		<a href="index.htm">
 		<img src="../img/wcc-logo.png" alt="WCC Logo" class='logo'>
@@ -14,10 +16,10 @@
 		<?php
 			session_start();
 			//navbar
-			include "../php/navbar.php";
+
 			
 			//check login
-			if(!isset($_SESSION['user_id'])){
+			if(!isset($_SESSION['id'])){
 				echo "You are not logged in. Please <a href='login.html'>log in</a> to continue";
 				exit;
 			}
