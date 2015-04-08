@@ -1,9 +1,9 @@
 <!-- session permissions: 0 (client), 1 (consultant), 2 (admin) -->
-
 <nav id="username-display">
   <ul>
+    <li><a href="../html/index.htm">Home</a></li>
     <?php switch($_SESSION['type']) {
-            case 2:
+            case 1:
               echo "<li>
                       <a href='#'>Administrator Tasks</a>
                       <ul>
@@ -12,9 +12,10 @@
                         <li><a href='add_schedule.php'>Create New Schedule</a></li>
                         <li><a href='edit_schedule.php'>Edit Current Schedule</a></li>
                         <li><a href='#'>Enter Calendar Events</a></li>
+                        <li><a href='logout.php'>Log Out</a></li>
                       </ul>
                     </li>";
-            case 1:
+            case 2:
               echo "<li>
                       <a href='#'>Consultant Tasks</a>
                       <ul>
@@ -22,9 +23,10 @@
                         <li><a href='#'>Evaluation Form</a></li>
                         <li><a href='#'>Staff Calendar</a></li>
                         <li><a href='#'>Edit Consultant Profile</a></li>
+                        <li><a href='logout.php'>Log Out</a></li>
                       </ul>
                     </li>";
-            case 0:
+            case 3:
               echo "<li>
                       <a href='#'>Basic Tasks</a>
                       <ul>

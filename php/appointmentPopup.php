@@ -7,10 +7,12 @@ Date: 3/7/2015
 <?php 
 
     session_start();
+    //print_r($_SESSION);die();
 
     if(empty($_SESSION['type'])){
         header('location:login.php');
-    }
+    } else if ($_SESSION['type'] != 3)
+        header('location:../html/index.htm');
 
     require_once('db_connection.php');
 
@@ -30,13 +32,11 @@ Date: 3/7/2015
                 $canEdit = false;
             }
             else{
-                if($_SESSION['type'] == 2 || $_SESSION['type'] == 3){
-                    $canEdit = true;
-                }
-                else{
-                    $canEdit = false;
-                }
+                $canEdit = true;
             }
+        }
+        else{
+           $canEdit = false;
         }
         $appointment = getAppointmentById($appointment_id);
         // print_r($appointment);die();
@@ -61,6 +61,8 @@ Date: 3/7/2015
         $data = new stdClass();
         $data->consultants = getConsultants();
         $data->schedule = getSchedule();
+        //print_r($data->consultants);die();
+
         saveToJSON($data); 
     }
 
@@ -77,30 +79,27 @@ Date: 3/7/2015
             empty($_POST['assignmentName'])         ||
             empty($_POST['assignmentDescription'])
         ){
-
-            echo "Missing required information";
+            $missing = true;
             //print_r($_POST);die();
-
         }
         else{
 
             $app = new stdClass();
-
+            //print_r($_POST);die();
            
             $app->course_number = $_POST['courseNum'];
             $app->course_name = $_POST['courseName'];
             $app->instructor = $_POST['instructorName'];
             $app->assignment = $_POST['assignmentName'];
-            $app->send_post_consultation_notes = !empty($_POST['consultationNotes']);
+            $app->send_post_consultation_notes = !empty($_POST['consultationNotes']) ? 1 : 0 ;
             $app->description = $_POST['assignmentDescription'];
             $app->client_id = $_SESSION['id'];
             $app->consultant_id = explode('-',$_POST['apptTime'])[1];
             $app->schedule_id = explode('-',$_POST['apptTime'])[0];
             $app->date = $_POST['apptDate'];
-            $app->appointment_missed = !empty($_POST['appointment_missed']);
-            $app->appointment_cancelled = !empty($_POST['appointment_cancelled']);;
-
-
+            $app->appointment_missed = !empty($_POST['appointment_missed']) ? 1 : 0 ;
+            $app->appointment_cancelled = (!empty(isset($_POST['appointment_cancelled']) || !empty($_POST['cancelAppt'])) ? 1 : 0);
+            //print_r($app->appointment_cancelled);die();
             if($edit){            
                 if($app->schedule_id != $appointment->schedule_id){
                     $app->old_schedule_id = $appointment->schedule_id;
@@ -118,9 +117,10 @@ Date: 3/7/2015
                 if(scheduleAppointment($app)){
                     $_POST = [];
                     updateScheduleFile();
+                    header('location:viewAppointments.php');
                 }
             }          
-        }
+        } 
     }
  ?>
 <html lang="en-US">
@@ -136,11 +136,10 @@ Date: 3/7/2015
             <div class="head">
                 <h1>Make Appointment</h1>
             </div>
+            <?php echo !empty($missing) ? "<h2 align='center'>Missing required information</h2>" : '' ?>
+            <?php echo $edit ? ($appointment->appointment_cancelled ? "<h2 align='center'>This appointment has been cancelled</h2>":'') : '' ; ?>
             <form action="" method="post">
-                <div>
-                   <!--  <label>Client Name</label> -->
-                    <h2><?php echo  $edit ? $appointment->client_name:$_SESSION['name'] ?></h2>
-                </div>
+                
 
                 <div>
                     <div class="one">
@@ -199,7 +198,7 @@ Date: 3/7/2015
                 </div>
 
                 <?php 
-                    if($canEdit){
+                    if($canEdit && $_SESSION['type'] == 2){
                 ?>
                     <div class="apptMissed">
                         <input type="checkbox" name="appointment_missed" id="appointment_missed" <?php echo $edit ? ($appointment->appointment_missed ? 'checked':'') : (!empty($_POST['appointment_missed']) ? 'checked':'') ?> <?php echo $appointment->appointment_cancelled ? "disabled":''; ?>/>
@@ -208,7 +207,7 @@ Date: 3/7/2015
 
                     <div class="apptCancelled">
                         <input type="checkbox" name="appointment_cancelled" id="appointment_cancelled" <?php echo $edit ? ($appointment->appointment_cancelled ? 'checked':'') : (!empty($_POST['appointment_cancelled']) ? 'checked':'') ?> <?php echo $appointment->appointment_cancelled ? "disabled":''; ?>/>
-                        <label>Appointment cancelled</label>
+                        <label>Cancel appointment</label>
                     </div> 
                     <div class="editPostNotes">
                         <button class="btn" type="button" name="edit_post_notes" id="edit_post_notes" value="<?php echo $appointment_id ?>">Edit Post Consultation Notes</button>
@@ -221,13 +220,19 @@ Date: 3/7/2015
                 <div>
                     <div id="instructorEmail" style="display: none">
                         <label>Instructor Email</label>
-                        <input type="email" <?php echo $appointment->appointment_cancelled ? "disabled":''; ?>/>
+                        <input type="email" <?php echo $edit ? ($appointment->appointment_cancelled ? "disabled":'') : '' ; ?>/>
                     </div>
                 </div>
 
                 <div>
-                    <button type="submit" class="btn">Save</button>
-                    <button class="btn" id="redirectAppt">Go Back</button>
+                    <?php if(($edit && !empty(!$appointment->appointment_cancelled)) || !$edit) { 
+                    ?>
+                        <button type="submit" class="btn">Save</button>
+                        <?php if ($canEdit) :?>
+                            <button type="submit" class="btn" name="cancelAppt" value="1" id="cancelAppointment">Cancel Appointment</button>
+                        <?php endif; ?>
+                    <?php } ?>
+                    <button class="btn" value="<?php echo $edit ?>" id="redirectAppt">Go Back</button>
                 </div>
 
             </form>

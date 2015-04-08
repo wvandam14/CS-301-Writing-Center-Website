@@ -33,21 +33,34 @@ $(function(){
 
 			}
 
-
 	    });
 	}
 
 	$('#redirectAppt').on('click', function() {
-		window.location.href = "viewAppointments.php";
+		var index = $(this).attr("value");
+		if (index)
+			window.location.href = "viewAppointments.php";
+		else
+			window.location.href = "../html/index.htm";
 		return false;
 	});
+
+	// $('#redirectViewAppt').on('click', function() {
+	// 	window.location.href = "../html/index.htm";
+	// 	return false;
+	// });
 
 	$('#edit_post_notes').on('click', function() {
-		window.location.href = "../html/postConsultation.html?" + $(this).attr("value");
+		window.location.href = "../html/postConsultation.php?id" + $(this).attr("value");
 		return false;
 	});
 
-	$('#apptDate').on('input',function(e){
+	$('.editAppointment').on('click', function() {
+		window.location.href = "appointmentPopup.php?" + $(this).attr("value");
+		return false;
+	});
+
+	$('#apptDate').on('blur',function(e){
 		var date = $('#apptDate').val();
 
 		$('#apptTime').find('option').remove().end().append('<option>Choose A Time</option>');
@@ -56,9 +69,14 @@ $(function(){
 		if(i != schedule.length){
 			$.each(schedule[i].time_slots,function(index,slot){
 				var args = slot.split('-');
+
+					var t = args[2];
+					if (t.length == 3) t = "0" + t;
+					t = t[0]+t[1]+":"+t[2]+t[3];
+
 				 $('#apptTime').append($('<option>', { 
 				        value: slot,
-				        text : args[2]+"-"+consultants[args[1]]
+				        text : t+"-"+consultants[args[1]]
 				    }));
 			});
 		}
