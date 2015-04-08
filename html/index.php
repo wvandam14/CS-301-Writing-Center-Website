@@ -4,7 +4,7 @@
 	require_once("../php/auth.php");
 	require_once("../php/db_connection.php");
 	
-	$data = getAllAppointments($_SESSION['user_id'], $_SESSION['permission']);
+	$data = getAllAppointments($_SESSION['id'], $_SESSION['type']);
 ?>
 <html>
 <head>
