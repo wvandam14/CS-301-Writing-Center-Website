@@ -77,6 +77,7 @@
 
 		<div id="content">
 			<?php
+			require_once('db_connection.php');
 				$consultants = getConsultants();
 				if(empty($consultants)) {
 					echo "There are no consultants to display.";

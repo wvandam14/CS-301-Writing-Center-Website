@@ -103,6 +103,33 @@
 		}
 	}
 
+	function getConsultantsWithoutModifyingKeyValue(){
+		$dbc = $GLOBALS['dbc'];
+
+		$q = "SELECT c.accountID as id,CONCAT(c.fname,' ',c.lname) as name 
+			FROM writingcenter.accounts AS c 
+			WHERE c.accountTypeId = '2'";
+		$r = $dbc->query($q);
+
+		if($r){
+
+			$consultants = array();
+			while($consultant = $r->fetch_assoc()){
+				array_push($consultants, $consultant);
+			}
+			
+			$r->close();
+			//print_r($consultants);die();
+
+			return $consultants;
+		}
+		else{
+			echo '<h1>System error</h1>
+			<p class="error">The list of consultants could not be retrived due to a system error. We apologize for the inconvenience.</p>';
+			echo '<p>' . mysqli_error($dbc) . '<br/><br/>Query: ' . $q . '</p>';
+		}
+	}
+
 	function scheduleAppointment($app){
 		$dbc = $GLOBALS['dbc'];
 
