@@ -3,7 +3,7 @@
 	//POST user info
 	//POST all variables --probably have the values in an array
 	$data = array($_POST["d0"], $_POST["d1"], $_POST["d2"], $_POST["d3"], $_POST["d4"], $_POST["d5"], $_POST["d6"]);
-	$user = $_SESSION["user_id"];
+	$user = $_SESSION["id"];
 	$time_strings = array("", "", "", "", "", "", "");
 	$array_size = count($data);	
 	//For 0 to 6, take each index in that numbered array and make all into large string
@@ -42,10 +42,10 @@
 			  " " . $db->error );
 			}
 		//if the user has not entered a schedule for this day
-		if(!$result){
+		if($result[0] == NULL){
 			if($stmt1 = $db->prepare($query1)){
 			  // Bind the cleaned parameters to the pre-prepared query1
-			  $stm1t->bind_param("iis", $user, $j, $time_strings[$j]);
+			  $stmt1->bind_param("iis", $user, $j, $time_strings[$j]);
 			  // Execute the insertion
 			  $stmt1->execute();
 			  $stmt1->close();
