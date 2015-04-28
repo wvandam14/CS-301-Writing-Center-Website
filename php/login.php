@@ -35,39 +35,43 @@
 				
 				
 				<?php
-					$email = $dbc->real_escape_string($_POST['email']);
-					$password = $dbc->real_escape_string($_POST['password']);
+
+					if($_SERVER['REQUEST_METHOD'] == 'POST'){
+						$email = $dbc->real_escape_string($_POST['email']);
+						$password = $dbc->real_escape_string($_POST['password']);
 
 
-					$stmt = $dbc->prepare("SELECT * FROM accounts WHERE email_address = ? AND password = ?;");
-					$stmt->bind_param("ss",$email, md5($password));
-					$stmt->execute();
+						$stmt = $dbc->prepare("SELECT * FROM accounts WHERE email_address = ? AND password = ?;");
+						$stmt->bind_param("ss",$email, md5($password));
+						$stmt->execute();
 
-					$stmt->bind_result($col1, $col2, $col3, $col4, $col5, $col6, $col7);
-				
-					$stmt->fetch();
+						$stmt->bind_result($col1, $col2, $col3, $col4, $col5, $col6, $col7);
+					
+						$stmt->fetch();
 
-					$stmt->close();
+						$stmt->close();
 
-					$dbc->close();
+						$dbc->close();
 
 
-					if($_POST['submit'])
-					{
-						if ($col1 != NULL){
-     						$_SESSION['id'] = $col1;
-							$_SESSION['email'] = $col3;
-							$_SESSION['type'] = $col6;
+						if($_POST['submit'])
+						{
+							if ($col1 != NULL){
+	     						$_SESSION['id'] = $col1;
+								$_SESSION['email'] = $col3;
+								$_SESSION['type'] = $col6;
 
-						header("location:../html/index.php");
+							header("location:../html/index.php");
 
-						exit();
-     				}
-     					else
-     					{
-     						echo "<h2>Invalid email/password</h2>";
-     					}
+							exit();
+	     				}
+	     					else
+	     					{
+	     						echo "<h2>Invalid email/password</h2>";
+	     					}
+						}
 					}
+					
 				?>
 				<input type = "submit" name="submit" value = "Log In" class= 'btn'><!-- onclick = "login($login->email, $login->password)"> -->
 				<br><br>
