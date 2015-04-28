@@ -30,25 +30,34 @@
 		<!-- Start of content -->
 
 			<table id="viewConsultantAppointments">
-				<th>Assignment Description</th>
-				<th>Date</th>
-				<th>Time slot</th>
-				<th><?php echo $_SESSION['type'] == 2 ? "Client Name" : "Consultant Name"; ?></th>
-				<th>Status</th>
-				<?php
+				<col class="col1">
+				<col class="col2">
+				<col class="col3">
+				<col class="col4">
+				<col class="col5">
+				<thead>
+					<th>Assignment Description</th>
+					<th>Date</th>
+					<th>Time slot</th>
+					<th><?php echo $_SESSION['type'] == 2 ? "Client Name" : "Consultant Name"; ?></th>
+					<th>Status</th>
+				</thead>
+				<tbody>
+					<?php
 					foreach ($data as $v => $d) {
-				?>
-				<tr>
-					<?php for ($i = 0; $i < count($d)-1; $i++) { ?>
-						<td><?php echo $d[$i] ?></td>
+					?>
+					<tr>
+						<?php for ($i = 0; $i < count($d)-1; $i++) { ?>
+							<td><?php echo $d[$i] ?></td>
+						<?php } ?>
+						<td>
+							<button class="editAppointment" name="editAppointment" value="<?php echo $v ?>">
+								<?php echo $d[4] == 0 ? "Edit Appointment" : "View Appointment" ?>
+							</button>
+						</td> 					
+					</tr>
 					<?php } ?>
-					<td>
-						<button class="editAppointment" name="editAppointment" value="<?php echo $v ?>">
-							<?php echo $d[4] == 0 ? "Edit Appointment" : "View Appointment" ?>
-						</button>
-					</td> 					
-				</tr>
-				<?php } ?>
+				</tbody>
 			</table>
 <!-- 			<button class="btn" id="redirectViewAppt">Go Back</button> -->
 		</div>

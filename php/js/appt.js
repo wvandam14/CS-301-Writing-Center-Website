@@ -41,7 +41,7 @@ $(function(){
 		if (index)
 			window.location.href = "viewAppointments.php";
 		else
-			window.location.href = "../html/index.htm";
+			window.location.href = "../html";
 		return false;
 	});
 

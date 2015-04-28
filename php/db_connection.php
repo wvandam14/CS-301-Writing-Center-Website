@@ -194,8 +194,18 @@
 		if($r){
 			$appointments = array();
 			while ($appointment = $r->fetch_object()) {
+				//print_r($appointment);die();
+
 				$appointments[$appointment->id] = explode( '|', $appointment->info);
+				$appointments[$appointment->id][1] = date('m-d-Y',strtotime($appointments[$appointment->id][1]));
+				if(strlen($appointments[$appointment->id][2]) == 3){
+					$appointments[$appointment->id][2] = "0" . $appointments[$appointment->id][2];
+				}
+				$appointments[$appointment->id][2] = $appointments[$appointment->id][2][0] . $appointments[$appointment->id][2][1] . ":" . $appointments[$appointment->id][2][3] .$appointments[$appointment->id][2][3];
+
+
 			}
+			//print_r($appointments);die();
 		
 			$r->close();
 			//print_r($consultants);die();
