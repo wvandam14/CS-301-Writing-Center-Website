@@ -242,8 +242,12 @@
       <input type="radio" name="remind" value="0">No
       <br>
       <input type = "submit" name="submit" value = "Register" class = 'btn'>
+
+
       <?php
-        //accountDetailId = null;
+
+        if($_SERVER['REQUEST_METHOD'] == 'POST'){
+           //accountDetailId = null;
         $Standing = $dbc->real_escape_string($_POST['standing']);
         $Graduation_Year = $dbc->real_escape_string($_POST['Graduation_Year']);
         $Major = $dbc->real_escape_string($_POST['Major']);
@@ -323,16 +327,19 @@
           $stmt5->bind_param("iiiiii", $res2, $Make, $Modify, $Delete, $Announcement, $Remind);
           $stmt5->execute();
           $stmt5->close();
+        }
+
+       
 
           ?> 
 		<script type="text/javascript">
 			window.setTimeout(function(){
 				// Move to a new location or you can do something else
-				window.location.href = "../html/index.htm";
+				window.location.href = "../html/";
 			}, 5000);
 		</script>
 		<h1>Your account has been updated.</h1> 
-		<h3>You will be redirected in 5 seconds. If not, click <a href="../html/index.htm">here</a>.
+		<h3>You will be redirected in 5 seconds. If not, click <a href="../html/">here</a>.
 		<?php
           exit();
         }

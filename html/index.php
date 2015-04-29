@@ -3,8 +3,12 @@
 	$page_title = 'Index';
 	require_once("../php/auth.php");
 	require_once("../php/db_connection.php");
+
+
+	if(empty($_SESSION['id'])){
+		header("location:../php/login.php");
+	}
 	
-	$data = getAllAppointments($_SESSION['id'], $_SESSION['type']);
 ?>
 <html>
 <head>

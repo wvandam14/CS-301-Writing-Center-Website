@@ -43,7 +43,7 @@
 		<script type="text/javascript">
 			window.setTimeout(function(){
 				// Move to a new location or you can do something else
-				window.location.href = "../html/index.htm";
+				window.location.href = "../html/";
 			}, 5000);
 		</script>
 		
@@ -98,7 +98,7 @@
 			}
 
 			?> <h1>Your account has been updated.</h1> 
-			<h3>You will be redirected in 5 seconds. If not, click <a href="../html/index.htm">here</a>.<?php
+			<h3>You will be redirected in 5 seconds. If not, click <a href="../php/login.php">here</a>.<?php
 			exit();
 		?>
 		<!-- End of content -->
