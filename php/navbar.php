@@ -1,4 +1,5 @@
 <!-- session permissions: 0 (client), 1 (consultant), 2 (admin) -->
+
 <link rel="stylesheet" type="text/css" href="../css/indexStyle.css">
   <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 <nav id="username-display">
@@ -38,7 +39,7 @@
                         <li><a href='#'>Consultant Profiles</a></li>
                         <li><a href='#'>Help</a></li>
                         <li><a href='#'>Contact Us</a></li>
-                        <li><a href='#'>Edit Account</a></li>
+                        <li><a href='../html/register.php?".$_SESSION['id']."'>Edit Account</a></li>
                         <li><a href='../php/logout.php'>Log Out</a></li>
                       </ul>
                     </li>";
